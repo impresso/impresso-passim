@@ -17,12 +17,14 @@ python-jsonschema-objects = "*"
 lxml = "*"
 cufflinks = "*"
 ipython = "*"
+seaborn = "*"
 
 
 [dev-packages]
 
 jupyter = "*"
 ipdb = "*"
+matplotlib = "*"
 
 
 [requires]
