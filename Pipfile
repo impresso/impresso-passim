@@ -1,12 +1,9 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 pandas = "*"
 pyarrow = "*"
 jsonlines = "*"
@@ -18,15 +15,12 @@ lxml = "*"
 cufflinks = "*"
 ipython = "*"
 seaborn = "*"
-
+impresso-commons = {editable = true,git = "https://github.com/impresso/impresso-pycommons.git"}
+dask-k8 = {editable = true,git = "https://github.com/SeguinBe/dask_k8.git"}
 
 [dev-packages]
-
 jupyter = "*"
 ipdb = "*"
 matplotlib = "*"
 
-
 [requires]
-
-python_version = "3.5"
