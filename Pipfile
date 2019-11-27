@@ -15,8 +15,8 @@ lxml = "*"
 cufflinks = "*"
 ipython = "*"
 seaborn = "*"
-impresso-commons = {editable = true,git = "https://github.com/impresso/impresso-pycommons.git"}
-dask-k8 = {editable = true,git = "https://github.com/SeguinBe/dask_k8.git"}
+impresso-commons = {editable = true,git = "https://github.com/impresso/impresso-pycommons.git",ref = "v0.12.0"}
+
 
 [dev-packages]
 jupyter = "*"
