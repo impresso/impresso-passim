@@ -4,21 +4,19 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pandas = "*"
 pyarrow = "*"
 jsonlines = "*"
 "bs4" = "*"
+dask = {extras = ["complete"]}
 docopt = "*"
 python-jsonschema-objects = "*"
 lxml = "*"
 cufflinks = "*"
 ipython = "*"
 seaborn = "*"
-impresso-commons = {editable = true,git = "https://github.com/impresso/impresso-pycommons.git"}
-bokeh = "*"
-distributed = "==1.27.1"
-dask = {extras = ["dataframe"],version = "*"}
-lzma = "*"
-pyliblzma = "*"
+impresso-commons = {editable = true,git = "https://github.com/impresso/impresso-pycommons.git",ref = "v0.12.0"}
+dask-k8 = {editable = true,git = "https://github.com/impresso/dask_k8.git"}
 
 [dev-packages]
 jupyter = "*"
