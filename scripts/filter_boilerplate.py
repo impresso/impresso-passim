@@ -11,41 +11,42 @@ Options:
 
 Example:
 
-    python filter_boilerplate.py --input-bucket="s3://passim-rebuilt/" --output-bucket="s3://passim-rebuilt-nobp/" \
+    python filter_boilerplate.py --input-bucket="s3://passim-rebuilt" --output-bucket="s3://passim-rebuilt-nobp" \
      --k8-memory="1G" --k8-workers=25
 """  # noqa: E501
 
 import os
 import json
 import signal
+import logging
 import pandas as pd
 from dask import bag as db
-from dask_k8 import DaskCluster
 from dask.dataframe import from_pandas
+from dask.distributed import Client, progress
 from docopt import docopt
-from sanity_check.contents.s3_data import list_newspapers
+from impresso_commons.path.path_s3 import list_newspapers
 from impresso_commons.utils import Timer
 from impresso_commons.utils.s3 import IMPRESSO_STORAGEOPT, fixed_s3fs_glob
+from impresso_commons.utils.utils import init_logger
 
-from impresso_commons.utils.kube import (
-    make_scheduler_configuration,
-    make_worker_configuration,
-)
+logger = logging.getLogger(__name__)
 
+# titles which do not have article-level segmentation
+TITLES_NO_BP = [
+    "FedGazDe", "FedGazFr", "NZZ", "handelsztg", "arbeitgeber", "ACI", "AV", "Bombe", 
+    "Cancoire", "Castigat", "Charivari", "CharivariCH", "CL", "Croquis", "EM", "esta", "FAM", 
+    "FAMDE", "FAN", "FAV1", "Fronde", "GAVi", "Grelot", "Griffe", "Guepe1851", "Guepe1887", 
+    "JH", "JV", "JVE", "JY2", "MB", "ME", "MESSAGER", "Moniteur", "NS", "NV", "NV1", "NV2", 
+    "OBS", "ouistiti", "pages", "PAT", "PDL", "PJ", "PS", "RLA", "TouSuIl", "VVS", "VVS1"
+]
 
-def signal_handler(*args):
-    # Handle any cleanup here
-    print('SIGINT or CTRL-C detected. Exiting gracefully' ' and shutting down the dask kubernetes cluster')
-    if cluster:
-        cluster.close()
-    exit(0)
+def filter_boilerplate(input_bucket, output_bucket, bp_s3_path):
 
-
-def filter_boilerplate(input_bucket, output_bucket):
-
-    boilerplate_dataframe_path = '/home/romanell/Downloads/bp.pkl'
     t = Timer()
-    bp_df = from_pandas(pd.read_pickle(boilerplate_dataframe_path), chunksize=10000).reset_index().persist()
+    bp_df = (
+        from_pandas(pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT), chunksize=10000)
+        .reset_index().persist()
+    )
 
     nps = list_newspapers(input_bucket)
 
@@ -55,16 +56,19 @@ def filter_boilerplate(input_bucket, output_bucket):
         # we want to keep the number of resulting files as the one of input files
         n_partitions = len(passim_rebuilt_files)
         print(f'Crunching {np}: {len(passim_rebuilt_files)} files')
+        logger.info(f'Crunching {np}: {len(passim_rebuilt_files)} files')
 
         # detect whether the current item has already been processed
-        existing_files = fixed_s3fs_glob(f'{output_bucket}{np}*.bz2')
+        existing_files = fixed_s3fs_glob(f'{os.path.join(output_bucket, np)}*.bz2')
 
         # skip newspapers that don't need to be processed
-        if np == 'NZZ':
-            print('NZZ, skipping')
+        if np in TITLES_NO_BP:
+            logger.info('%s, no article segmentation, skipping', np)
+            print('%s, no article segmentation, skipping', np)
             continue
         elif len(existing_files) > 0:
-            print(f'{np} already done, move on')
+            logger.info('%s already done, move on', np)
+            print('%s already done, move on', np)
             continue
 
         passim_data_df = (
@@ -83,7 +87,7 @@ def filter_boilerplate(input_bucket, output_bucket):
         filtered_df = tmp_df[tmp_df.is_boilerplate.isnull()]
 
         output_files = [
-            f'{output_bucket}{np}-{str(n+1).zfill(4)}.jsonl.bz2' for n, f in enumerate(passim_rebuilt_files)
+            f'{os.path.join(output_bucket, np)}-{str(n+1).zfill(4)}.jsonl.bz2' for n, f in enumerate(passim_rebuilt_files)
         ]
 
         future = (
@@ -95,43 +99,59 @@ def filter_boilerplate(input_bucket, output_bucket):
             .to_textfiles(output_files, storage_options=IMPRESSO_STORAGEOPT)
         )
 
+        logger.info(f'Written {len(output_files)} output files; first five: {output_files[:5]}')
         print(f'Written {len(output_files)} output files; first five: {output_files[:5]}')
 
         print(f'Done with {np}. It took: {t.tick()}')
         print('------------------------------------')
+        logger.info(f'Done with {np}. It took: {t.tick()}')
+        logger.info('------------------------------------')
 
 
 def main():
+
+    def signal_handler(*args):
+        # Handle any cleanup here
+        print('SIGINT or CTRL-C detected. Exiting gracefully' ' and shutting down the dask kubernetes cluster')
+        if client:
+            client.close()
+        exit(0)
+
     arguments = docopt(__doc__)
-    memory = arguments['--k8-memory'] if arguments['--k8-memory'] else "50G"
-    workers = int(arguments['--k8-workers']) if arguments['--k8-workers'] else 100
+    workers = int(arguments['--nworkers']) if arguments['--nworkers'] else 50
     input_bucket = arguments['--input-bucket']
     output_bucket = arguments['--output-bucket']
+    scheduler = arguments["--scheduler"]
+    bp_s3_path = arguments["--bp-s3-path"]
+    log_level = logging.DEBUG if arguments["--verbose"] else logging.INFO
+    log_file = arguments["--log-file"]
 
     signal.signal(signal.SIGINT, signal_handler)
-    image_uri = "ic-registry.epfl.ch/dhlab/impresso_data-sanity-check:v1"
+    init_logger(log_level, log_file)
+
+    # suppressing botocore's verbose logging
+    logging.getLogger("botocore").setLevel(logging.WARNING)
+    logging.getLogger("smart_open").setLevel(logging.WARNING)
+
+    # start the dask local cluster
+    if scheduler is None:
+        client = Client(n_workers=workers, threads_per_worker=2)
+    else:
+        client = Client(scheduler)
+
+    dask_cluster_msg = f"Dask local cluster: {client}"
+    logger.info(dask_cluster_msg)
+    print(dask_cluster_msg)
+
 
     try:
-        # first thing to do is to create the dask kubernetes cluster
-        cluster = DaskCluster(
-            namespace="dhlab",
-            cluster_id="impresso-filter-passim-boilerplate",
-            scheduler_pod_spec=make_scheduler_configuration(),
-            worker_pod_spec=make_worker_configuration(docker_image=image_uri, memory=memory),
-        )
-        cluster.create()
-        cluster.scale(workers, blocking=True)
-        dask_client = cluster.make_dask_client()
-        dask_client.get_versions(check=True)
-        print(dask_client)
-
-        filter_boilerplate(input_bucket, output_bucket)
+        filter_boilerplate(input_bucket, output_bucket, bp_s3_path)
 
     except Exception as e:
         raise e
     finally:
-        if cluster:
-            cluster.close()
+        if client:
+            client.close()
 
 
 if __name__ == '__main__':

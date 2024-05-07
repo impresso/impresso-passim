@@ -12,11 +12,8 @@ Options:
 import os
 import logging
 from tqdm import tqdm
-import jq
 import json
 from typing import Any, Iterator
-from smart_open import open as smart_open_function
-import jsonlines
 import pickle
 
 from docopt import docopt
@@ -24,7 +21,6 @@ from docopt import docopt
 import dask.bag as db
 import dask.dataframe as dd
 
-from impresso_commons.utils.s3 import get_s3_resource
 from impresso_commons.utils.utils import init_logger
 
 logger = logging.getLogger()
