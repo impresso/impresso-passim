@@ -1,18 +1,25 @@
 """Command-line script to generated configuration files for ingestion/rebuild scripts.
 
 Usage:
-    filter_boilerplate.py --input-bucket=<ib> --output-bucket=<ob> [--k8-memory=<mem> --k8-workers=<wkrs>]
+    filter_boilerplate.py --input-bucket=<ib> --output-bucket=<ob> --bp-s3-path=<bp> --log-file=<f> [--nworkers=<w> --scheduler=<s> --verbose]
 
 Options:
 
 --input-bucket=<ib>  S3 bucket where passim rebuilt data will be read from
 --output-bucket=<ob>   S3 bucket where passim filtered data will written to
-
+--bp-s3-path=<bp> S3 path of the bp.pkl dataframe
+--log-file=<f>  Path to log file
+--nworkers=<nw>  number of workers for (local) Dask client.
+--scheduler=<sch>  Tell dask to use an existing scheduler (otherwise it'll create one)
+--verbose  Set logging level to DEBUG (by default is INFO)
 
 Example:
 
-    python filter_boilerplate.py --input-bucket="s3://passim-rebuilt" --output-bucket="s3://passim-rebuilt-nobp" \
-     --k8-memory="1G" --k8-workers=25
+    python filter_boilerplate.py --input-bucket="s3://30-passim-rebuilt-sandbox/passim" 
+        --output-bucket="s3://30-passim-rebuilt-sandbox/passim-no-bp"  
+        --bp-s3-path="s3://40-processed-data-sandbox/text-reuse/text-reuse_v1-0-0/boilerplate/pb.pkl" 
+        --log-file=/dhlab-data/data/piconti-data/impresso-passim/logs/debug_filter_bp.log --verbose
+
 """  # noqa: E501
 
 import os
@@ -118,13 +125,13 @@ def main():
         exit(0)
 
     arguments = docopt(__doc__)
-    workers = int(arguments['--nworkers']) if arguments['--nworkers'] else 50
     input_bucket = arguments['--input-bucket']
     output_bucket = arguments['--output-bucket']
-    scheduler = arguments["--scheduler"]
     bp_s3_path = arguments["--bp-s3-path"]
-    log_level = logging.DEBUG if arguments["--verbose"] else logging.INFO
     log_file = arguments["--log-file"]
+    workers = int(arguments['--nworkers']) if arguments['--nworkers'] else 50
+    scheduler = arguments["--scheduler"]
+    log_level = logging.DEBUG if arguments["--verbose"] else logging.INFO
 
     signal.signal(signal.SIGINT, signal_handler)
     init_logger(log_level, log_file)
@@ -142,7 +149,6 @@ def main():
     dask_cluster_msg = f"Dask local cluster: {client}"
     logger.info(dask_cluster_msg)
     print(dask_cluster_msg)
-
 
     try:
         filter_boilerplate(input_bucket, output_bucket, bp_s3_path)
