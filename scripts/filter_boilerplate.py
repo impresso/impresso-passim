@@ -109,19 +109,17 @@ def list_newspapers(
         )
         logger.info(msg)
 
-    print(f"{bucket_name} contains {len(newspapers)} newspapers: {newspapers}")
-    logger.info(f"{bucket_name} contains {len(newspapers)} newspapers: {newspapers}")
+    print(f"{bucket_name} contains {len(newspapers)} newspapers")
 
     return newspapers
 
 def filter_boilerplate(input_bucket, output_bucket, bp_s3_path):
 
     t = Timer()
-    bp_df = pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT).reset_index().persist()
+    bp_df = pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT).reset_index().repartition(npartitions=2082).persist()
 
-    
     nps = list_newspapers(input_bucket)
-
+    print(nps)
     for np in nps:
         passim_rebuilt_files = fixed_s3fs_glob(f'{os.path.join(input_bucket, np)}/*.bz2')
 
@@ -178,7 +176,9 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path):
         print('------------------------------------')
         logger.info(f'Done with {np}. It took: {t.tick()}')
         logger.info('------------------------------------')
-    
+
+        # TODO improve the memory utilization
+        del passim_data_df
 
 def main():
 
