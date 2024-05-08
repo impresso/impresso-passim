@@ -9,16 +9,13 @@ Options:
 --output-bucket=<ob>   S3 bucket where passim filtered data will written to
 --bp-s3-path=<bp> S3 path of the bp.pkl dataframe
 --log-file=<f>  Path to log file
---nworkers=<nw>  number of workers for (local) Dask client.
---scheduler=<sch>  Tell dask to use an existing scheduler (otherwise it'll create one)
+--nworkers=<w>  number of workers for (local) Dask client.
+--scheduler=<s>  Tell dask to use an existing scheduler (otherwise it'll create one)
 --verbose  Set logging level to DEBUG (by default is INFO)
 
 Example:
 
-    python filter_boilerplate.py --input-bucket="s3://30-passim-rebuilt-sandbox/passim" 
-        --output-bucket="s3://30-passim-rebuilt-sandbox/passim-no-bp"  
-        --bp-s3-path="s3://40-processed-data-sandbox/text-reuse/text-reuse_v1-0-0/boilerplate/pb.pkl" 
-        --log-file=/dhlab-data/data/piconti-data/impresso-passim/logs/debug_filter_bp.log --verbose
+    python filter_boilerplate.py --input-bucket="s3://30-passim-rebuilt-sandbox/passim" --output-bucket="s3://30-passim-rebuilt-sandbox/passim-no-bp"  --bp-s3-path="s3://40-processed-data-sandbox/text-reuse/text-reuse_v1-0-0/boilerplate/pb.pkl"  --log-file=/dhlab-data/data/piconti-data/impresso-passim/logs/debug_filter_bp.log --verbose
 
 """  # noqa: E501
 
@@ -28,12 +25,14 @@ import signal
 import logging
 import pandas as pd
 from dask import bag as db
-from dask.dataframe import from_pandas
+from dask import dataframe as dd
 from dask.distributed import Client, progress
+from dask import config
+#config.set({"dataframe.convert-string": False})
 from docopt import docopt
-from impresso_commons.path.path_s3 import list_newspapers
+#from impresso_commons.path.path_s3 import list_newspapers
 from impresso_commons.utils import Timer
-from impresso_commons.utils.s3 import IMPRESSO_STORAGEOPT, fixed_s3fs_glob
+from impresso_commons.utils.s3 import IMPRESSO_STORAGEOPT, fixed_s3fs_glob, get_s3_client
 from impresso_commons.utils.utils import init_logger
 
 logger = logging.getLogger(__name__)
@@ -47,14 +46,80 @@ TITLES_NO_BP = [
     "OBS", "ouistiti", "pages", "PAT", "PDL", "PJ", "PS", "RLA", "TouSuIl", "VVS", "VVS1"
 ]
 
+def list_newspapers(
+    bucket_name: str,
+    s3_client=get_s3_client(),
+    page_size: int = 10000,
+    partition: str | None = None
+) -> list[str]:
+    """List newspapers contained in an s3 bucket with impresso data.
+
+    Note:
+        25,000 seems to be the maximum `PageSize` value supported by
+        SwitchEngines' S3 implementation (ceph).
+    Note:
+        Copied from https://github.com/impresso/impresso-data-sanitycheck/tree/master/sanity_check/contents/s3_data.py
+
+    Args:
+        bucket_name (str): Name of the S3 bucket to consider
+        s3_client (optional): S3 client to use. Defaults to get_s3_client().
+        page_size (int, optional): Pagination configuration. Defaults to 10000.
+
+    Returns:
+        list[str]: List of newspaper (aliases) present in the given S3 bucket.
+    """
+    print(f"Fetching list of newspapers from {bucket_name}")
+
+    if "s3://" in bucket_name:
+        s = bucket_name.replace("s3://", "").split("/")
+        bucket_name = s[0]
+        if len(s) > 1 and s[1]!='':
+            partition = '/'.join(s[1:])
+            print(f"Setting partition to be {partition}")
+            logger.info("Setting partition to be %s", partition)
+
+    paginator = s3_client.get_paginator("list_objects")
+
+    newspapers = set()
+    for n, resp in enumerate(
+        paginator.paginate(Bucket=bucket_name, PaginationConfig={"PageSize": page_size})
+    ):
+        # means the bucket is empty
+        if "Contents" not in resp:
+            continue
+
+        for f in resp["Contents"]:
+            if partition is not None:
+                if partition in f["Key"]:
+                    journal = f["Key"].replace(partition, '').split("/")[0]
+                else:
+                    # if the partition is defined it should be in the key
+                    continue
+            else:
+                journal = f["Key"].split("/")[0]
+            # exclude pontential manifests
+            if not journal.endswith('.json') or '.' not in journal:
+                newspapers.add(journal)
+            else:
+                print(f"Ignoring {journal} because it contains a file extension.")
+                logger.info("Ignoring %s because it contains a file extension.", journal)
+        msg = (
+            f"Paginated listing of keys in {bucket_name}: page {n + 1}, listed "
+            f"{len(resp['Contents'])}"
+        )
+        logger.info(msg)
+
+    print(f"{bucket_name} contains {len(newspapers)} newspapers: {newspapers}")
+    logger.info(f"{bucket_name} contains {len(newspapers)} newspapers: {newspapers}")
+
+    return newspapers
+
 def filter_boilerplate(input_bucket, output_bucket, bp_s3_path):
 
     t = Timer()
-    bp_df = (
-        from_pandas(pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT), chunksize=10000)
-        .reset_index().persist()
-    )
+    bp_df = pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT).reset_index().persist()
 
+    
     nps = list_newspapers(input_bucket)
 
     for np in nps:
@@ -113,7 +178,7 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path):
         print('------------------------------------')
         logger.info(f'Done with {np}. It took: {t.tick()}')
         logger.info('------------------------------------')
-
+    
 
 def main():
 
@@ -121,7 +186,7 @@ def main():
         # Handle any cleanup here
         print('SIGINT or CTRL-C detected. Exiting gracefully' ' and shutting down the dask kubernetes cluster')
         if client:
-            client.close()
+            client.shutdown()
         exit(0)
 
     arguments = docopt(__doc__)
@@ -157,7 +222,8 @@ def main():
         raise e
     finally:
         if client:
-            client.close()
+            print("Closing client")
+            client.shutdown()
 
 
 if __name__ == '__main__':

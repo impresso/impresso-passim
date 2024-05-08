@@ -5,8 +5,8 @@
 #export SE_ACCESS_KEY='' # add your access key here
 #export SE_SECRET_KEY='' # add your secret key here
 
-export output_bucket='s3://30-passim-rebuilt-sandbox/passim-no-bp' # TODO fill in
-export input_bucket='s3://30-passim-rebuilt-sandbox/passim' # TODO fill in
+export output_bucket='s3://30-passim-rebuilt-sandbox/passim-no-bp/' # TODO fill in
+export input_bucket='s3://30-passim-rebuilt-sandbox/passim/' # TODO fill in
 
 export bp_s3_path='s3://40-processed-data-sandbox/text-reuse/text-reuse_v1-0-0/boilerplate/bp.pkl'
 
