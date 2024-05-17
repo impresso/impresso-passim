@@ -54,6 +54,7 @@ def chunk(list: list, chunksize: int, as_list: bool = True):
     for i in range(0, len(list), chunksize):
         yield list[i : i + chunksize]
 
+
 def list_newspapers(
     bucket_name: str,
     s3_client=get_s3_client(),
@@ -130,7 +131,7 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
     bp_df = pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT).repartition(npartitions=2082).persist()
     #client.persist(bp_df)
 
-    nps = list_newspapers(input_bucket)
+    nps = ['avenirgdl'] #list_newspapers(input_bucket)
 
     for np in nps:
 
@@ -171,8 +172,7 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
             n_chunks=1
 
         print("Filtering bp to keep the wanted ids.")
-        np_bp_df_t = bp_df[bp_df.id.str.contains(np)].persit()
-        np_bp_df = np_bp_df_t.set_index('id').compute()
+        np_bp_set = set(bp_df[bp_df.id.str.contains(np)].to_bag().map(lambda x: x[0]).compute())
 
         c=1
         # does not work when n_chunks>1
@@ -184,34 +184,19 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
             #np_bp_df = client.compute(np_bp_df).result()
 
             print("Reading rebuilt data into a DF.")
-            passim_data_df = (
+            passim_data = (
                 db.read_text(rebuilt_f_chunk, storage_options=IMPRESSO_STORAGEOPT)
                 .map(json.loads)
-                .map(lambda d: {'id': d['id'], 'document': d})
-                .to_dataframe()
-                .set_index('id')
                 .persist()
             )
 
-            #print("Filtering bp to keep the wanted ids.")
-            #np_bp_df = bp_df[bp_df.id.str.contains(np)].set_index('id').compute()
-            #np_bp_df = bp_df[bp_df.id.str.contains(np)].set_index('id')#.compute()
-            #client.compute(np_bp_df).result()        
-
-            # TODO replace bp.pkl by bag to prevent massive join and bag -> df -> bag overhead
-            print("Joining both DFs to keep non-bp CIs.")
-            tmp_df = passim_data_df.join(np_bp_df, how='outer')
-
-            filtered_df = tmp_df[tmp_df.is_boilerplate.isnull()]
+            
+            print("Filtering the passim data to keep only non-bp CIs.")
+            passim_filtered = passim_data.filter(lambda d: d['id'] not in np_bp_set)
 
             print("Writing the created files to S3.")
             future = (
-                filtered_df.reset_index()
-                .to_bag()
-                .map(lambda i: i[1])
-                #.persist()
-                #.map(json.dumps) # TODO warning DOES NOT OUTPUT AS JSON
-                .map(json.dumps)
+                passim_filtered.map(json.dumps)
                 .repartition(n_partitions)
                 .to_textfiles(out_f_chunk, storage_options=IMPRESSO_STORAGEOPT)
             )
@@ -219,11 +204,11 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
             logger.info(f'Written {len(out_f_chunk)} output files; first five: {out_f_chunk[:5]}')
             print(f'Written {len(out_f_chunk)} output files; first five: {out_f_chunk[:5]}')
             c+=1
-            client.cancel(passim_data_df)
+            client.cancel(passim_data)
             try:
                 client.cancel(future)
                 print("cancelled 'future'")
-                client.cancel(filtered_df)
+                client.cancel(passim_filtered)
                 print("cancelled 'filtered_df'")
             except:
                 print("could not cancel 'future'")
@@ -232,17 +217,14 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
         print(f'Written {len(output_files)} output files; first five: {output_files[:5]}')
 
         print(f"using del np_bp_df here to reduce the memory usage")
-        del np_bp_df
+        del np_bp_set
 
         print(f'Done with {np}. It took: {t.tick()}')
         print('------------------------------------')
         logger.info(f'Done with {np}. It took: {t.tick()}')
         logger.info('------------------------------------')
 
-        # TODO improve the memory utilization
-        #del passim_data_df
-        #del future
-
+        
 def main():
 
     def signal_handler(*args):
