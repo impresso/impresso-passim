@@ -26,7 +26,7 @@ import logging
 import pandas as pd
 from dask import bag as db
 from dask import dataframe as dd
-from dask.distributed import Client, progress
+from dask.distributed import Client, progress, LocalCluster
 from dask import config
 #config.set({"dataframe.convert-string": False})
 from docopt import docopt
@@ -257,7 +257,7 @@ def main():
     output_bucket = arguments['--output-bucket']
     bp_s3_path = arguments["--bp-s3-path"]
     log_file = arguments["--log-file"]
-    workers = int(arguments['--nworkers']) if arguments['--nworkers'] else 50
+    workers = int(arguments['--nworkers']) if arguments['--nworkers'] else 10
     scheduler = arguments["--scheduler"]
     log_level = logging.DEBUG if arguments["--verbose"] else logging.INFO
 
@@ -270,7 +270,9 @@ def main():
 
     # start the dask local cluster
     if scheduler is None:
-        client = Client(n_workers=workers, threads_per_worker=2)
+        cluster = LocalCluster(n_workers=workers, threads_per_worker=3, scheduler_port="8786", memory_limit='40GB') 
+        client = cluster.get_client()
+        #client = Client(n_workers=workers, threads_per_worker=2)
     else:
         client = Client(scheduler)
 

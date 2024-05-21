@@ -26,7 +26,7 @@ import logging
 import pandas as pd
 from dask import bag as db
 from dask import dataframe as dd
-from dask.distributed import Client, progress
+from dask.distributed import Client, progress, LocalCluster
 from dask import config
 #config.set({"dataframe.convert-string": False})
 from docopt import docopt
@@ -39,26 +39,22 @@ logger = logging.getLogger(__name__)
 
 # titles which do not have article-level segmentation
 TITLES_NO_BP = [
-    "FedGazDe", "FedGazFr", "NZZ", "handelsztg", "arbeitgeber", "ACI", "AV", "Bombe", 
-    "Cancoire", "Castigat", "Charivari", "CharivariCH", "CL", "Croquis", "EM", "esta", "FAM", 
-    "FAMDE", "FAN", "FAV1", "Fronde", "GAVi", "Grelot", "Griffe", "Guepe1851", "Guepe1887", 
-    "JH", "JV", "JVE", "JY2", "MB", "ME", "MESSAGER", "Moniteur", "NS", "NV", "NV1", "NV2", 
+    "FedGazDe", "FedGazFr", "NZZ", "handelsztg", "arbeitgeber", "ACI", "AV", "Bombe",
+    "Cancoire", "Castigat", "Charivari", "CharivariCH", "CL", "Croquis", "EM", "esta", "FAM",
+    "FAMDE", "FAN", "FAV1", "Fronde", "GAVi", "Grelot", "Griffe", "Guepe1851", "Guepe1887",
+    "JH", "JV", "JVE", "JY2", "MB", "ME", "MESSAGER", "Moniteur", "NS", "NV", "NV1", "NV2",
     "OBS", "ouistiti", "pages", "PAT", "PDL", "PJ", "PS", "RLA", "TouSuIl", "VVS", "VVS1"
 ]
 
 def chunk(list: list, chunksize: int, as_list: bool = True):
     """Yield successive n-sized chunks from list."""
-    if as_list:
-        return [list[i : i + chunksize] for i in range(0, len(list), chunksize)]
-
-    for i in range(0, len(list), chunksize):
-        yield list[i : i + chunksize]
+    return [list[i : i + chunksize] for i in range(0, len(list), chunksize)]
 
 
 def list_newspapers(
     bucket_name: str,
     s3_client=get_s3_client(),
-    page_size: int = 10000,
+    page_size: int = 10000, 
     partition: str | None = None
 ) -> list[str]:
     """List newspapers contained in an s3 bucket with impresso data.
@@ -128,10 +124,12 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
 
     print(f"Loading {bp_s3_path} to dataframe")
     #bp_df = pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT).reset_index().repartition(npartitions=2082)
-    bp_df = pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT).repartition(npartitions=2082).persist()
-    #client.persist(bp_df)
+    #bp_df = pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT).repartition(npartitions=2082).persist()
+    bp_df = pd.read_pickle(bp_s3_path, storage_options=IMPRESSO_STORAGEOPT).repartition(npartitions=2082).drop(columns=["is_boilerplate"])
+    bp_df = client.persist(bp_df)
 
-    nps = ['avenirgdl'] #list_newspapers(input_bucket)
+    nps = list_newspapers(input_bucket)
+    print(f"newspapers found in {input_bucket}: {nps}")
 
     for np in nps:
 
@@ -160,26 +158,32 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
                 f'{os.path.join(output_bucket, np)}-{str(n+1).zfill(4)}.jsonl.bz2' for n, f in enumerate(passim_rebuilt_files)
             ]
 
-        if n_partitions > 50:#100:
+        if n_partitions > 50:
             rebuilt_chunks = chunk(passim_rebuilt_files, 40)
             out_files_chunks = chunk(output_files, 40)
             n_chunks=len(rebuilt_chunks)
             print(f"{np} contains {len(passim_rebuilt_files)} files. Since it's >50, it will be handled in {n_chunks} steps.")
             logger.info(f"{np} contains {len(passim_rebuilt_files)} files. Since it's >50, it will be handled in {n_chunks} steps.")
+            print(f"rebuilt_chunks = {rebuilt_chunks}")
         else:
             rebuilt_chunks = [passim_rebuilt_files]
             out_files_chunks = [output_files]
             n_chunks=1
 
-        print("Filtering bp to keep the wanted ids.")
-        np_bp_set = set(bp_df[bp_df.id.str.contains(np)].to_bag().map(lambda x: x[0]).compute())
+        print(f"Filtering bp to keep the wanted ids for {np}.")
+        np_bp_set = bp_df[bp_df.id.str.contains(np)].persist()
+        np_bp_set = set(np_bp_set.to_bag().map(lambda x: x[0]).compute())
+        #np_bp_set = np_bp_set.map(lambda x: x[0]).compute()
+        #bp_df['title'] = bp_df['id'].apply(lambda x: x.split('-')[0], axis=0)
+        #np_bp_set = set(bp_df[bp_df.title == np].to_bag().compute())
 
         c=1
         # does not work when n_chunks>1
         for rebuilt_f_chunk, out_f_chunk in zip(rebuilt_chunks, out_files_chunks):
-
+            
             print(f'Crunching {np} ({c}/{n_chunks}): {len(rebuilt_f_chunk)} files')
             logger.info(f'Crunching {np} ({c}/{n_chunks}): {len(rebuilt_f_chunk)} files')
+            print(f"rebuilt_f_chunk: {rebuilt_f_chunk} –––––– out_f_chunk: {out_f_chunk}")
 
             #np_bp_df = client.compute(np_bp_df).result()
 
@@ -190,28 +194,30 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
                 .persist()
             )
 
-            
             print("Filtering the passim data to keep only non-bp CIs.")
             passim_filtered = passim_data.filter(lambda d: d['id'] not in np_bp_set)
 
             print("Writing the created files to S3.")
             future = (
                 passim_filtered.map(json.dumps)
-                .repartition(n_partitions)
+                .repartition(len(rebuilt_f_chunk))
                 .to_textfiles(out_f_chunk, storage_options=IMPRESSO_STORAGEOPT)
             )
 
             logger.info(f'Written {len(out_f_chunk)} output files; first five: {out_f_chunk[:5]}')
             print(f'Written {len(out_f_chunk)} output files; first five: {out_f_chunk[:5]}')
             c+=1
-            client.cancel(passim_data)
-            try:
-                client.cancel(future)
-                print("cancelled 'future'")
-                client.cancel(passim_filtered)
-                print("cancelled 'filtered_df'")
-            except:
-                print("could not cancel 'future'")
+            del passim_data
+            del passim_filtered
+            del future
+        client.cancel(passim_data)
+        try:
+            client.cancel(future)
+            print("cancelled 'future'")
+            client.cancel(passim_filtered)
+            print("cancelled 'filtered_df'")
+        except:
+            print("could not cancel 'future'")
 
         logger.info(f'Written {len(output_files)} output files; first five: {output_files[:5]}')
         print(f'Written {len(output_files)} output files; first five: {output_files[:5]}')
@@ -239,7 +245,7 @@ def main():
     output_bucket = arguments['--output-bucket']
     bp_s3_path = arguments["--bp-s3-path"]
     log_file = arguments["--log-file"]
-    workers = int(arguments['--nworkers']) if arguments['--nworkers'] else 50
+    workers = int(arguments['--nworkers']) if arguments['--nworkers'] else 10
     scheduler = arguments["--scheduler"]
     log_level = logging.DEBUG if arguments["--verbose"] else logging.INFO
 
@@ -252,7 +258,9 @@ def main():
 
     # start the dask local cluster
     if scheduler is None:
-        client = Client(n_workers=workers, threads_per_worker=2)
+        cluster = LocalCluster(n_workers=workers, threads_per_worker=3, scheduler_port="8786", memory_limit='40GB')
+        client = cluster.get_client()
+        #client = Client(n_workers=workers, threads_per_worker=2)
     else:
         client = Client(scheduler)
 
