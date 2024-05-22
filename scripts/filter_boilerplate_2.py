@@ -210,14 +210,14 @@ def filter_boilerplate(input_bucket, output_bucket, bp_s3_path, client):
             del passim_data
             del passim_filtered
             del future
-        client.cancel(passim_data)
-        try:
-            client.cancel(future)
-            print("cancelled 'future'")
-            client.cancel(passim_filtered)
-            print("cancelled 'filtered_df'")
-        except:
-            print("could not cancel 'future'")
+            client.cancel(passim_data)
+            try:
+                client.cancel(future)
+                print("cancelled 'future'")
+                client.cancel(passim_filtered)
+                print("cancelled 'filtered_df'")
+            except:
+                print("could not cancel 'future'")
 
         logger.info(f'Written {len(output_files)} output files; first five: {output_files[:5]}')
         print(f'Written {len(output_files)} output files; first five: {output_files[:5]}')
