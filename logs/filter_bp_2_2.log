@@ -1,0 +1,556 @@
+2024-05-22 15:35:42,177 root         INFO     Logger successfully initialised
+2024-05-22 15:35:42,196 __main__     INFO     Dask local cluster: <Client: 'tcp://10.233.64.49:8786' processes=15 threads=30, memory=156.88 GiB> with 10 workers.
+2024-05-22 15:35:50,735 __main__     INFO     Setting partition to be passim/
+2024-05-22 15:35:52,237 __main__     INFO     Ignoring passim_v0-0-1.json because it contains a file extension.
+2024-05-22 15:35:52,237 __main__     INFO     Ignoring passim_v1-0-0.json because it contains a file extension.
+2024-05-22 15:35:52,237 __main__     INFO     Ignoring passim_v2-0-0.json because it contains a file extension.
+2024-05-22 15:35:52,237 __main__     INFO     Ignoring passim_v3-0-0.json because it contains a file extension.
+2024-05-22 15:35:52,237 __main__     INFO     Paginated listing of keys in 31-passim-rebuilt-staging: page 1, listed 4800
+2024-05-22 15:35:52,421 __main__     INFO     ACI, no article segmentation, skipping
+2024-05-22 15:35:52,490 __main__     INFO     AV, no article segmentation, skipping
+2024-05-22 15:35:52,536 __main__     INFO     BDC already done, move on
+2024-05-22 15:35:52,582 __main__     INFO     BLB already done, move on
+2024-05-22 15:35:52,754 __main__     INFO     BNN contains 8 files. It will be handled in a single step.
+2024-05-22 15:36:08,612 __main__     INFO     Crunching BNN (1/1): 8 files
+2024-05-22 15:36:58,760 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/BNN-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/BNN-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/BNN-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/BNN-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/BNN-0005.jsonl.bz2']
+2024-05-22 15:36:58,861 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/BNN-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/BNN-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/BNN-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/BNN-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/BNN-0005.jsonl.bz2']
+2024-05-22 15:36:58,933 __main__     INFO     Done with BNN. It took: 0:00:00.000039
+2024-05-22 15:36:58,933 __main__     INFO     ------------------------------------
+2024-05-22 15:36:59,125 __main__     INFO     Bombe, no article segmentation, skipping
+2024-05-22 15:36:59,192 __main__     INFO     CDV already done, move on
+2024-05-22 15:36:59,251 __main__     INFO     CL, no article segmentation, skipping
+2024-05-22 15:36:59,312 __main__     INFO     CON already done, move on
+2024-05-22 15:36:59,370 __main__     INFO     Cancoire, no article segmentation, skipping
+2024-05-22 15:36:59,425 __main__     INFO     Castigat, no article segmentation, skipping
+2024-05-22 15:36:59,479 __main__     INFO     Charivari, no article segmentation, skipping
+2024-05-22 15:36:59,540 __main__     INFO     CharivariCH, no article segmentation, skipping
+2024-05-22 15:36:59,599 __main__     INFO     Croquis, no article segmentation, skipping
+2024-05-22 15:36:59,667 __main__     INFO     DFS already done, move on
+2024-05-22 15:36:59,779 __main__     INFO     DLE contains 6 files. It will be handled in a single step.
+2024-05-22 15:37:02,485 __main__     INFO     Crunching DLE (1/1): 6 files
+2024-05-22 15:37:17,987 __main__     INFO     Written 6 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/DLE-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DLE-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DLE-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DLE-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DLE-0005.jsonl.bz2']
+2024-05-22 15:37:18,073 __main__     INFO     Written 6 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/DLE-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DLE-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DLE-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DLE-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DLE-0005.jsonl.bz2']
+2024-05-22 15:37:18,148 __main__     INFO     Done with DLE. It took: 0:00:00.000043
+2024-05-22 15:37:18,148 __main__     INFO     ------------------------------------
+2024-05-22 15:37:18,258 __main__     INFO     DTT contains 44 files. It will be handled in a single step.
+2024-05-22 15:37:21,105 __main__     INFO     Crunching DTT (1/1): 44 files
+2024-05-22 15:56:51,507 __main__     INFO     Written 44 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/DTT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DTT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DTT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DTT-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DTT-0005.jsonl.bz2']
+2024-05-22 15:56:51,701 __main__     INFO     Written 44 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/DTT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DTT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DTT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DTT-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DTT-0005.jsonl.bz2']
+2024-05-22 15:56:51,790 __main__     INFO     Done with DTT. It took: 0:00:00.000040
+2024-05-22 15:56:51,790 __main__     INFO     ------------------------------------
+2024-05-22 15:56:51,901 __main__     INFO     DVF contains 8 files. It will be handled in a single step.
+2024-05-22 15:56:54,356 __main__     INFO     Crunching DVF (1/1): 8 files
+2024-05-22 15:57:19,090 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/DVF-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DVF-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DVF-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DVF-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DVF-0005.jsonl.bz2']
+2024-05-22 15:57:19,187 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/DVF-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DVF-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DVF-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DVF-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/DVF-0005.jsonl.bz2']
+2024-05-22 15:57:19,265 __main__     INFO     Done with DVF. It took: 0:00:00.000038
+2024-05-22 15:57:19,265 __main__     INFO     ------------------------------------
+2024-05-22 15:57:19,381 __main__     INFO     EDA contains 6 files. It will be handled in a single step.
+2024-05-22 15:57:21,988 __main__     INFO     Crunching EDA (1/1): 6 files
+2024-05-22 15:57:32,937 __main__     INFO     Written 6 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EDA-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EDA-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EDA-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EDA-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EDA-0005.jsonl.bz2']
+2024-05-22 15:57:33,035 __main__     INFO     Written 6 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EDA-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EDA-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EDA-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EDA-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EDA-0005.jsonl.bz2']
+2024-05-22 15:57:33,126 __main__     INFO     Done with EDA. It took: 0:00:00.000043
+2024-05-22 15:57:33,126 __main__     INFO     ------------------------------------
+2024-05-22 15:57:33,183 __main__     INFO     EM, no article segmentation, skipping
+2024-05-22 15:57:33,322 __main__     INFO     EXP contains 233 files. It will be handled in 5 steps.
+2024-05-22 15:57:38,148 __main__     INFO     Crunching EXP (1/5): 50 files
+2024-05-22 15:58:35,048 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EXP-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0005.jsonl.bz2']
+2024-05-22 15:58:35,434 __main__     INFO     Crunching EXP (2/5): 50 files
+2024-05-22 16:00:07,117 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EXP-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0055.jsonl.bz2']
+2024-05-22 16:00:07,729 __main__     INFO     Crunching EXP (3/5): 50 files
+2024-05-22 16:06:15,893 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EXP-0101.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0102.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0103.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0104.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0105.jsonl.bz2']
+2024-05-22 16:06:16,305 __main__     INFO     Crunching EXP (4/5): 50 files
+2024-05-22 16:18:53,817 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EXP-0151.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0152.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0153.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0154.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0155.jsonl.bz2']
+2024-05-22 16:18:54,227 __main__     INFO     Crunching EXP (5/5): 33 files
+2024-05-22 16:29:02,670 __main__     INFO     Written 33 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EXP-0201.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0202.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0203.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0204.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0205.jsonl.bz2']
+2024-05-22 16:29:03,308 __main__     INFO     Written 233 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EXP-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EXP-0005.jsonl.bz2']
+2024-05-22 16:29:03,954 __main__     INFO     Done with EXP. It took: 0:00:00.000074
+2024-05-22 16:29:03,954 __main__     INFO     ------------------------------------
+2024-05-22 16:29:04,068 __main__     INFO     EZR contains 49 files. It will be handled in a single step.
+2024-05-22 16:29:06,342 __main__     INFO     Crunching EZR (1/1): 49 files
+2024-05-22 16:29:33,568 __main__     INFO     Written 49 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EZR-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EZR-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EZR-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EZR-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EZR-0005.jsonl.bz2']
+2024-05-22 16:29:33,698 __main__     INFO     Written 49 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/EZR-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EZR-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EZR-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EZR-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/EZR-0005.jsonl.bz2']
+2024-05-22 16:29:33,801 __main__     INFO     Done with EZR. It took: 0:00:00.000044
+2024-05-22 16:29:33,801 __main__     INFO     ------------------------------------
+2024-05-22 16:29:33,860 __main__     INFO     FAM, no article segmentation, skipping
+2024-05-22 16:29:33,919 __main__     INFO     FAMDE, no article segmentation, skipping
+2024-05-22 16:29:33,975 __main__     INFO     FAN, no article segmentation, skipping
+2024-05-22 16:29:34,036 __main__     INFO     FAV1, no article segmentation, skipping
+2024-05-22 16:29:34,247 __main__     INFO     FCT contains 9 files. It will be handled in a single step.
+2024-05-22 16:29:36,499 __main__     INFO     Crunching FCT (1/1): 9 files
+2024-05-22 16:29:42,171 __main__     INFO     Written 9 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/FCT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FCT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FCT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FCT-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FCT-0005.jsonl.bz2']
+2024-05-22 16:29:42,303 __main__     INFO     Written 9 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/FCT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FCT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FCT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FCT-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FCT-0005.jsonl.bz2']
+2024-05-22 16:29:42,415 __main__     INFO     Done with FCT. It took: 0:00:00.000047
+2024-05-22 16:29:42,415 __main__     INFO     ------------------------------------
+2024-05-22 16:29:42,557 __main__     INFO     FZG contains 140 files. It will be handled in 3 steps.
+2024-05-22 16:29:45,108 __main__     INFO     Crunching FZG (1/3): 50 files
+2024-05-22 16:31:50,095 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/FZG-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0005.jsonl.bz2']
+2024-05-22 16:31:50,273 __main__     INFO     Crunching FZG (2/3): 50 files
+2024-05-22 16:36:54,608 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/FZG-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0055.jsonl.bz2']
+2024-05-22 16:36:54,782 __main__     INFO     Crunching FZG (3/3): 40 files
+2024-05-22 16:45:00,017 __main__     INFO     Written 40 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/FZG-0101.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0102.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0103.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0104.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0105.jsonl.bz2']
+2024-05-22 16:45:00,205 __main__     INFO     Written 140 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/FZG-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/FZG-0005.jsonl.bz2']
+2024-05-22 16:45:00,381 __main__     INFO     Done with FZG. It took: 0:00:00.000208
+2024-05-22 16:45:00,381 __main__     INFO     ------------------------------------
+2024-05-22 16:45:00,443 __main__     INFO     FedGazDe, no article segmentation, skipping
+2024-05-22 16:45:00,497 __main__     INFO     FedGazFr, no article segmentation, skipping
+2024-05-22 16:45:00,553 __main__     INFO     Fronde, no article segmentation, skipping
+2024-05-22 16:45:00,667 __main__     INFO     GAV contains 42 files. It will be handled in a single step.
+2024-05-22 16:45:02,837 __main__     INFO     Crunching GAV (1/1): 42 files
+2024-05-22 16:45:49,939 __main__     INFO     Written 42 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GAV-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAV-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAV-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAV-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAV-0005.jsonl.bz2']
+2024-05-22 16:45:50,087 __main__     INFO     Written 42 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GAV-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAV-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAV-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAV-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAV-0005.jsonl.bz2']
+2024-05-22 16:45:50,210 __main__     INFO     Done with GAV. It took: 0:00:00.000256
+2024-05-22 16:45:50,210 __main__     INFO     ------------------------------------
+2024-05-22 16:45:50,266 __main__     INFO     GAVi, no article segmentation, skipping
+2024-05-22 16:45:50,370 __main__     INFO     GAZ contains 6 files. It will be handled in a single step.
+2024-05-22 16:45:52,438 __main__     INFO     Crunching GAZ (1/1): 6 files
+2024-05-22 16:46:11,101 __main__     INFO     Written 6 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0005.jsonl.bz2']
+2024-05-22 16:46:11,196 __main__     INFO     Written 6 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GAZ-0005.jsonl.bz2']
+2024-05-22 16:46:11,279 __main__     INFO     Done with GAZ. It took: 0:00:00.000039
+2024-05-22 16:46:11,279 __main__     INFO     ------------------------------------
+2024-05-22 16:46:11,423 __main__     INFO     GDL contains 197 files. It will be handled in 4 steps.
+2024-05-22 16:46:14,842 __main__     INFO     Crunching GDL (1/4): 50 files
+2024-05-22 17:02:44,372 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GDL-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0005.jsonl.bz2']
+2024-05-22 17:02:44,821 __main__     INFO     Crunching GDL (2/4): 50 files
+2024-05-22 17:06:17,408 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GDL-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0055.jsonl.bz2']
+2024-05-22 17:06:17,760 __main__     INFO     Crunching GDL (3/4): 50 files
+2024-05-22 17:13:58,176 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GDL-0101.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0102.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0103.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0104.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0105.jsonl.bz2']
+2024-05-22 17:13:58,659 __main__     INFO     Crunching GDL (4/4): 47 files
+2024-05-22 17:26:12,511 __main__     INFO     Written 47 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GDL-0151.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0152.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0153.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0154.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0155.jsonl.bz2']
+2024-05-22 17:26:12,966 __main__     INFO     Written 197 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/GDL-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/GDL-0005.jsonl.bz2']
+2024-05-22 17:26:13,377 __main__     INFO     Done with GDL. It took: 0:00:00.000077
+2024-05-22 17:26:13,377 __main__     INFO     ------------------------------------
+2024-05-22 17:26:13,462 __main__     INFO     Grelot, no article segmentation, skipping
+2024-05-22 17:26:13,510 __main__     INFO     Griffe, no article segmentation, skipping
+2024-05-22 17:26:13,558 __main__     INFO     Guepe1851, no article segmentation, skipping
+2024-05-22 17:26:13,623 __main__     INFO     Guepe1887, no article segmentation, skipping
+2024-05-22 17:26:13,735 __main__     INFO     HRV contains 3 files. It will be handled in a single step.
+2024-05-22 17:26:16,091 __main__     INFO     Crunching HRV (1/1): 3 files
+2024-05-22 17:26:25,786 __main__     INFO     Written 3 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/HRV-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/HRV-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/HRV-0003.jsonl.bz2']
+2024-05-22 17:26:25,891 __main__     INFO     Written 3 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/HRV-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/HRV-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/HRV-0003.jsonl.bz2']
+2024-05-22 17:26:25,967 __main__     INFO     Done with HRV. It took: 0:00:00.000046
+2024-05-22 17:26:25,967 __main__     INFO     ------------------------------------
+2024-05-22 17:26:26,091 __main__     INFO     IMP contains 138 files. It will be handled in 3 steps.
+2024-05-22 17:26:30,418 __main__     INFO     Crunching IMP (1/3): 50 files
+2024-05-22 17:32:51,724 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/IMP-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0005.jsonl.bz2']
+2024-05-22 17:32:51,996 __main__     INFO     Crunching IMP (2/3): 50 files
+2024-05-22 17:43:17,994 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/IMP-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0055.jsonl.bz2']
+2024-05-22 17:43:18,561 __main__     INFO     Crunching IMP (3/3): 38 files
+2024-05-22 17:55:56,231 __main__     INFO     Written 38 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/IMP-0101.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0102.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0103.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0104.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0105.jsonl.bz2']
+2024-05-22 17:55:56,534 __main__     INFO     Written 138 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/IMP-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/IMP-0005.jsonl.bz2']
+2024-05-22 17:55:57,052 __main__     INFO     Done with IMP. It took: 0:00:00.000596
+2024-05-22 17:55:57,052 __main__     INFO     ------------------------------------
+2024-05-22 17:55:57,129 __main__     INFO     JDF already done, move on
+2024-05-22 17:55:57,305 __main__     INFO     JDG contains 169 files. It will be handled in 4 steps.
+2024-05-22 17:56:00,540 __main__     INFO     Crunching JDG (1/4): 50 files
+2024-05-22 17:59:04,632 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/JDG-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0005.jsonl.bz2']
+2024-05-22 17:59:04,823 __main__     INFO     Crunching JDG (2/4): 50 files
+2024-05-22 18:07:13,892 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/JDG-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0055.jsonl.bz2']
+2024-05-22 18:07:14,104 __main__     INFO     Crunching JDG (3/4): 50 files
+2024-05-22 18:17:29,077 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/JDG-0101.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0102.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0103.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0104.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0105.jsonl.bz2']
+2024-05-22 18:17:29,277 __main__     INFO     Crunching JDG (4/4): 19 files
+2024-05-22 18:26:40,117 __main__     INFO     Written 19 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/JDG-0151.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0152.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0153.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0154.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0155.jsonl.bz2']
+2024-05-22 18:26:40,279 __main__     INFO     Written 169 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/JDG-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/JDG-0005.jsonl.bz2']
+2024-05-22 18:26:40,415 __main__     INFO     Done with JDG. It took: 0:00:00.000684
+2024-05-22 18:26:40,415 __main__     INFO     ------------------------------------
+2024-05-22 18:26:40,556 __main__     INFO     JDV contains 1 files. It will be handled in a single step.
+2024-05-22 18:26:42,890 __main__     INFO     Crunching JDV (1/1): 1 files
+2024-05-22 18:26:54,359 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/JDV-0001.jsonl.bz2']
+2024-05-22 18:26:54,451 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/JDV-0001.jsonl.bz2']
+2024-05-22 18:26:54,526 __main__     INFO     Done with JDV. It took: 0:00:00.000044
+2024-05-22 18:26:54,526 __main__     INFO     ------------------------------------
+2024-05-22 18:26:54,581 __main__     INFO     JH, no article segmentation, skipping
+2024-05-22 18:26:54,639 __main__     INFO     JV, no article segmentation, skipping
+2024-05-22 18:26:54,690 __main__     INFO     JVE, no article segmentation, skipping
+2024-05-22 18:26:54,742 __main__     INFO     JY2, no article segmentation, skipping
+2024-05-22 18:26:54,858 __main__     INFO     LAB contains 14 files. It will be handled in a single step.
+2024-05-22 18:26:56,989 __main__     INFO     Crunching LAB (1/1): 14 files
+2024-05-22 18:27:23,237 __main__     INFO     Written 14 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LAB-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LAB-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LAB-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LAB-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LAB-0005.jsonl.bz2']
+2024-05-22 18:27:23,356 __main__     INFO     Written 14 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LAB-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LAB-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LAB-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LAB-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LAB-0005.jsonl.bz2']
+2024-05-22 18:27:23,436 __main__     INFO     Done with LAB. It took: 0:00:00.000042
+2024-05-22 18:27:23,436 __main__     INFO     ------------------------------------
+2024-05-22 18:27:23,547 __main__     INFO     LBP contains 10 files. It will be handled in a single step.
+2024-05-22 18:27:25,716 __main__     INFO     Crunching LBP (1/1): 10 files
+2024-05-22 18:28:00,077 __main__     INFO     Written 10 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LBP-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LBP-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LBP-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LBP-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LBP-0005.jsonl.bz2']
+2024-05-22 18:28:00,189 __main__     INFO     Written 10 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LBP-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LBP-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LBP-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LBP-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LBP-0005.jsonl.bz2']
+2024-05-22 18:28:00,268 __main__     INFO     Done with LBP. It took: 0:00:00.000036
+2024-05-22 18:28:00,269 __main__     INFO     ------------------------------------
+2024-05-22 18:28:00,408 __main__     INFO     LCE already done, move on
+2024-05-22 18:28:00,539 __main__     INFO     LCG contains 60 files. It will be handled in 2 steps.
+2024-05-22 18:28:02,848 __main__     INFO     Crunching LCG (1/2): 50 files
+2024-05-22 18:29:06,780 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LCG-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0005.jsonl.bz2']
+2024-05-22 18:29:06,893 __main__     INFO     Crunching LCG (2/2): 10 files
+2024-05-22 18:29:30,453 __main__     INFO     Written 10 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LCG-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0055.jsonl.bz2']
+2024-05-22 18:29:30,575 __main__     INFO     Written 60 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LCG-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCG-0005.jsonl.bz2']
+2024-05-22 18:29:30,661 __main__     INFO     Done with LCG. It took: 0:00:00.000092
+2024-05-22 18:29:30,661 __main__     INFO     ------------------------------------
+2024-05-22 18:29:30,785 __main__     INFO     LCR contains 28 files. It will be handled in a single step.
+2024-05-22 18:29:33,369 __main__     INFO     Crunching LCR (1/1): 28 files
+2024-05-22 18:30:15,238 __main__     INFO     Written 28 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LCR-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCR-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCR-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCR-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCR-0005.jsonl.bz2']
+2024-05-22 18:30:15,371 __main__     INFO     Written 28 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LCR-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCR-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCR-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCR-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCR-0005.jsonl.bz2']
+2024-05-22 18:30:15,452 __main__     INFO     Done with LCR. It took: 0:00:00.000037
+2024-05-22 18:30:15,452 __main__     INFO     ------------------------------------
+2024-05-22 18:30:15,550 __main__     INFO     LCS contains 2 files. It will be handled in a single step.
+2024-05-22 18:30:17,867 __main__     INFO     Crunching LCS (1/1): 2 files
+2024-05-22 18:30:27,767 __main__     INFO     Written 2 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LCS-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCS-0002.jsonl.bz2']
+2024-05-22 18:30:27,865 __main__     INFO     Written 2 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LCS-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LCS-0002.jsonl.bz2']
+2024-05-22 18:30:27,947 __main__     INFO     Done with LCS. It took: 0:00:00.000037
+2024-05-22 18:30:27,947 __main__     INFO     ------------------------------------
+2024-05-22 18:30:28,024 __main__     INFO     LES already done, move on
+2024-05-22 18:30:28,147 __main__     INFO     LLE contains 142 files. It will be handled in 3 steps.
+2024-05-22 18:30:31,880 __main__     INFO     Crunching LLE (1/3): 50 files
+2024-05-22 18:35:05,277 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LLE-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0005.jsonl.bz2']
+2024-05-22 18:35:05,778 __main__     INFO     Crunching LLE (2/3): 50 files
+2024-05-22 18:44:54,245 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LLE-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0055.jsonl.bz2']
+2024-05-22 18:44:54,657 __main__     INFO     Crunching LLE (3/3): 42 files
+2024-05-22 19:01:22,476 __main__     INFO     Written 42 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LLE-0101.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0102.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0103.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0104.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0105.jsonl.bz2']
+2024-05-22 19:01:22,721 __main__     INFO     Written 142 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LLE-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLE-0005.jsonl.bz2']
+2024-05-22 19:01:22,922 __main__     INFO     Done with LLE. It took: 0:00:00.000153
+2024-05-22 19:01:22,922 __main__     INFO     ------------------------------------
+2024-05-22 19:01:23,091 __main__     INFO     LLS contains 93 files. It will be handled in 2 steps.
+2024-05-22 19:01:25,365 __main__     INFO     Crunching LLS (1/2): 50 files
+2024-05-22 19:01:59,025 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LLS-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0005.jsonl.bz2']
+2024-05-22 19:01:59,151 __main__     INFO     Crunching LLS (2/2): 43 files
+2024-05-22 19:02:34,914 __main__     INFO     Written 43 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LLS-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0055.jsonl.bz2']
+2024-05-22 19:02:35,035 __main__     INFO     Written 93 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LLS-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LLS-0005.jsonl.bz2']
+2024-05-22 19:02:35,131 __main__     INFO     Done with LLS. It took: 0:00:00.000042
+2024-05-22 19:02:35,131 __main__     INFO     ------------------------------------
+2024-05-22 19:02:35,237 __main__     INFO     LNF contains 10 files. It will be handled in a single step.
+2024-05-22 19:02:37,262 __main__     INFO     Crunching LNF (1/1): 10 files
+2024-05-22 19:02:54,942 __main__     INFO     Written 10 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LNF-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LNF-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LNF-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LNF-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LNF-0005.jsonl.bz2']
+2024-05-22 19:02:55,049 __main__     INFO     Written 10 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LNF-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LNF-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LNF-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LNF-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LNF-0005.jsonl.bz2']
+2024-05-22 19:02:55,137 __main__     INFO     Done with LNF. It took: 0:00:00.000216
+2024-05-22 19:02:55,137 __main__     INFO     ------------------------------------
+2024-05-22 19:02:55,257 __main__     INFO     LSE contains 80 files. It will be handled in 2 steps.
+2024-05-22 19:02:57,625 __main__     INFO     Crunching LSE (1/2): 50 files
+2024-05-22 19:05:49,244 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LSE-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0005.jsonl.bz2']
+2024-05-22 19:05:49,371 __main__     INFO     Crunching LSE (2/2): 30 files
+2024-05-22 19:08:33,038 __main__     INFO     Written 30 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LSE-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0055.jsonl.bz2']
+2024-05-22 19:08:33,159 __main__     INFO     Written 80 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LSE-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSE-0005.jsonl.bz2']
+2024-05-22 19:08:33,269 __main__     INFO     Done with LSE. It took: 0:00:00.000039
+2024-05-22 19:08:33,269 __main__     INFO     ------------------------------------
+2024-05-22 19:08:33,377 __main__     INFO     LSR contains 3 files. It will be handled in a single step.
+2024-05-22 19:08:35,657 __main__     INFO     Crunching LSR (1/1): 3 files
+2024-05-22 19:08:42,096 __main__     INFO     Written 3 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LSR-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSR-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSR-0003.jsonl.bz2']
+2024-05-22 19:08:42,196 __main__     INFO     Written 3 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LSR-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSR-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LSR-0003.jsonl.bz2']
+2024-05-22 19:08:42,293 __main__     INFO     Done with LSR. It took: 0:00:00.000253
+2024-05-22 19:08:42,293 __main__     INFO     ------------------------------------
+2024-05-22 19:08:42,396 __main__     INFO     LTF contains 1 files. It will be handled in a single step.
+2024-05-22 19:08:44,348 __main__     INFO     Crunching LTF (1/1): 1 files
+2024-05-22 19:09:49,560 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LTF-0001.jsonl.bz2']
+2024-05-22 19:09:49,719 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LTF-0001.jsonl.bz2']
+2024-05-22 19:09:49,804 __main__     INFO     Done with LTF. It took: 0:00:00.000045
+2024-05-22 19:09:49,804 __main__     INFO     ------------------------------------
+2024-05-22 19:09:49,939 __main__     INFO     LVE contains 3 files. It will be handled in a single step.
+2024-05-22 19:09:52,080 __main__     INFO     Crunching LVE (1/1): 3 files
+2024-05-22 19:10:11,561 __main__     INFO     Written 3 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LVE-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LVE-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LVE-0003.jsonl.bz2']
+2024-05-22 19:10:11,681 __main__     INFO     Written 3 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/LVE-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LVE-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/LVE-0003.jsonl.bz2']
+2024-05-22 19:10:11,769 __main__     INFO     Done with LVE. It took: 0:00:00.000041
+2024-05-22 19:10:11,769 __main__     INFO     ------------------------------------
+2024-05-22 19:10:11,821 __main__     INFO     MB, no article segmentation, skipping
+2024-05-22 19:10:11,869 __main__     INFO     ME, no article segmentation, skipping
+2024-05-22 19:10:11,915 __main__     INFO     MESSAGER, no article segmentation, skipping
+2024-05-22 19:10:12,005 __main__     INFO     MGS contains 3 files. It will be handled in a single step.
+2024-05-22 19:10:13,895 __main__     INFO     Crunching MGS (1/1): 3 files
+2024-05-22 19:10:24,421 __main__     INFO     Written 3 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/MGS-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/MGS-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/MGS-0003.jsonl.bz2']
+2024-05-22 19:10:24,525 __main__     INFO     Written 3 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/MGS-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/MGS-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/MGS-0003.jsonl.bz2']
+2024-05-22 19:10:24,617 __main__     INFO     Done with MGS. It took: 0:00:00.000043
+2024-05-22 19:10:24,617 __main__     INFO     ------------------------------------
+2024-05-22 19:10:24,675 __main__     INFO     Moniteur, no article segmentation, skipping
+2024-05-22 19:10:24,729 __main__     INFO     NS, no article segmentation, skipping
+2024-05-22 19:10:24,834 __main__     INFO     NTS contains 18 files. It will be handled in a single step.
+2024-05-22 19:10:26,900 __main__     INFO     Crunching NTS (1/1): 18 files
+2024-05-22 19:11:21,325 __main__     INFO     Written 18 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/NTS-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NTS-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NTS-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NTS-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NTS-0005.jsonl.bz2']
+2024-05-22 19:11:21,450 __main__     INFO     Written 18 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/NTS-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NTS-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NTS-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NTS-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NTS-0005.jsonl.bz2']
+2024-05-22 19:11:21,545 __main__     INFO     Done with NTS. It took: 0:00:00.000038
+2024-05-22 19:11:21,546 __main__     INFO     ------------------------------------
+2024-05-22 19:11:21,604 __main__     INFO     NV, no article segmentation, skipping
+2024-05-22 19:11:21,656 __main__     INFO     NV1, no article segmentation, skipping
+2024-05-22 19:11:21,705 __main__     INFO     NV2, no article segmentation, skipping
+2024-05-22 19:11:21,827 __main__     INFO     NZG contains 46 files. It will be handled in a single step.
+2024-05-22 19:11:24,229 __main__     INFO     Crunching NZG (1/1): 46 files
+2024-05-22 19:11:54,437 __main__     INFO     Written 46 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/NZG-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NZG-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NZG-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NZG-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NZG-0005.jsonl.bz2']
+2024-05-22 19:11:54,599 __main__     INFO     Written 46 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/NZG-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NZG-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NZG-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NZG-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/NZG-0005.jsonl.bz2']
+2024-05-22 19:11:54,707 __main__     INFO     Done with NZG. It took: 0:00:00.000064
+2024-05-22 19:11:54,707 __main__     INFO     ------------------------------------
+2024-05-22 19:11:54,764 __main__     INFO     NZZ, no article segmentation, skipping
+2024-05-22 19:11:54,814 __main__     INFO     OBS, no article segmentation, skipping
+2024-05-22 19:11:54,925 __main__     INFO     OIZ contains 91 files. It will be handled in 2 steps.
+2024-05-22 19:11:57,186 __main__     INFO     Crunching OIZ (1/2): 50 files
+2024-05-22 19:12:28,309 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0005.jsonl.bz2']
+2024-05-22 19:12:28,457 __main__     INFO     Crunching OIZ (2/2): 41 files
+2024-05-22 19:12:45,599 __main__     INFO     Written 41 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0055.jsonl.bz2']
+2024-05-22 19:12:45,734 __main__     INFO     Written 91 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/OIZ-0005.jsonl.bz2']
+2024-05-22 19:12:45,833 __main__     INFO     Done with OIZ. It took: 0:00:00.000228
+2024-05-22 19:12:45,833 __main__     INFO     ------------------------------------
+2024-05-22 19:12:45,887 __main__     INFO     PAT, no article segmentation, skipping
+2024-05-22 19:12:45,938 __main__     INFO     PDL, no article segmentation, skipping
+2024-05-22 19:12:45,992 __main__     INFO     PJ, no article segmentation, skipping
+2024-05-22 19:12:46,064 __main__     INFO     PS, no article segmentation, skipping
+2024-05-22 19:12:46,119 __main__     INFO     RLA, no article segmentation, skipping
+2024-05-22 19:12:46,218 __main__     INFO     SAX contains 1 files. It will be handled in a single step.
+2024-05-22 19:12:48,293 __main__     INFO     Crunching SAX (1/1): 1 files
+2024-05-22 19:12:48,598 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SAX-0001.jsonl.bz2']
+2024-05-22 19:12:48,708 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SAX-0001.jsonl.bz2']
+2024-05-22 19:12:48,801 __main__     INFO     Done with SAX. It took: 0:00:00.000040
+2024-05-22 19:12:48,801 __main__     INFO     ------------------------------------
+2024-05-22 19:12:48,914 __main__     INFO     SDT contains 82 files. It will be handled in 2 steps.
+2024-05-22 19:12:51,226 __main__     INFO     Crunching SDT (1/2): 50 files
+2024-05-22 19:13:27,585 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SDT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0005.jsonl.bz2']
+2024-05-22 19:13:27,692 __main__     INFO     Crunching SDT (2/2): 32 files
+2024-05-22 19:13:44,416 __main__     INFO     Written 32 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SDT-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0055.jsonl.bz2']
+2024-05-22 19:13:44,545 __main__     INFO     Written 82 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SDT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SDT-0005.jsonl.bz2']
+2024-05-22 19:13:44,656 __main__     INFO     Done with SDT. It took: 0:00:00.000041
+2024-05-22 19:13:44,656 __main__     INFO     ------------------------------------
+2024-05-22 19:13:44,780 __main__     INFO     SGZ contains 51 files. It will be handled in 2 steps.
+2024-05-22 19:13:47,819 __main__     INFO     Crunching SGZ (1/2): 50 files
+2024-05-22 19:15:19,382 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0005.jsonl.bz2']
+2024-05-22 19:15:19,537 __main__     INFO     Crunching SGZ (2/2): 1 files
+2024-05-22 19:16:16,983 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0051.jsonl.bz2']
+2024-05-22 19:16:17,117 __main__     INFO     Written 51 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SGZ-0005.jsonl.bz2']
+2024-05-22 19:16:17,217 __main__     INFO     Done with SGZ. It took: 0:00:00.000037
+2024-05-22 19:16:17,217 __main__     INFO     ------------------------------------
+2024-05-22 19:16:17,358 __main__     INFO     SMZ contains 100 files. It will be handled in 2 steps.
+2024-05-22 19:16:19,744 __main__     INFO     Crunching SMZ (1/2): 50 files
+2024-05-22 19:16:55,752 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0005.jsonl.bz2']
+2024-05-22 19:16:55,863 __main__     INFO     Crunching SMZ (2/2): 50 files
+2024-05-22 19:17:38,792 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0055.jsonl.bz2']
+2024-05-22 19:17:38,923 __main__     INFO     Written 100 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/SMZ-0005.jsonl.bz2']
+2024-05-22 19:17:39,027 __main__     INFO     Done with SMZ. It took: 0:00:00.000052
+2024-05-22 19:17:39,027 __main__     INFO     ------------------------------------
+2024-05-22 19:17:39,129 __main__     INFO     SRT contains 1 files. It will be handled in a single step.
+2024-05-22 19:17:41,260 __main__     INFO     Crunching SRT (1/1): 1 files
+2024-05-22 19:17:43,676 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SRT-0001.jsonl.bz2']
+2024-05-22 19:17:43,837 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/SRT-0001.jsonl.bz2']
+2024-05-22 19:17:43,962 __main__     INFO     Done with SRT. It took: 0:00:00.000062
+2024-05-22 19:17:43,962 __main__     INFO     ------------------------------------
+2024-05-22 19:17:44,013 __main__     INFO     TouSuIl, no article segmentation, skipping
+2024-05-22 19:17:44,118 __main__     INFO     VDR contains 1 files. It will be handled in a single step.
+2024-05-22 19:17:46,410 __main__     INFO     Crunching VDR (1/1): 1 files
+2024-05-22 19:17:46,911 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/VDR-0001.jsonl.bz2']
+2024-05-22 19:17:47,055 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/VDR-0001.jsonl.bz2']
+2024-05-22 19:17:47,188 __main__     INFO     Done with VDR. It took: 0:00:00.000049
+2024-05-22 19:17:47,188 __main__     INFO     ------------------------------------
+2024-05-22 19:17:47,299 __main__     INFO     VHT contains 101 files. It will be handled in 3 steps.
+2024-05-22 19:17:49,331 __main__     INFO     Crunching VHT (1/3): 50 files
+2024-05-22 19:18:11,286 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/VHT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0005.jsonl.bz2']
+2024-05-22 19:18:11,458 __main__     INFO     Crunching VHT (2/3): 50 files
+2024-05-22 19:18:31,946 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/VHT-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0055.jsonl.bz2']
+2024-05-22 19:18:32,096 __main__     INFO     Crunching VHT (3/3): 1 files
+2024-05-22 19:18:33,164 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/VHT-0101.jsonl.bz2']
+2024-05-22 19:18:33,279 __main__     INFO     Written 101 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/VHT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/VHT-0005.jsonl.bz2']
+2024-05-22 19:18:33,388 __main__     INFO     Done with VHT. It took: 0:00:00.000043
+2024-05-22 19:18:33,388 __main__     INFO     ------------------------------------
+2024-05-22 19:18:33,441 __main__     INFO     VVS, no article segmentation, skipping
+2024-05-22 19:18:33,487 __main__     INFO     VVS1, no article segmentation, skipping
+2024-05-22 19:18:33,583 __main__     INFO     WHD contains 24 files. It will be handled in a single step.
+2024-05-22 19:18:35,752 __main__     INFO     Crunching WHD (1/1): 24 files
+2024-05-22 19:18:51,881 __main__     INFO     Written 24 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/WHD-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/WHD-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/WHD-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/WHD-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/WHD-0005.jsonl.bz2']
+2024-05-22 19:18:52,054 __main__     INFO     Written 24 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/WHD-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/WHD-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/WHD-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/WHD-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/WHD-0005.jsonl.bz2']
+2024-05-22 19:18:52,157 __main__     INFO     Done with WHD. It took: 0:00:00.000045
+2024-05-22 19:18:52,157 __main__     INFO     ------------------------------------
+2024-05-22 19:18:52,254 __main__     INFO     ZBT contains 4 files. It will be handled in a single step.
+2024-05-22 19:18:54,481 __main__     INFO     Crunching ZBT (1/1): 4 files
+2024-05-22 19:19:02,635 __main__     INFO     Written 4 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/ZBT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/ZBT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/ZBT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/ZBT-0004.jsonl.bz2']
+2024-05-22 19:19:02,760 __main__     INFO     Written 4 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/ZBT-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/ZBT-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/ZBT-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/ZBT-0004.jsonl.bz2']
+2024-05-22 19:19:02,862 __main__     INFO     Done with ZBT. It took: 0:00:00.000047
+2024-05-22 19:19:02,862 __main__     INFO     ------------------------------------
+2024-05-22 19:19:02,914 __main__     INFO     actionfem already done, move on
+2024-05-22 19:19:02,963 __main__     INFO     arbeitgeber, no article segmentation, skipping
+2024-05-22 19:19:03,016 __main__     INFO     armeteufel already done, move on
+2024-05-22 19:19:03,067 __main__     INFO     avenirgdl already done, move on
+2024-05-22 19:19:03,121 __main__     INFO     buergerbeamten already done, move on
+2024-05-22 19:19:03,177 __main__     INFO     courriergdl already done, move on
+2024-05-22 19:19:03,229 __main__     INFO     deletz1893 already done, move on
+2024-05-22 19:19:03,281 __main__     INFO     demitock already done, move on
+2024-05-22 19:19:03,396 __main__     INFO     diekwochen contains 8 files. It will be handled in a single step.
+2024-05-22 19:19:05,658 __main__     INFO     Crunching diekwochen (1/1): 8 files
+2024-05-22 19:19:15,466 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0005.jsonl.bz2']
+2024-05-22 19:19:15,579 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/diekwochen-0005.jsonl.bz2']
+2024-05-22 19:19:15,685 __main__     INFO     Done with diekwochen. It took: 0:00:00.000038
+2024-05-22 19:19:15,685 __main__     INFO     ------------------------------------
+2024-05-22 19:19:15,783 __main__     INFO     dunioun contains 5 files. It will be handled in a single step.
+2024-05-22 19:19:18,033 __main__     INFO     Crunching dunioun (1/1): 5 files
+2024-05-22 19:20:54,943 __main__     INFO     Written 5 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0005.jsonl.bz2']
+2024-05-22 19:20:55,067 __main__     INFO     Written 5 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/dunioun-0005.jsonl.bz2']
+2024-05-22 19:20:55,173 __main__     INFO     Done with dunioun. It took: 0:00:00.000044
+2024-05-22 19:20:55,173 __main__     INFO     ------------------------------------
+2024-05-22 19:20:55,230 __main__     INFO     esta, no article segmentation, skipping
+2024-05-22 19:20:55,343 __main__     INFO     excelsior contains 11 files. It will be handled in a single step.
+2024-05-22 19:20:57,364 __main__     INFO     Crunching excelsior (1/1): 11 files
+2024-05-22 19:24:39,181 __main__     INFO     Written 11 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0005.jsonl.bz2']
+2024-05-22 19:24:39,312 __main__     INFO     Written 11 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/excelsior-0005.jsonl.bz2']
+2024-05-22 19:24:39,421 __main__     INFO     Done with excelsior. It took: 0:00:00.000046
+2024-05-22 19:24:39,421 __main__     INFO     ------------------------------------
+2024-05-22 19:24:39,546 __main__     INFO     gazgrdlux contains 1 files. It will be handled in a single step.
+2024-05-22 19:24:41,784 __main__     INFO     Crunching gazgrdlux (1/1): 1 files
+2024-05-22 19:25:04,798 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/gazgrdlux-0001.jsonl.bz2']
+2024-05-22 19:25:04,919 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/gazgrdlux-0001.jsonl.bz2']
+2024-05-22 19:25:05,031 __main__     INFO     Done with gazgrdlux. It took: 0:00:00.000038
+2024-05-22 19:25:05,031 __main__     INFO     ------------------------------------
+2024-05-22 19:25:05,097 __main__     INFO     handelsztg, no article segmentation, skipping
+2024-05-22 19:25:05,204 __main__     INFO     indeplux contains 61 files. It will be handled in 2 steps.
+2024-05-22 19:25:07,647 __main__     INFO     Crunching indeplux (1/2): 50 files
+2024-05-22 19:28:02,345 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0005.jsonl.bz2']
+2024-05-22 19:28:02,474 __main__     INFO     Crunching indeplux (2/2): 11 files
+2024-05-22 19:30:14,602 __main__     INFO     Written 11 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0055.jsonl.bz2']
+2024-05-22 19:30:14,757 __main__     INFO     Written 61 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/indeplux-0005.jsonl.bz2']
+2024-05-22 19:30:14,880 __main__     INFO     Done with indeplux. It took: 0:00:00.000192
+2024-05-22 19:30:14,880 __main__     INFO     ------------------------------------
+2024-05-22 19:30:15,234 __main__     INFO     jdpl contains 94 files. It will be handled in 2 steps.
+2024-05-22 19:30:18,012 __main__     INFO     Crunching jdpl (1/2): 50 files
+2024-05-22 19:35:45,246 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0005.jsonl.bz2']
+2024-05-22 19:35:45,395 __main__     INFO     Crunching jdpl (2/2): 44 files
+2024-05-22 19:44:00,454 __main__     INFO     Written 44 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0055.jsonl.bz2']
+2024-05-22 19:44:00,605 __main__     INFO     Written 94 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/jdpl-0005.jsonl.bz2']
+2024-05-22 19:44:00,746 __main__     INFO     Done with jdpl. It took: 0:00:00.000204
+2024-05-22 19:44:00,746 __main__     INFO     ------------------------------------
+2024-05-22 19:44:00,864 __main__     INFO     kommmit contains 1 files. It will be handled in a single step.
+2024-05-22 19:44:02,842 __main__     INFO     Crunching kommmit (1/1): 1 files
+2024-05-22 19:44:04,090 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/kommmit-0001.jsonl.bz2']
+2024-05-22 19:44:04,210 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/kommmit-0001.jsonl.bz2']
+2024-05-22 19:44:04,312 __main__     INFO     Done with kommmit. It took: 0:00:00.000286
+2024-05-22 19:44:04,313 __main__     INFO     ------------------------------------
+2024-05-22 19:44:04,413 __main__     INFO     lafronde contains 12 files. It will be handled in a single step.
+2024-05-22 19:44:06,644 __main__     INFO     Crunching lafronde (1/1): 12 files
+2024-05-22 19:47:00,848 __main__     INFO     Written 12 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0005.jsonl.bz2']
+2024-05-22 19:47:01,011 __main__     INFO     Written 12 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lafronde-0005.jsonl.bz2']
+2024-05-22 19:47:01,123 __main__     INFO     Done with lafronde. It took: 0:00:00.000043
+2024-05-22 19:47:01,123 __main__     INFO     ------------------------------------
+2024-05-22 19:47:01,226 __main__     INFO     landwortbild contains 1 files. It will be handled in a single step.
+2024-05-22 19:47:04,099 __main__     INFO     Crunching landwortbild (1/1): 1 files
+2024-05-22 19:47:08,181 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/landwortbild-0001.jsonl.bz2']
+2024-05-22 19:47:08,297 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/landwortbild-0001.jsonl.bz2']
+2024-05-22 19:47:08,413 __main__     INFO     Done with landwortbild. It took: 0:00:00.000102
+2024-05-22 19:47:08,413 __main__     INFO     ------------------------------------
+2024-05-22 19:47:08,525 __main__     INFO     legaulois contains 62 files. It will be handled in 2 steps.
+2024-05-22 19:47:10,953 __main__     INFO     Crunching legaulois (1/2): 50 files
+2024-05-22 19:55:04,622 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0005.jsonl.bz2']
+2024-05-22 19:55:04,779 __main__     INFO     Crunching legaulois (2/2): 12 files
+2024-05-22 19:58:26,340 __main__     INFO     Written 12 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0055.jsonl.bz2']
+2024-05-22 19:58:26,532 __main__     INFO     Written 62 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/legaulois-0005.jsonl.bz2']
+2024-05-22 19:58:26,656 __main__     INFO     Done with legaulois. It took: 0:00:00.000038
+2024-05-22 19:58:26,656 __main__     INFO     ------------------------------------
+2024-05-22 19:58:26,780 __main__     INFO     lematin contains 51 files. It will be handled in 2 steps.
+2024-05-22 19:58:29,466 __main__     INFO     Crunching lematin (1/2): 50 files
+2024-05-22 20:08:13,532 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lematin-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lematin-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lematin-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lematin-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lematin-0005.jsonl.bz2']
+2024-05-22 20:08:13,757 __main__     INFO     Crunching lematin (2/2): 1 files
+2024-05-22 20:09:41,234 __main__     INFO     Written 1 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lematin-0051.jsonl.bz2']
+2024-05-22 20:09:41,389 __main__     INFO     Written 51 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lematin-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lematin-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lematin-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lematin-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lematin-0005.jsonl.bz2']
+2024-05-22 20:09:41,522 __main__     INFO     Done with lematin. It took: 0:00:00.000039
+2024-05-22 20:09:41,522 __main__     INFO     ------------------------------------
+2024-05-22 20:09:41,654 __main__     INFO     lepetitparisien contains 60 files. It will be handled in 2 steps.
+2024-05-22 20:09:44,258 __main__     INFO     Crunching lepetitparisien (1/2): 50 files
+2024-05-22 20:17:53,383 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0005.jsonl.bz2']
+2024-05-22 20:17:53,591 __main__     INFO     Crunching lepetitparisien (2/2): 10 files
+2024-05-22 20:22:05,670 __main__     INFO     Written 10 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0055.jsonl.bz2']
+2024-05-22 20:22:05,820 __main__     INFO     Written 60 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepetitparisien-0005.jsonl.bz2']
+2024-05-22 20:22:05,933 __main__     INFO     Done with lepetitparisien. It took: 0:00:00.000035
+2024-05-22 20:22:05,933 __main__     INFO     ------------------------------------
+2024-05-22 20:22:06,042 __main__     INFO     lepji contains 37 files. It will be handled in a single step.
+2024-05-22 20:22:08,703 __main__     INFO     Crunching lepji (1/1): 37 files
+2024-05-22 20:22:47,291 __main__     INFO     Written 37 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lepji-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepji-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepji-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepji-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepji-0005.jsonl.bz2']
+2024-05-22 20:22:47,409 __main__     INFO     Written 37 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lepji-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepji-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepji-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepji-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lepji-0005.jsonl.bz2']
+2024-05-22 20:22:47,507 __main__     INFO     Done with lepji. It took: 0:00:00.000037
+2024-05-22 20:22:47,507 __main__     INFO     ------------------------------------
+2024-05-22 20:22:47,617 __main__     INFO     lunion contains 12 files. It will be handled in a single step.
+2024-05-22 20:22:49,837 __main__     INFO     Crunching lunion (1/1): 12 files
+2024-05-22 20:39:16,636 __main__     INFO     Written 12 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lunion-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lunion-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lunion-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lunion-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lunion-0005.jsonl.bz2']
+2024-05-22 20:39:16,793 __main__     INFO     Written 12 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/lunion-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lunion-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lunion-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lunion-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/lunion-0005.jsonl.bz2']
+2024-05-22 20:39:16,885 __main__     INFO     Done with lunion. It took: 0:00:00.000039
+2024-05-22 20:39:16,885 __main__     INFO     ------------------------------------
+2024-05-22 20:39:16,982 __main__     INFO     luxembourg1935 contains 6 files. It will be handled in a single step.
+2024-05-22 20:39:19,282 __main__     INFO     Crunching luxembourg1935 (1/1): 6 files
+2024-05-22 20:41:18,334 __main__     INFO     Written 6 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0005.jsonl.bz2']
+2024-05-22 20:41:18,455 __main__     INFO     Written 6 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxembourg1935-0005.jsonl.bz2']
+2024-05-22 20:41:18,547 __main__     INFO     Done with luxembourg1935. It took: 0:00:00.000036
+2024-05-22 20:41:18,547 __main__     INFO     ------------------------------------
+2024-05-22 20:41:18,681 __main__     INFO     luxland contains 54 files. It will be handled in 2 steps.
+2024-05-22 20:41:20,877 __main__     INFO     Crunching luxland (1/2): 50 files
+2024-05-22 20:42:44,867 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxland-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0005.jsonl.bz2']
+2024-05-22 20:42:45,020 __main__     INFO     Crunching luxland (2/2): 4 files
+2024-05-22 20:43:30,922 __main__     INFO     Written 4 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxland-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0054.jsonl.bz2']
+2024-05-22 20:43:31,049 __main__     INFO     Written 54 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxland-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxland-0005.jsonl.bz2']
+2024-05-22 20:43:31,175 __main__     INFO     Done with luxland. It took: 0:00:00.000073
+2024-05-22 20:43:31,175 __main__     INFO     ------------------------------------
+2024-05-22 20:43:31,285 __main__     INFO     luxwort already done, move on
+2024-05-22 20:43:31,410 __main__     INFO     luxzeit1844 contains 2 files. It will be handled in a single step.
+2024-05-22 20:43:33,717 __main__     INFO     Crunching luxzeit1844 (1/1): 2 files
+2024-05-22 20:43:53,468 __main__     INFO     Written 2 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxzeit1844-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxzeit1844-0002.jsonl.bz2']
+2024-05-22 20:43:53,614 __main__     INFO     Written 2 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxzeit1844-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxzeit1844-0002.jsonl.bz2']
+2024-05-22 20:43:53,721 __main__     INFO     Done with luxzeit1844. It took: 0:00:00.000049
+2024-05-22 20:43:53,721 __main__     INFO     ------------------------------------
+2024-05-22 20:43:53,943 __main__     INFO     luxzeit1858 contains 2 files. It will be handled in a single step.
+2024-05-22 20:43:56,141 __main__     INFO     Crunching luxzeit1858 (1/1): 2 files
+2024-05-22 20:44:52,265 __main__     INFO     Written 2 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxzeit1858-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxzeit1858-0002.jsonl.bz2']
+2024-05-22 20:44:52,473 __main__     INFO     Written 2 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/luxzeit1858-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/luxzeit1858-0002.jsonl.bz2']
+2024-05-22 20:44:52,629 __main__     INFO     Done with luxzeit1858. It took: 0:00:00.000079
+2024-05-22 20:44:52,629 __main__     INFO     ------------------------------------
+2024-05-22 20:44:52,767 __main__     INFO     marieclaire contains 8 files. It will be handled in a single step.
+2024-05-22 20:44:54,935 __main__     INFO     Crunching marieclaire (1/1): 8 files
+2024-05-22 20:45:31,180 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0005.jsonl.bz2']
+2024-05-22 20:45:31,410 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/marieclaire-0005.jsonl.bz2']
+2024-05-22 20:45:31,585 __main__     INFO     Done with marieclaire. It took: 0:00:00.000070
+2024-05-22 20:45:31,585 __main__     INFO     ------------------------------------
+2024-05-22 20:45:31,723 __main__     INFO     obermosel contains 65 files. It will be handled in 2 steps.
+2024-05-22 20:45:34,076 __main__     INFO     Crunching obermosel (1/2): 50 files
+2024-05-22 20:47:54,037 __main__     INFO     Written 50 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0005.jsonl.bz2']
+2024-05-22 20:47:54,192 __main__     INFO     Crunching obermosel (2/2): 15 files
+2024-05-22 20:50:28,629 __main__     INFO     Written 15 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0051.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0052.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0053.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0054.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0055.jsonl.bz2']
+2024-05-22 20:50:28,791 __main__     INFO     Written 65 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/obermosel-0005.jsonl.bz2']
+2024-05-22 20:50:28,905 __main__     INFO     Done with obermosel. It took: 0:00:00.000048
+2024-05-22 20:50:28,905 __main__     INFO     ------------------------------------
+2024-05-22 20:50:29,014 __main__     INFO     oecaen contains 17 files. It will be handled in a single step.
+2024-05-22 20:50:31,345 __main__     INFO     Crunching oecaen (1/1): 17 files
+2024-05-22 20:55:12,126 __main__     INFO     Written 17 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0005.jsonl.bz2']
+2024-05-22 20:55:12,284 __main__     INFO     Written 17 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oecaen-0005.jsonl.bz2']
+2024-05-22 20:55:12,399 __main__     INFO     Done with oecaen. It took: 0:00:00.000191
+2024-05-22 20:55:12,399 __main__     INFO     ------------------------------------
+2024-05-22 20:55:12,525 __main__     INFO     oerennes contains 26 files. It will be handled in a single step.
+2024-05-22 20:55:14,718 __main__     INFO     Crunching oerennes (1/1): 26 files
+2024-05-22 21:01:39,551 __main__     INFO     Written 26 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0005.jsonl.bz2']
+2024-05-22 21:01:39,718 __main__     INFO     Written 26 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oerennes-0005.jsonl.bz2']
+2024-05-22 21:01:39,827 __main__     INFO     Done with oerennes. It took: 0:00:00.000040
+2024-05-22 21:01:39,827 __main__     INFO     ------------------------------------
+2024-05-22 21:01:39,959 __main__     INFO     oeuvre contains 30 files. It will be handled in a single step.
+2024-05-22 21:01:42,622 __main__     INFO     Crunching oeuvre (1/1): 30 files
+2024-05-22 21:07:00,847 __main__     INFO     Written 30 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0005.jsonl.bz2']
+2024-05-22 21:07:01,056 __main__     INFO     Written 30 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/oeuvre-0005.jsonl.bz2']
+2024-05-22 21:07:01,244 __main__     INFO     Done with oeuvre. It took: 0:00:00.000043
+2024-05-22 21:07:01,244 __main__     INFO     ------------------------------------
+2024-05-22 21:07:01,409 __main__     INFO     onsjongen contains 8 files. It will be handled in a single step.
+2024-05-22 21:07:04,265 __main__     INFO     Crunching onsjongen (1/1): 8 files
+2024-05-22 21:07:20,435 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0005.jsonl.bz2']
+2024-05-22 21:07:20,614 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/onsjongen-0005.jsonl.bz2']
+2024-05-22 21:07:20,814 __main__     INFO     Done with onsjongen. It took: 0:00:00.000060
+2024-05-22 21:07:20,814 __main__     INFO     ------------------------------------
+2024-05-22 21:07:20,878 __main__     INFO     ouistiti, no article segmentation, skipping
+2024-05-22 21:07:21,002 __main__     INFO     schmiede contains 4 files. It will be handled in a single step.
+2024-05-22 21:07:25,516 __main__     INFO     Crunching schmiede (1/1): 4 files
+2024-05-22 21:07:35,824 __main__     INFO     Written 4 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/schmiede-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/schmiede-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/schmiede-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/schmiede-0004.jsonl.bz2']
+2024-05-22 21:07:35,989 __main__     INFO     Written 4 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/schmiede-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/schmiede-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/schmiede-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/schmiede-0004.jsonl.bz2']
+2024-05-22 21:07:36,129 __main__     INFO     Done with schmiede. It took: 0:00:00.000044
+2024-05-22 21:07:36,130 __main__     INFO     ------------------------------------
+2024-05-22 21:07:36,274 __main__     INFO     tageblatt contains 38 files. It will be handled in a single step.
+2024-05-22 21:07:39,173 __main__     INFO     Crunching tageblatt (1/1): 38 files
+2024-05-22 21:08:34,623 __main__     INFO     Written 38 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0005.jsonl.bz2']
+2024-05-22 21:08:34,736 __main__     INFO     Written 38 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/tageblatt-0005.jsonl.bz2']
+2024-05-22 21:08:34,845 __main__     INFO     Done with tageblatt. It took: 0:00:00.000036
+2024-05-22 21:08:34,845 __main__     INFO     ------------------------------------
+2024-05-22 21:08:34,962 __main__     INFO     volkfreu1869 contains 8 files. It will be handled in a single step.
+2024-05-22 21:08:37,176 __main__     INFO     Crunching volkfreu1869 (1/1): 8 files
+2024-05-22 21:09:05,592 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0005.jsonl.bz2']
+2024-05-22 21:09:05,813 __main__     INFO     Written 8 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/volkfreu1869-0005.jsonl.bz2']
+2024-05-22 21:09:06,045 __main__     INFO     Done with volkfreu1869. It took: 0:00:00.000110
+2024-05-22 21:09:06,045 __main__     INFO     ------------------------------------
+2024-05-22 21:09:06,212 __main__     INFO     waechtersauer contains 20 files. It will be handled in a single step.
+2024-05-22 21:09:08,980 __main__     INFO     Crunching waechtersauer (1/1): 20 files
+2024-05-22 21:09:47,511 __main__     INFO     Written 20 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0005.jsonl.bz2']
+2024-05-22 21:09:47,714 __main__     INFO     Written 20 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waechtersauer-0005.jsonl.bz2']
+2024-05-22 21:09:47,925 __main__     INFO     Done with waechtersauer. It took: 0:00:00.000073
+2024-05-22 21:09:47,925 __main__     INFO     ------------------------------------
+2024-05-22 21:09:48,067 __main__     INFO     waeschfra contains 17 files. It will be handled in a single step.
+2024-05-22 21:09:50,837 __main__     INFO     Crunching waeschfra (1/1): 17 files
+2024-05-22 21:09:57,957 __main__     INFO     Written 17 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0005.jsonl.bz2']
+2024-05-22 21:09:58,162 __main__     INFO     Written 17 output files; first five: ['s3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0001.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0002.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0003.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0004.jsonl.bz2', 's3://31-passim-rebuilt-staging/passim-no-bp/waeschfra-0005.jsonl.bz2']
+2024-05-22 21:09:58,381 __main__     INFO     Done with waeschfra. It took: 0:00:00.000344
+2024-05-22 21:09:58,381 __main__     INFO     ------------------------------------
