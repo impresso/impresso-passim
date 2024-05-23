@@ -278,9 +278,10 @@ def process_newspaper(np, input_bucket, output_bucket, bp_df_future, client):
     del np_bp_set
     gc.collect()  # Force garbage collection
 
-    print(f"Done with {np}. It took: {t.tick()}")
+    time = t.tick()
+    print(f"Done with {np}. It took: {time}")
     print("------------------------------------")
-    logger.info(f"Done with {np}. It took: {t.tick()}")
+    logger.info(f"Done with {np}. It took: {time}")
     logger.info("------------------------------------")
 
 
