@@ -247,6 +247,8 @@ def process_newspaper(np, input_bucket, output_bucket, bp_df_future, client):
         passim_filtered = passim_data.filter(lambda d: d["id"] not in np_bp_set)
 
         print("Writing the created files to S3.")
+        # WARNING! the files are not always written back with the columns in the same order
+        # + sometimes the `title` is missing. Should add a step to ensure this.
         future = (
             passim_filtered.map(json.dumps)
             .repartition(len(rebuilt_f_chunk))
