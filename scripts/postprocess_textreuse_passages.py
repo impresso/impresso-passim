@@ -1,7 +1,7 @@
 """Command-line script to create the `pb.pkl` dataframe from the boilerplate's output.
 
 Usage:
-    postprocess_textreuse.py --log-file=<lf>  [--s3-bucket=<sb> --s3-partition=<sp> --s3-run-partition=<srp> --n-workers=<nw> --verbose]
+    postprocess_textreuse_passages.py --log-file=<lf>  [--s3-bucket=<sb> --s3-partition=<sp> --s3-run-partition=<srp> --n-workers=<nw> --verbose]
     
 Options:
 
@@ -37,14 +37,14 @@ logger = logging.getLogger(__name__)
 dask.config.set(temporary_directory='/scratch/piconti/impresso/dask_tmp')
 
 
-def unify_data(record: dict) -> dict:
-    """Unify the records in the data to all have the same column order.
+def format_passage_data(record: dict) -> dict:
+    """Format the passage data from the passim output to fit our goals.
 
     Args:
         record (dict): record to unify 
 
     Returns:
-        dict: _description_
+        dict: Resulting first part of passage record in the desired format.
     """
     # ensure the record's columns correspond to the goal: with the title as the last one.
     if 'title' in record:
@@ -59,68 +59,49 @@ def unify_data(record: dict) -> dict:
     else:
         title = ''
 
-    record['title'] = title
-
     if 'id' in record and 'begin' in record and 'end' in record:
-        record['passages'] = "{}@{}:{}".format(record['id'], record['begin'], record['end'])
+        passages = "{}@{}:{}".format(record['id'], record['begin'], record['end'])
+        #p_id = f"c{record['cluster']}-{passages}"
     else:
-        record['passages'] = ''
+        passages = ''
 
-    return record
+    return {
+        "id": f"c{record['cluster']}-{passages}",
+        "begin": record['begin'],
+        "ci_id": record['id'],
+        "cluster_id": f"tr-all-v1-24-c{record['cluster']}",
+        "date": record['date'],
+        "end": record['end'],
+        "pages": record['pages'],
+        "cluster_size": record['size'],
+        "text": record['text'],
+        "title": title
+    }
+    
 
-def mint_document_ids(row) -> str:
-    
-    ids = row['id']
-    begins = row['begin']
-    ends = row['end']
-    
-    return ",".join([
-        "{}@{}:{}".format(doc_id, begin, end)
-        for doc_id, begin, end in zip(ids, begins, ends)
-    ])
-    
+def remove_extra_cluster_cols(c_record: dict) -> dict:
+    return {
+        'id': c_record['id'],
+        'cluster_time_delta': c_record['time_delta'],
+        'cluster_lexial_overlap': c_record['lexical_overlap']
+    }
 
-def lexicaloverlap(texts):
-    #texts = row['text']
-    first = True
-    intersection = list()
-    
-    longest_text_length = max([len(text) for text in texts])
-    
-    token_sets = [
-        set(re.sub('[().,;:!0-9"{}\][»«]','',text).lower().split())
-        for text in texts
-    ]
-    
-    longest_text_length = max([len(ts) for ts in token_sets])
-    intersection = set.intersection(*token_sets)
-    if longest_text_length == 0:
-        return 0
-    
-    overlap_pct = (len(intersection) * 100) / longest_text_length
-    return overlap_pct
+def get_connected_clusters(passages_df):
+    grouped_clusters = passages_df.groupby('ci_id')['cluster_id']
+    conn_clusters = grouped_clusters.apply(list, meta=('connected_clusters', object)).persist()
+    n_conn_clusters = grouped_clusters.apply('count', meta=('n_connected_clusters', int)).persist()
+    conn_clusters_df = conn_clusters.to_frame()
+    conn_clusters_df[n_conn_clusters.name] = n_conn_clusters
+    conn_clusters_df = conn_clusters_df.reset_index()
+    conn_clusters_df.columns = ['ci_id', 'connected_clusters', 'n_connected_clusters']
+    return conn_clusters_df.astype({'ci_id': "string[pyarrow]"})
 
-def get_timedelta(min_date: str, max_date: str) -> timedelta:
-    min = datetime.strptime(min_date, '%Y-%m-%d').date()
-    max = datetime.strptime(max_date, '%Y-%m-%d').date()
-    return max - min
-
-def eval_str_lists(cluster):
-    cluster['newspapers'] = literal_eval(cluster['newspapers'])
-    cluster['passages'] = literal_eval(cluster['passages'])
-    cluster['doc_ids'] = literal_eval(cluster['doc_ids'])
+def eval_str_lists(passage):
+    passage['pages'] = literal_eval(passage['pages'])
+    passage['connected_clusters'] = literal_eval(passage['connected_clusters'])
+    #passage['doc_ids'] = literal_eval(passage['doc_ids'])
     
-    return cluster
-
-def groupby_cluster_apply(data_df: dd.DataFrame, col_name: str, apply_func: Callable[..., Any]) -> pd.DataFrame:
-    logger.info("Grouping by cluster, for %s column.", col_name)
-
-    return data_df.groupby('cluster')[col_name].apply(apply_func, meta=(col_name, object)).compute()
-    c_df.loc[:, new_col] = series
-    #np_sub = passim_data_df.groupby('cluster').apply(lambda r: sorted(r['series'].unique()), meta=('np', object)).compute()
-    #clusters_df.loc[:, 'newspapers'] = np_sub
-    return c_df
-
+    return passage
 
 def main() -> None:
 
@@ -139,12 +120,12 @@ def main() -> None:
     s3_bucket = arguments["--s3-bucket"] if arguments['--s3-bucket'] else "41-processed-data-staging"
     s3_patition = arguments["--s3-partition"] if arguments['--s3-partition'] else "text-reuse/text-reuse_v1-0-0"
     s3_run_partition = arguments["--s3-run-partition"] if arguments['--s3-run-partition'] else "passim_output_run_2"
-    n_workers = int(arguments["--n-workers"]) if arguments['--n-workers'] else 24
+    n_workers = int(arguments["--n-workers"]) if arguments['--n-workers'] else 20
     log_file = arguments["--log-file"]
     log_level = logging.DEBUG if arguments["--verbose"] else logging.INFO
 
     signal.signal(signal.SIGINT, signal_handler)
-    init_logger(log_level, log_file)
+    init_logger(logger, log_level, log_file)
 
     # suppressing botocore's verbose logging
     logging.getLogger("botocore").setLevel(logging.WARNING)
@@ -161,106 +142,77 @@ def main() -> None:
     print(f"Dask Client: {client} and cluster: {cluster}")
 
     s3_path = os.path.join(f"s3://{s3_bucket}", s3_patition, s3_run_partition)
-    s3_input_path = f"{s3_path}/out.json/"
-    s3_output_path = f"{s3_path}/tr_clusters/"
+    s3_passages_path = f"{s3_path}/out.json/"
+    s3_clusters_path = f"{s3_path}/tr_clusters/"
+    s3_output_path = f"{s3_path}/tr_passages/"
     
     logger.info("Starting to load the data from S3.")
     print("Starting to load the data from S3.")
-    ### Reading data in memory
-    passim_data = db.read_text(
-        f"{s3_input_path}/*.json", storage_options=IMPRESSO_STORAGEOPT
-    ).map(json.loads).persist() 
 
-    passim_data_df = passim_data.map(unify_data).to_dataframe().persist()
-    passim_data_df = client.gather(passim_data_df)
-    passim_data_df = passim_data_df.set_index('uid').persist()
+    try:
+        ### Reading passim data in memory
+        passim_data = db.read_text(
+            f"{s3_passages_path}*.json", storage_options=IMPRESSO_STORAGEOPT
+        ).map(json.loads).persist() 
 
-    ### Creating 
-    logger.info("Finished the loading data, performing the first groupby.")
-    print("Finished the loading data, performing the first groupby.")
-    #clusters_df = passim_data_df.head(100000, compute=False, npartitions=10).sort_values('cluster')
-    clusters_df = passim_data_df.groupby('cluster').agg({'date': ['min', 'max'], 'size': 'count'}).compute()
+        passages_data_df = passim_data.map(format_passage_data).to_dataframe().persist()
+        passages_data_df = client.gather(passages_data_df)
 
-    ### Adding the new columns also needing groupbys
-    logger.info("Finished the first groupby clusters, performing the next ones.")
-    print("Finished the first groupby clusters, performing the next ones.")
-    # get the list of newspapers for which a cluster contains TR instances
-    #np_sub = passim_data_df.groupby('cluster').apply(lambda r: sorted(r['series'].unique()), meta=('np', object)).compute()
-    clusters_df.loc[:, 'newspapers'] = groupby_cluster_apply(passim_data_df, 'series', lambda r: sorted(r.unique()))
-    logger.info("Finished grouping by `series` and added the column `newspapers` to cluster DF.")
-    print("Finished grouping by `series` and added the column `newspapers` to cluster DF.")
+        ### Reading clusters data in memory
+        clusters_data = db.read_text(
+            f"{s3_clusters_path}*.jsonl.bz2", storage_options=IMPRESSO_STORAGEOPT
+        ).map(json.loads).persist()
 
-    # get the list of passages for each cluster
-    #passages_sub = passim_data_df.groupby('cluster')['passages'].apply(list, meta=('passages', object)).compute()
-    clusters_df.loc[:, 'passages'] = groupby_cluster_apply(passim_data_df, 'passages', list)
-    logger.info("Finished grouping by `passages` and added the column `passages` to cluster DF.")
-    print("Finished grouping by `passages` and added the column `passages` to cluster DF.")
+        clusters_df = clusters_data.map(remove_extra_cluster_cols).to_dataframe().set_index('id').persist()
 
-    # compute the lexical overlap of passages within clusters
-    #overlap_sub = passim_data_df.groupby('cluster')['text'].apply(lexicaloverlap, meta=('lo', object)).compute()
-    clusters_df.loc[:, 'lexical_overlap'] = groupby_cluster_apply(passim_data_df, 'text', lexicaloverlap)
-    logger.info("Finished grouping by `text` and added the column `lexical_overlap` to cluster DF.")
-    print("Finished grouping by `text` and added the column `lexical_overlap` to cluster DF.")
+        ### Creating 
+        logger.info("Finished the loading data, getting the connected clusters..")
+        print("Finished the loading data, getting the connected clusters.")
 
-    # compute the list of document IDs
-    #doc_ids_sub = passim_data_df.groupby('cluster')['id'].apply(lambda r: sorted(r.unique()), meta=('doc_ids', object)).compute()
-    clusters_df.loc[:, 'doc_ids'] = groupby_cluster_apply(passim_data_df, 'id', lambda r: sorted(r.unique()))
-    logger.info("Finished grouping by `id` and added the column `doc_ids` to cluster DF.")
-    print("Finished grouping by `id` and added the column `doc_ids` to cluster DF.")
+        # fetch the information on the connected clusters and reformat them]
+        conn_clusters_df = get_connected_clusters(passages_data_df)
 
+        logger.info("Merging the fetched data with the passages..")
+        print("Merging the fetched data with the passages..")
+        joined_df = passages_data_df.join(clusters_df, on='cluster_id')
+        full_joined_df = joined_df.merge(conn_clusters_df, on='ci_id', how='left').persist()
 
-    logger.info("Reformatting and retyping the columns.")
-    print("Reformatting and retyping the columns.")
-    # compute the time delta in days between the first and last occurence of TR within clusters.
-    clusters_df.loc[:,('date', 'min')] = pd.to_datetime(clusters_df.date['min'], format='%Y-%m-%d')
-    clusters_df.loc[:,('date', 'max')] = pd.to_datetime(clusters_df.date['max'], format='%Y-%m-%d')
-    clusters_df.loc[:,'time_delta'] = clusters_df.date['max'] - clusters_df.date['min']
+        logger.info("Loading the dataframe back into bags and dumping it to files on S3.")
+        print("Loading the dataframe back into bags and dumping it to files on S3.")
 
-    clusters_df.loc[:, 'cluster_size'] = clusters_df['size']['count']
-    clusters_df.loc[:, 'min_date'] = clusters_df['date']['min'].astype('string')
-    clusters_df.loc[:, 'max_date'] = clusters_df['date']['max'].astype('string')
-    clusters_df['time_delta'] = clusters_df['time_delta'].apply(lambda x: x.days).astype('int64')
-    final_clusters_df =  clusters_df.drop([('date', 'min'),('date', 'max'), ('size', 'count')], axis=1)
+        full_passages_bag = full_joined_df.to_bag(format='dict').map(eval_str_lists).persist()
 
-    final_clusters_df.loc[:, 'id'] = [f"tr-all-v1-24-c{x}" for x in final_clusters_df.index]
+        passages_output_files = [
+            f"{s3_output_path}{str(n).zfill(4)}.jsonl.bz2"
+            for n in range(full_passages_bag.npartitions)
+        ]
 
-    final_columns = ["id", "min_date", "max_date", "cluster_size", "time_delta", "newspapers", "passages", "doc_ids", "lexical_overlap"]
-    #final_clusters_df = final_clusters_df[final_columns]
-    #final_clusters_df = final_clusters_df.reset_index(drop = True)
-    final_clusters_df = final_clusters_df[final_columns].reset_index(drop = True)
-    final_clusters_df.columns = final_clusters_df.columns.droplevel(1)
+        logger.info("Writing the passages to S3 files.")
+        print("Writing the passages to S3 files.")
 
-    logger.info("Loading the dataframe back into bags and dumping it to files on S3.")
-    print("Loading the dataframe back into bags and dumping it to files on S3.")
+        future = (
+            full_passages_bag.map(json.dumps)
+            .repartition(len(passages_output_files))
+            .to_textfiles(passages_output_files, storage_options=IMPRESSO_STORAGEOPT)
+        )
 
-    clusters_ddf = dd.from_pandas(final_clusters_df, chunksize=100000)
-    clusters_bag = clusters_ddf.to_bag(format='dict').map(eval_str_lists).persist()
+        logger.info("Finished writing all to files, closing the client and cluster.")
+        print("Finished writing all to files, closing the client and cluster.")
 
-    cluster_output_files = [
-        f"{s3_output_path}{str(n).zfill(4)}.jsonl.bz2"
-        for n in range(clusters_bag.npartitions)
-    ]
+        try: 
+            client.shutdown()
+            cluster.close()
+            client.close()
+        except Exception as e: 
+            logger.warning("Exception while closing the client: %s", e)
+            print(f"Exception while closing the client: {e}")
 
-    logger.info("Writing the clusters to S3 files.")
-    print("Writing the clusters to S3 files.")
-
-    future = (
-        clusters_bag.map(json.dumps)
-        .repartition(len(cluster_output_files))
-        .to_textfiles(cluster_output_files, storage_options=IMPRESSO_STORAGEOPT)
-    )
-
-    logger.info("Finished writing all to files, closing the client and cluster.")
-    print("Finished writing all to files, closing the client and cluster.")
-
-    try: 
+    except Exception as e: 
+        logger.warning("Exception occurred, closing the client: %s", e)
+        print(f"Exception occurred, closing the client: {e}")
         client.shutdown()
         cluster.close()
         client.close()
-    except Exception as e: 
-        logger.warn("Exception while closing the client: %s", e)
-        print(f"Exception while closing the client: {e}")
-
 
 if __name__ == "__main__":
     main()

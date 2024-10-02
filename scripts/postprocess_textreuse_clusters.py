@@ -1,7 +1,7 @@
 """Command-line script to create the `pb.pkl` dataframe from the boilerplate's output.
 
 Usage:
-    postprocess_textreuse.py --log-file=<lf>  [--s3-bucket=<sb> --s3-partition=<sp> --s3-run-partition=<srp> --n-workers=<nw> --verbose]
+    postprocess_textreuse_clusters.py --log-file=<lf>  [--s3-bucket=<sb> --s3-partition=<sp> --s3-run-partition=<srp> --n-workers=<nw> --verbose]
     
 Options:
 
