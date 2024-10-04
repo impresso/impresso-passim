@@ -34,7 +34,7 @@ from impresso_essentials.utils import init_logger
 
 logger = logging.getLogger(__name__)
 
-dask.config.set(temporary_directory='/scratch/piconti/impresso/dask_tmp')
+#dask.config.set(temporary_directory='/scratch/piconti/impresso/dask_tmp')
 
 
 def format_passage_data(record: dict) -> dict:
@@ -87,14 +87,19 @@ def remove_extra_cluster_cols(c_record: dict) -> dict:
     }
 
 def get_connected_clusters(passages_df):
-    grouped_clusters = passages_df.groupby('ci_id')['cluster_id']
-    conn_clusters = grouped_clusters.apply(list, meta=('connected_clusters', object)).persist()
-    n_conn_clusters = grouped_clusters.apply('count', meta=('n_connected_clusters', int)).persist()
-    conn_clusters_df = conn_clusters.to_frame()
-    conn_clusters_df[n_conn_clusters.name] = n_conn_clusters
-    conn_clusters_df = conn_clusters_df.reset_index()
-    conn_clusters_df.columns = ['ci_id', 'connected_clusters', 'n_connected_clusters']
-    return conn_clusters_df.astype({'ci_id': "string[pyarrow]"})
+    try:
+        grouped_clusters = passages_df.groupby('ci_id')['cluster_id']
+        conn_clusters = grouped_clusters.apply(list, meta=('connected_clusters', object)).persist()
+        n_conn_clusters = grouped_clusters.apply('count', meta=('n_connected_clusters', int)).compute()
+        conn_clusters_df = conn_clusters.to_frame().compute()
+        conn_clusters_df[n_conn_clusters.name] = n_conn_clusters
+        conn_clusters_df = conn_clusters_df.reset_index()
+        conn_clusters_df.columns = ['ci_id', 'connected_clusters', 'n_connected_clusters']
+        return conn_clusters_df.astype({'ci_id': "string[pyarrow]"})
+    except Exception as e:
+        print("Exception took place in get_connected_clusters: ", e)
+        logger.error("Exception took place in get_connected_clusters: %s", e)
+        raise e
 
 def eval_str_lists(passage):
     passage['pages'] = literal_eval(passage['pages'])
@@ -113,6 +118,7 @@ def main() -> None:
         )
         if client:
             client.shutdown()
+            client.close()
         cluster.close()
         exit(0)
 
@@ -120,7 +126,7 @@ def main() -> None:
     s3_bucket = arguments["--s3-bucket"] if arguments['--s3-bucket'] else "41-processed-data-staging"
     s3_patition = arguments["--s3-partition"] if arguments['--s3-partition'] else "text-reuse/text-reuse_v1-0-0"
     s3_run_partition = arguments["--s3-run-partition"] if arguments['--s3-run-partition'] else "passim_output_run_2"
-    n_workers = int(arguments["--n-workers"]) if arguments['--n-workers'] else 20
+    n_workers = int(arguments["--n-workers"]) if arguments['--n-workers'] else 10
     log_file = arguments["--log-file"]
     log_level = logging.DEBUG if arguments["--verbose"] else logging.INFO
 
@@ -134,7 +140,7 @@ def main() -> None:
     logger.info("Provided parameters: %s", arguments)
     print(f"Provided parameters: {arguments}")
 
-    memory_per_worker_gb = 16
+    memory_per_worker_gb = 32
     cluster = LocalCluster(n_workers=n_workers, threads_per_worker=1, memory_limit=f"{memory_per_worker_gb}GB")
     client = cluster.get_client()
 
@@ -171,24 +177,36 @@ def main() -> None:
 
         # fetch the information on the connected clusters and reformat them]
         conn_clusters_df = get_connected_clusters(passages_data_df)
+        print(f"conn_clusters_df.columns={conn_clusters_df.columns}")
 
         logger.info("Merging the fetched data with the passages..")
         print("Merging the fetched data with the passages..")
-        joined_df = passages_data_df.join(clusters_df, on='cluster_id')
-        full_joined_df = joined_df.merge(conn_clusters_df, on='ci_id', how='left').persist()
+        try:
+            joined_df = passages_data_df.join(clusters_df, on='cluster_id')
+            print(f"joined_df.columns={joined_df.columns}")
+        except Exception as e:
+            print("Exception took place when joining passages_data_df and clusters_df: ", e)
+            logger.error("Exception took place when joining passages_data_df and clusters_df: %s", e)
+            raise e
+        try:
+            full_joined_df = joined_df.merge(conn_clusters_df, on='ci_id', how='left').persist()
+        except Exception as e:
+            print("Exception took place when merging joined_df and full_joined_df: ", e)
+            logger.error("Exception took place when merging joined_df and full_joined_df: %s", e)
+            raise e
 
         logger.info("Loading the dataframe back into bags and dumping it to files on S3.")
         print("Loading the dataframe back into bags and dumping it to files on S3.")
-
+        print("just before putting passages to bag")
         full_passages_bag = full_joined_df.to_bag(format='dict').map(eval_str_lists).persist()
 
         passages_output_files = [
-            f"{s3_output_path}{str(n).zfill(4)}.jsonl.bz2"
+            f"{s3_output_path}{str(n).zfill(6)}.jsonl.bz2"
             for n in range(full_passages_bag.npartitions)
         ]
-
-        logger.info("Writing the passages to S3 files.")
-        print("Writing the passages to S3 files.")
+        print(f"passages_output_files[:10]: {passages_output_files[:10]}")
+        logger.info("Writing the passages to %s S3 files.", len(passages_output_files))
+        print(f"Writing the passages to {len(passages_output_files)} S3 files.")
 
         future = (
             full_passages_bag.map(json.dumps)
