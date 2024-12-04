@@ -83,7 +83,7 @@ def remove_extra_cluster_cols(c_record: dict) -> dict:
     return {
         'id': c_record['id'],
         'cluster_time_delta': c_record['time_delta'],
-        'cluster_lexial_overlap': c_record['lexical_overlap']
+        'cluster_lexical_overlap': c_record['lexical_overlap']
     }
 
 def get_connected_clusters(passages_df):
