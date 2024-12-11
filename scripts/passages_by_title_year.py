@@ -1,7 +1,7 @@
 """Command-line script to separate all the text-reuse passages by title-year.
 
 Usage:
-    passages_by_title_year.py --log-file=<lf>  [--s3-bucket=<sb> --input-partition=<ip> --output-partition=<op> --n-workers=<nw> --verbose]
+    passages_by_title_year.py --log-file=<lf>  [--s3-bucket=<sb> --input-partition=<ip> --output-partition=<op> --n-workers=<nw> --resume-title=<rt> --verbose]
     
 Options:
 
@@ -10,6 +10,7 @@ Options:
 --input-partition=<ip>  Partition within the bucket where the passim output to postprocess is. Defaults to `text-reuse/text-reuse_v1-0-0/`.
 --output-partition=<op>  Partition within the bucket where to upload it. Defaults to `passim_output_run_2`
 --n-workers=<nw>  Number of workers for Dask cluster. Defaults to 24.
+--resume-title=<rt> Title alias to resume if any.
 --verbose  Set logging level to DEBUG (by default is INFO)
 """
 
@@ -25,7 +26,7 @@ from dask import dataframe as dd
 from dask import bag as db
 from dask.distributed import Client, LocalCluster
 # from dask_k8 import DaskCluster
-from impresso_essentials.io.s3 import IMPRESSO_STORAGEOPT
+from impresso_essentials.io.s3 import IMPRESSO_STORAGEOPT, fixed_s3fs_glob
 from datetime import datetime, timedelta
 from ast import literal_eval
 import dask.config
@@ -34,6 +35,20 @@ from impresso_essentials.utils import init_logger, KNOWN_JOURNALS_DICT
 
 logger = logging.getLogger(__name__)
 
+
+def get_present_title_years(s3_glob_path):
+
+    def year_from_path(s3_path):
+        return s3_path.split('-')[-1].split('.')[0]
+    
+    split_passages_filenames = fixed_s3fs_glob(s3_glob_path)
+
+    present_title_years = {p.split('/')[-2]: [] for p in split_passages_filenames}
+
+    for p in split_passages_filenames:
+        present_title_years[p.split('/')[-2]].append(year_from_path(p))
+
+    return present_title_years
 
 
 def main() -> None:
@@ -54,7 +69,8 @@ def main() -> None:
     s3_bucket = arguments["--s3-bucket"] if arguments['--s3-bucket'] else "41-processed-data-staging"
     input_partition = arguments["--input-partition"] if arguments['--input-partition'] else "text-reuse/text-reuse_v1-0-0/passim_output_run_2/tr_passages"
     output_partition = arguments["--output-partition"] if arguments['--output-partition'] else "textreuse/textreuse_passim_v1-0-0/results/tr_passages"
-    n_workers = int(arguments["--n-workers"]) if arguments['--n-workers'] else 10
+    n_workers = int(arguments["--n-workers"]) if arguments['--n-workers'] else 8 #10
+    resume_title = arguments["--resume-title"] if arguments["--resume-title"] else ''
     log_file = arguments["--log-file"]
     log_level = logging.DEBUG if arguments["--verbose"] else logging.INFO
 
@@ -86,6 +102,9 @@ def main() -> None:
     print("Starting to load the data from S3.")
 
     try:
+
+        present_title_years = get_present_title_years(os.path.join(s3_output_part, "*.jsonl.bz2"))
+
         ### Reading passim data in memory
         all_passages = db.read_text(s3_input_path, storage_options=IMPRESSO_STORAGEOPT
         ).map(json.loads).persist() 
@@ -95,37 +114,48 @@ def main() -> None:
             msg = f"\n------------ {provider} ------------\n"
             print(msg)
             logger.info(msg)
-            #if provider == 'BNF':
             for title_idx, title in enumerate(title_list):
-                msg = f"\n---- Filtering passages for {title} ({title_idx+1}/{len(title_list)}) ----"
-                print(msg)
-                logger.info(msg)
-                passages_for_title = all_passages.filter(lambda x: title in x['ci_id']).persist()
-                # group by year and remove years without passages
-                passages_for_title_year = passages_for_title.groupby(lambda x: x['date'].split('-')[0]).filter(lambda x: len(x[1])!=0)
-
-                years_to_filenames = passages_for_title_year.map(lambda x: (x[0], 
-                    [f"{s3_output_part}/{title}/tr_passages-{title}-{x[0]}.jsonl.bz2"])
-                ).compute()
-
-                for year, filename in years_to_filenames:
-                    msg = f"{title}-{year}, writing all passages to s3_path: {filename}"
+                # skip some already processed titles, unless the one to resume
+                if title not in present_title_years.keys() or title == resume_title:
+                    msg = f"\n---- Filtering passages for {title} ({title_idx+1}/{len(title_list)}) ----"
                     print(msg)
                     logger.info(msg)
-                    out_files = (
-                        passages_for_title_year.filter(lambda x: x[0]== year)
-                        .map(lambda x: x[1])
-                        .flatten()
-                        .repartition(1)
-                        .map(json.dumps)
-                        .to_textfiles(filename,storage_options=IMPRESSO_STORAGEOPT)
-                    )
+                    passages_for_title = all_passages.filter(lambda x: title in x['ci_id'])
+                    # group by year and remove years without passages
+                    passages_for_title_year = passages_for_title.groupby(lambda x: x['date'].split('-')[0]).filter(lambda x: len(x[1])!=0).persist()
 
-                msg = f"{title} - Finished writing all passages to files, going to next title."
-                logger.info(msg)
-                print(msg)
+                    years_to_filenames = passages_for_title_year.map(lambda x: (x[0], 
+                        [f"{s3_output_part}/{title}/tr_passages-{title}-{x[0]}.jsonl.bz2"])
+                    ).compute()
+
+                    for year, filename in years_to_filenames:
+                        # only skip years of title to resume
+                        if title != resume_title or year not in present_title_years[resume_title]:
+                            msg = f"{title}-{year}, writing all passages to s3_path: {filename}"
+                            print(msg)
+                            logger.info(msg)
+                            out_files = (
+                                passages_for_title_year.filter(lambda x: x[0]== year)
+                                .map(lambda x: x[1])
+                                .flatten()
+                                .repartition(1)
+                                .map(json.dumps)
+                                .to_textfiles(filename,storage_options=IMPRESSO_STORAGEOPT)
+                            )
+                        else:
+                            msg = f"{title}-{year} - Skipping, as it's already done."
+                            logger.info(msg)
+                            print(msg)
+
+                    msg = f"{title} - Finished writing all passages to files, going to next title."
+                    logger.info(msg)
+                    print(msg)
+                else:
+                    msg = f"{title} - Skipping, as it's already done."
+                    logger.info(msg)
+                    print(msg)
+                        #break
                     #break
-                #break
 
         logger.info("Finished writing all the passages to files, closing the client and cluster.")
         print("Finished writing all the passages to files, closing the client and cluster.")
