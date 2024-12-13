@@ -34,6 +34,7 @@ from docopt import docopt
 from impresso_essentials.utils import init_logger, KNOWN_JOURNALS_DICT
 
 logger = logging.getLogger(__name__)
+dask.config.set(temporary_directory="/rcp-scratch/piconti/impresso/dask_tmp")
 
 
 def get_present_title_years(s3_glob_path):
