@@ -1,0 +1,62 @@
+2024-12-09 11:33:14,416 __main__     INFO     Logger successfully initialised
+2024-12-09 11:33:14,416 __main__     INFO     Provided parameters: {'--input-partition': None,
+ '--log-file': '/home/piconti/impresso-passim/logs/passages_by_title_year.log',
+ '--n-workers': None,
+ '--output-partition': None,
+ '--s3-bucket': None,
+ '--verbose': False}
+2024-12-09 11:33:16,442 __main__     INFO     Dask Client: <Client: 'tcp://127.0.0.1:33949' processes=10 threads=10, memory=298.02 GiB> and cluster: LocalCluster(a77fa22b, 'tcp://127.0.0.1:33949', workers=10, threads=10, memory=298.02 GiB)
+2024-12-09 11:33:16,443 __main__     INFO     s3_input_path: s3://41-processed-data-staging/text-reuse/text-reuse_v1-0-0/passim_output_run_2/tr_passages/*.jsonl.bz2, s3_output_partition: s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages
+2024-12-09 11:33:16,443 __main__     INFO     Starting to load the data from S3.
+2024-12-09 11:33:23,149 __main__     INFO     
+------------ SNL-RERO ------------
+
+2024-12-09 11:33:23,149 __main__     INFO     
+---- Filtering passages for BDC (1/20) ----
+2024-12-09 11:43:12,764 __main__     INFO     BDC-1839, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/BDC/tr_passages-BDC-1839.jsonl.bz2']
+2024-12-09 11:46:46,477 __main__     INFO     BDC - Finished writing all passages to files, going to next title.
+2024-12-09 11:46:46,478 __main__     INFO     
+---- Filtering passages for CDV (2/20) ----
+2024-12-09 11:50:49,293 __main__     INFO     CDV-1854, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1854.jsonl.bz2']
+2024-12-09 11:54:39,210 __main__     INFO     CDV-1857, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1857.jsonl.bz2']
+2024-12-09 11:58:33,736 __main__     INFO     CDV-1850, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1850.jsonl.bz2']
+2024-12-09 12:02:23,646 __main__     INFO     CDV-1853, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1853.jsonl.bz2']
+2024-12-09 12:06:13,419 __main__     INFO     CDV-1849, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1849.jsonl.bz2']
+2024-12-09 12:10:10,723 __main__     INFO     CDV-1856, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1856.jsonl.bz2']
+2024-12-09 12:13:58,084 __main__     INFO     CDV-1852, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1852.jsonl.bz2']
+2024-12-09 12:18:05,877 __main__     INFO     CDV-1844, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1844.jsonl.bz2']
+2024-12-09 12:22:03,850 __main__     INFO     CDV-1851, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1851.jsonl.bz2']
+2024-12-09 12:25:55,779 __main__     INFO     CDV-1855, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1855.jsonl.bz2']
+2024-12-09 12:29:47,173 __main__     INFO     CDV-1843, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/CDV/tr_passages-CDV-1843.jsonl.bz2']
+2024-12-09 12:33:41,710 __main__     INFO     CDV - Finished writing all passages to files, going to next title.
+2024-12-09 12:33:41,710 __main__     INFO     
+---- Filtering passages for DLE (3/20) ----
+2024-12-09 12:37:22,708 __main__     INFO     DLE-1914, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/DLE/tr_passages-DLE-1914.jsonl.bz2']
+2024-12-09 12:41:00,656 __main__     INFO     DLE-1911, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/DLE/tr_passages-DLE-1911.jsonl.bz2']
+2024-12-09 12:44:50,220 __main__     INFO     DLE-1913, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/DLE/tr_passages-DLE-1913.jsonl.bz2']
+2024-12-09 12:48:36,274 __main__     INFO     DLE-1910, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/DLE/tr_passages-DLE-1910.jsonl.bz2']
+2024-12-09 12:52:24,655 __main__     INFO     DLE-1912, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/DLE/tr_passages-DLE-1912.jsonl.bz2']
+2024-12-09 12:56:19,872 __main__     INFO     DLE-1909, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/DLE/tr_passages-DLE-1909.jsonl.bz2']
+2024-12-09 13:00:18,912 __main__     INFO     DLE - Finished writing all passages to files, going to next title.
+2024-12-09 13:00:18,914 __main__     INFO     
+---- Filtering passages for EDA (4/20) ----
+2024-12-09 13:04:15,964 __main__     INFO     EDA-1839, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EDA/tr_passages-EDA-1839.jsonl.bz2']
+2024-12-09 13:07:52,555 __main__     INFO     EDA-1840, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EDA/tr_passages-EDA-1840.jsonl.bz2']
+2024-12-09 13:11:40,470 __main__     INFO     EDA-1841, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EDA/tr_passages-EDA-1841.jsonl.bz2']
+2024-12-09 13:15:29,899 __main__     INFO     EDA-1842, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EDA/tr_passages-EDA-1842.jsonl.bz2']
+2024-12-09 13:19:24,868 __main__     INFO     EDA-1844, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EDA/tr_passages-EDA-1844.jsonl.bz2']
+2024-12-09 13:23:14,280 __main__     INFO     EDA-1843, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EDA/tr_passages-EDA-1843.jsonl.bz2']
+2024-12-09 13:27:02,747 __main__     INFO     EDA - Finished writing all passages to files, going to next title.
+2024-12-09 13:27:02,748 __main__     INFO     
+---- Filtering passages for EXP (5/20) ----
+2024-12-09 13:35:19,285 __main__     INFO     EXP-1988, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1988.jsonl.bz2']
+2024-12-09 13:44:40,063 __main__     INFO     EXP-1972, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1972.jsonl.bz2']
+2024-12-09 13:52:40,950 __main__     INFO     EXP-1828, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1828.jsonl.bz2']
+2024-12-09 14:00:15,716 __main__     INFO     EXP-1860, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1860.jsonl.bz2']
+2024-12-09 14:07:45,833 __main__     INFO     EXP-1895, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1895.jsonl.bz2']
+2024-12-09 14:16:11,166 __main__     INFO     EXP-1920, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1920.jsonl.bz2']
+2024-12-09 14:24:37,852 __main__     INFO     EXP-1897, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1897.jsonl.bz2']
+2024-12-09 14:32:35,758 __main__     INFO     EXP-1847, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1847.jsonl.bz2']
+2024-12-09 14:40:51,871 __main__     INFO     EXP-1931, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1931.jsonl.bz2']
+2024-12-09 14:49:05,196 __main__     INFO     EXP-1865, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/EXP/tr_passages-EXP-1865.jsonl.bz2']
+2024-12-09 14:51:14,171 __main__     WARNING  Exception occurred, closing the client: 

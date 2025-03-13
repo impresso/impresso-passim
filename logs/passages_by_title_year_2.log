@@ -1,0 +1,21 @@
+2024-12-09 14:53:50,035 __main__     INFO     Logger successfully initialised
+2024-12-09 14:53:50,035 __main__     INFO     Provided parameters: {'--input-partition': None,
+ '--log-file': '/home/piconti/impresso-passim/logs/passages_by_title_year_2.log',
+ '--n-workers': None,
+ '--output-partition': None,
+ '--s3-bucket': None,
+ '--verbose': False}
+2024-12-09 14:53:52,084 __main__     INFO     Dask Client: <Client: 'tcp://127.0.0.1:40693' processes=20 threads=20, memory=596.05 GiB> and cluster: LocalCluster(2db90d84, 'tcp://127.0.0.1:40693', workers=20, threads=20, memory=596.05 GiB)
+2024-12-09 14:53:52,084 __main__     INFO     s3_input_path: s3://41-processed-data-staging/text-reuse/text-reuse_v1-0-0/passim_output_run_2/tr_passages/*.jsonl.bz2, s3_output_partition: s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages
+2024-12-09 14:53:52,084 __main__     INFO     Starting to load the data from S3.
+2024-12-09 14:54:00,115 __main__     INFO     
+------------ SNL-RERO ------------
+
+2024-12-09 14:54:00,115 __main__     INFO     
+------------ LeTemps ------------
+
+2024-12-09 14:54:00,115 __main__     INFO     
+---- Filtering passages for JDG (1/2) ----
+2024-12-09 15:03:00,133 __main__     INFO     JDG-1988, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/JDG/tr_passages-JDG-1988.jsonl.bz2']
+2024-12-09 15:08:37,976 __main__     INFO     JDG-1972, writing all passages to s3_path: ['s3://41-processed-data-staging/textreuse/textreuse_passim_v1-0-0/results/tr_passages/JDG/tr_passages-JDG-1972.jsonl.bz2']
+2024-12-09 15:13:10,846 __main__     WARNING  Exception occurred, closing the client: 

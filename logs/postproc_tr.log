@@ -1,0 +1,48 @@
+2024-08-27 11:41:19,994 root         INFO     Logger successfully initialised
+2024-08-27 11:41:19,994 __main__     INFO     Provided parameters: {'--log-file': '/home/piconti/impresso-passim/logs/postproc_tr.log',
+ '--n-workers': None,
+ '--s3-bucket': None,
+ '--s3-partition': None,
+ '--s3-run-partition': None,
+ '--verbose': True}
+2024-08-27 11:41:19,995 asyncio      DEBUG    Using selector: EpollSelector
+2024-08-27 11:41:24,910 __main__     INFO     Dask Client: <Client: 'tcp://127.0.0.1:46421' processes=24 threads=24, memory=357.63 GiB> and cluster: LocalCluster(58f62f54, 'tcp://127.0.0.1:46421', workers=24, threads=24, memory=357.63 GiB)
+2024-08-27 11:41:24,911 __main__     INFO     Starting to load the data from S3.
+2024-08-27 11:41:25,824 asyncio      DEBUG    Using selector: EpollSelector
+2024-08-27 11:41:25,829 s3fs         DEBUG    Get directory listing page for 41-processed-data-staging/text-reuse/text-reuse_v1-0-0/passim_output_run_2/out.json
+2024-08-27 11:41:25,829 s3fs         DEBUG    Setting up s3fs instance
+2024-08-27 11:41:25,844 s3fs         DEBUG    RC: caching enabled? False (explicit option is False)
+2024-08-27 11:41:25,971 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:25,972 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:41:26,486 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:26,486 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:41:26,659 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:26,659 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:41:26,982 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:26,982 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:41:27,149 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:27,149 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:41:27,620 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:27,620 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:41:27,788 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:27,788 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:41:27,961 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:27,961 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:41:28,233 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 11:41:28,233 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
+2024-08-27 11:44:23,687 __main__     INFO     Finished the loading data, performing the first groupby.
+2024-08-27 13:20:49,772 __main__     INFO     Finished the first groupby clusters, performing the next ones.
+2024-08-27 13:20:49,785 __main__     INFO     Grouping by cluster, for series column.
+2024-08-27 13:23:55,477 __main__     INFO     Finished grouping by `series` and added the column `newspapers` to cluster DF.
+2024-08-27 13:23:55,477 __main__     INFO     Grouping by cluster, for passages column.
+2024-08-27 13:26:55,604 __main__     INFO     Finished grouping by `passages` and added the column `passages` to cluster DF.
+2024-08-27 13:26:55,605 __main__     INFO     Grouping by cluster, for text column.
+2024-08-27 13:34:06,231 __main__     INFO     Finished grouping by `text` and added the column `lexical_overlap` to cluster DF.
+2024-08-27 13:34:06,232 __main__     INFO     Grouping by cluster, for id column.
+2024-08-27 13:37:00,077 __main__     INFO     Finished grouping by `id` and added the column `doc_ids` to cluster DF.
+2024-08-27 13:37:00,078 __main__     INFO     Reformatting and retyping the columns.
+2024-08-27 13:38:57,749 __main__     INFO     Loading the dataframe back into bags and dumping it to files on S3.
+2024-08-27 13:39:37,104 __main__     INFO     Writing the clusters to S3 files.
+2024-08-27 13:39:37,108 s3fs         DEBUG    CALL: list_objects_v2 - () - {'MaxKeys': 1, 'Bucket': '41-processed-data-staging'}
+2024-08-27 13:39:37,109 aiobotocore.regions DEBUG    Calling endpoint provider with parameters: {'Bucket': '41-processed-data-staging', 'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://os.zhdk.cloud.switch.ch', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2024-08-27 13:39:37,109 aiobotocore.regions DEBUG    Endpoint provider result: https://os.zhdk.cloud.switch.ch/41-processed-data-staging
