@@ -1,0 +1,15 @@
+2024-10-04 13:45:31,475 __main__     INFO     Logger successfully initialised
+2024-10-04 13:45:31,475 __main__     INFO     Provided parameters: {'--log-file': '/home/piconti/impresso-passim/logs/postproc_tr_passages_7.log',
+ '--n-workers': None,
+ '--s3-bucket': None,
+ '--s3-partition': None,
+ '--s3-run-partition': None,
+ '--verbose': False}
+2024-10-04 13:45:33,642 __main__     INFO     Dask Client: <Client: 'tcp://127.0.0.1:34031' processes=10 threads=10, memory=298.02 GiB> and cluster: LocalCluster(32e9c697, 'tcp://127.0.0.1:34031', workers=10, threads=10, memory=298.02 GiB)
+2024-10-04 13:45:33,643 __main__     INFO     Starting to load the data from S3.
+2024-10-04 13:57:13,784 __main__     INFO     Finished the loading data, getting the connected clusters..
+2024-10-04 14:06:23,469 __main__     INFO     Merging the fetched data with the passages..
+2024-10-04 14:07:47,585 __main__     INFO     Loading the dataframe back into bags and dumping it to files on S3.
+2024-10-04 14:07:48,034 __main__     INFO     Writing the passages to 4323 S3 files.
+2024-10-04 14:59:36,245 __main__     INFO     Finished writing all to files, closing the client and cluster.
+2024-10-04 14:59:44,008 __main__     WARNING  Exception while closing the client: 
