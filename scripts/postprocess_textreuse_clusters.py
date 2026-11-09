@@ -80,25 +80,58 @@ def mint_document_ids(row) -> str:
     ])
     
 
-def lexicaloverlap(texts):
-    #texts = row['text']
-    first = True
-    intersection = list()
-    
-    longest_text_length = max([len(text) for text in texts])
-    
+import random
+
+
+def lexicaloverlap(texts, max_samples: int = 50) -> float:
+    """Compute the lexical overlap percentage for a collection of texts in a cluster.
+
+    Uses the mean pairwise Jaccard similarity across token sets rather than an
+    N-way set intersection. An N-way intersection drops to 0% for large or drifting
+    clusters even when individual passages are highly similar.
+
+    For large clusters (> max_samples), a deterministic sample of size max_samples
+    is used to keep computation O(k^2) rather than O(N^2).
+
+    Args:
+        texts: An iterable of passage text strings belonging to the cluster.
+        max_samples: Maximum number of passage token sets to sample for pairwise
+            similarity computation (default: 50).
+
+    Returns:
+        float: Mean pairwise Jaccard similarity as a percentage [0.0, 100.0].
+    """
     token_sets = [
         set(re.sub(r'[().,;:!0-9"{}\][»«]', '', text).lower().split())
         for text in texts
     ]
-    
-    longest_text_length = max([len(ts) for ts in token_sets])
-    intersection = set.intersection(*token_sets)
-    if longest_text_length == 0:
-        return 0
-    
-    overlap_pct = (len(intersection) * 100) / longest_text_length
-    return overlap_pct
+    # Filter out empty token sets
+    token_sets = [ts for ts in token_sets if len(ts) > 0]
+    n = len(token_sets)
+
+    if n <= 1:
+        return 100.0 if n == 1 else 0.0
+
+    if n > max_samples:
+        rng = random.Random(42)
+        token_sets = rng.sample(token_sets, max_samples)
+        n = len(token_sets)
+
+    total_sim = 0.0
+    total_pairs = 0
+    for i in range(n):
+        ts_i = token_sets[i]
+        for j in range(i + 1, n):
+            ts_j = token_sets[j]
+            intersection_len = len(ts_i & ts_j)
+            union_len = len(ts_i | ts_j)
+            total_sim += (intersection_len / union_len) if union_len > 0 else 0.0
+            total_pairs += 1
+
+    if total_pairs == 0:
+        return 0.0
+
+    return round((total_sim / total_pairs) * 100.0, 2)
 
 def get_timedelta(min_date: str, max_date: str) -> timedelta:
     min = datetime.strptime(min_date, '%Y-%m-%d').date()
