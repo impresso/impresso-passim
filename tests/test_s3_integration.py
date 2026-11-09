@@ -32,6 +32,27 @@ def s3_client():
     return client
 
 
+def test_s3_read_component_final_passim_data(s3_client):
+    """Test reading real production passim input data from 132-component-final."""
+    bucket = "132-component-final"
+    key = "passim/SWA/arbeitgeber/arbeitgeber-1907.jsonl.bz2"
+
+    obj = s3_client.get_object(Bucket=bucket, Key=key)
+    # Stream first chunk and decompress lines
+    data = obj["Body"].read(1024 * 512)
+    decompressor = bz2.BZ2Decompressor()
+    decompressed = decompressor.decompress(data)
+    lines = decompressed.decode("utf-8", errors="ignore").splitlines()
+
+    assert len(lines) > 0
+    record = json.loads(lines[0])
+    assert record["series"] == "arbeitgeber"
+    assert "date" in record
+    assert "id" in record
+    assert "text" in record
+    assert "pages" in record
+
+
 def test_s3_read_sample_clusters_and_passages(s3_client):
     """Test reading real cluster records from S3 and checking lexical overlap computation."""
     bucket = "41-processed-data-staging"
