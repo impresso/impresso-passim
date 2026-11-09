@@ -31,6 +31,7 @@ from ast import literal_eval
 import dask.config
 from docopt import docopt
 from impresso_essentials.utils import init_logger
+from scripts.alignment_refinement import refine_cluster_passages_with_medoid
 
 logger = logging.getLogger(__name__)
 

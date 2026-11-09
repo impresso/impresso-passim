@@ -144,3 +144,86 @@ def refine_passage_bounding_box(
         passage_record["lcs_token_count"] = match_result["token_count"]
 
     return passage_record
+
+
+def refine_cluster_passages_with_medoid(
+    records: List[dict],
+    min_tokens: int = 5,
+    max_medoid_samples: int = 50,
+) -> List[dict]:
+    """Refine all passages within a cluster against the cluster's medoid passage.
+
+    Finds the medoid passage (the passage most representative of the cluster by
+    mean Jaccard similarity) and extracts the longest contiguous matching token
+    subsequence (LCS) of each passage against this medoid.
+
+    Adds the following fields to each passage record:
+        - `lcs_token_count` (int): Number of contiguous words matched against the medoid.
+        - `lcs_begin` (int or None): Adjusted start character offset.
+        - `lcs_end` (int or None): Adjusted end character offset.
+        - `lcs_text` (str or None): Extracted contiguous matching text slice.
+
+    Args:
+        records: List of passage dicts belonging to the same cluster.
+        min_tokens: Minimum contiguous tokens required for a valid refined span.
+        max_medoid_samples: Max passages sampled when selecting the medoid.
+
+    Returns:
+        List of passage dicts enriched with LCS alignment metrics.
+    """
+    if len(records) == 0:
+        return records
+
+    if len(records) == 1:
+        r = records[0]
+        tokens = tokenize_with_offsets(r.get("text", ""))
+        r["lcs_token_count"] = len(tokens)
+        r["lcs_begin"] = r.get("begin")
+        r["lcs_end"] = r.get("end")
+        r["lcs_text"] = r.get("text")
+        return [r]
+
+    # Sample if cluster is very large to determine the medoid quickly
+    import random
+
+    sample_pool = records
+    if len(records) > max_medoid_samples:
+        rng = random.Random(42)
+        sample_pool = rng.sample(records, max_medoid_samples)
+
+    token_sets = [
+        set(re.sub(r'[().,;:!0-9"{}\][»«]', "", r.get("text", "")).lower().split())
+        for r in sample_pool
+    ]
+
+    scores = []
+    for i, ts_i in enumerate(token_sets):
+        sims = [
+            (len(ts_i & ts_j) / len(ts_i | ts_j))
+            for j, ts_j in enumerate(token_sets)
+            if i != j and (ts_i | ts_j)
+        ]
+        scores.append(sum(sims) / len(sims) if sims else 0.0)
+
+    medoid_idx = scores.index(max(scores))
+    medoid_text = sample_pool[medoid_idx].get("text", "")
+
+    for r in records:
+        text = r.get("text", "")
+        match = longest_contiguous_matching_span(
+            text, medoid_text, min_tokens=min_tokens
+        )
+        r["lcs_token_count"] = match["token_count"]
+        span = match["char_span_a"]
+        if span is not None:
+            rel_start, rel_end = span
+            base_begin = r.get("begin", 0)
+            r["lcs_begin"] = base_begin + rel_start
+            r["lcs_end"] = base_begin + rel_end
+            r["lcs_text"] = match["matched_text_a"]
+        else:
+            r["lcs_begin"] = None
+            r["lcs_end"] = None
+            r["lcs_text"] = None
+
+    return records

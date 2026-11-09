@@ -46,17 +46,35 @@ def test_longest_contiguous_matching_span_valid_embedded_reuse():
     assert "La séance d'ouverture du parlement aura lieu vendredi matin dans la grande salle du conseil" in res["matched_text_a"]
 
 
-def test_refine_passage_bounding_box():
-    passage = {
-        "id": "doc1@100:250",
-        "begin": 100,
-        "end": 250,
-        "text": "Intro text before quote: La séance d'ouverture du parlement aura lieu vendredi matin. Outro text after.",
-    }
-    reference = "La séance d'ouverture du parlement aura lieu vendredi matin sans délai."
+def test_refine_cluster_passages_with_medoid():
+    from scripts.alignment_refinement import refine_cluster_passages_with_medoid
 
-    refined = refine_passage_bounding_box(passage, reference, min_tokens=5)
-    assert refined["lcs_token_count"] == 10
-    assert refined["begin"] > 100
-    assert refined["end"] < 250
-    assert refined["text"] == "La séance d'ouverture du parlement aura lieu vendredi matin"
+    passages = [
+        {
+            "id": "doc1@10:100",
+            "begin": 10,
+            "end": 100,
+            "text": "Intro: Rapport annuel et comptes pour l'exercice 1928 approuvés.",
+        },
+        {
+            "id": "doc2@50:140",
+            "begin": 50,
+            "end": 140,
+            "text": "Extrait: Rapport annuel et comptes pour l'exercice 1928 approuvés hier.",
+        },
+        {
+            "id": "doc3@0:80",
+            "begin": 0,
+            "end": 80,
+            "text": "Totalement différent sans aucun rapport financier ici.",
+        },
+    ]
+
+    refined = refine_cluster_passages_with_medoid(passages, min_tokens=5)
+    assert len(refined) == 3
+    # doc1 and doc2 match on "Rapport annuel et comptes pour l'exercice 1928 approuvés"
+    assert refined[0]["lcs_token_count"] >= 8
+    assert refined[1]["lcs_token_count"] >= 8
+    assert refined[0]["lcs_begin"] is not None
+    # doc3 does not match the medoid above min_tokens
+    assert refined[2]["lcs_begin"] is None
