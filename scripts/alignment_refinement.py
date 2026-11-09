@@ -6,6 +6,7 @@ tools to find contiguous matching token subsequences (Longest Common Substring /
 k-mer matching) to tighten passage boundaries and filter out spurious alignments.
 """
 
+import difflib
 import re
 from typing import Dict, List, Optional, Tuple
 
@@ -23,6 +24,167 @@ def tokenize_with_offsets(text: str) -> List[Tuple[str, int, int]]:
         (match.group().lower(), match.start(), match.end())
         for match in re.finditer(r"\w+", text)
     ]
+
+
+def find_chained_contiguous_spans(
+    text_a: str,
+    text_b: str,
+    min_anchor_tokens: int = 3,
+) -> List[Dict]:
+    """Find all matching contiguous token runs (anchors) between text_a and text_b.
+
+    Args:
+        text_a: First passage text.
+        text_b: Second passage text.
+        min_anchor_tokens: Minimum contiguous tokens for an anchor run (default: 3).
+
+    Returns:
+        List of anchor dicts sorted by position in text_a:
+        [{'start_a', 'end_a', 'start_b', 'end_b', 'length'}, ...]
+    """
+    toks_a = tokenize_with_offsets(text_a)
+    toks_b = tokenize_with_offsets(text_b)
+    words_a = [t[0] for t in toks_a]
+    words_b = [t[0] for t in toks_b]
+
+    len_a = len(words_a)
+    len_b = len(words_b)
+    if len_a == 0 or len_b == 0:
+        return []
+
+    dp = [[0] * (len_b + 1) for _ in range(len_a + 1)]
+    raw_anchors = []
+
+    for i in range(1, len_a + 1):
+        for j in range(1, len_b + 1):
+            if words_a[i - 1] == words_b[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                if dp[i - 1][j - 1] >= min_anchor_tokens:
+                    length = dp[i - 1][j - 1]
+                    raw_anchors.append({
+                        "start_a": i - 1 - length,
+                        "end_a": i - 1,
+                        "start_b": j - 1 - length,
+                        "end_b": j - 1,
+                        "length": length,
+                    })
+                dp[i][j] = 0
+        if dp[i][len_b] >= min_anchor_tokens:
+            length = dp[i][len_b]
+            raw_anchors.append({
+                "start_a": i - length,
+                "end_a": i,
+                "start_b": len_b - length,
+                "end_b": len_b,
+                "length": length,
+            })
+
+    raw_anchors.sort(key=lambda m: (m["start_a"], m["start_b"]))
+
+    # Deduplicate / prune sub-runs contained within larger anchors
+    filtered_anchors: List[Dict] = []
+    for a in raw_anchors:
+        if not any(
+            f["start_a"] <= a["start_a"]
+            and f["end_a"] >= a["end_a"]
+            and f["start_b"] <= a["start_b"]
+            and f["end_b"] >= a["end_b"]
+            for f in filtered_anchors
+        ):
+            filtered_anchors.append(a)
+
+    return filtered_anchors
+
+
+def align_two_phase_with_ocr(
+    text_a: str,
+    text_b: str,
+    min_anchor_tokens: int = 3,
+    max_gap_tokens: int = 8,
+    ocr_sim_threshold: float = 0.65,
+) -> Dict:
+    """Two-Phase Alignment: Exact k-mer Anchors + Local Fuzzy OCR Gap Resolution.
+
+    Phase 1: Identifies all solid multi-word anchor runs (>= min_anchor_tokens)
+             using exact token matching.
+    Phase 2: In the small gaps between consecutive anchors (<= max_gap_tokens),
+             aligns corrupted words that have character similarity >= ocr_sim_threshold
+             (e.g., 'vandolse' <=> 'vaudolse', 'Bestlères' <=> 'Bessiéres').
+
+    Args:
+        text_a: First passage text.
+        text_b: Second passage text.
+        min_anchor_tokens: Minimum words for an anchor run (default: 3).
+        max_gap_tokens: Maximum tokens in a gap to evaluate for OCR recovery (default: 8).
+        ocr_sim_threshold: Minimum character similarity ratio for OCR match (default: 0.65).
+
+    Returns:
+        Dict with:
+            - 'spans_a': List of (start_char, end_char, match_type) tuples in text_a.
+            - 'spans_b': List of (start_char, end_char, match_type) tuples in text_b.
+            - 'ocr_matches': List of (word_a, word_b, sim_ratio) tuples recovered in Phase 2.
+            - 'total_matched_tokens': Total tokens aligned across both phases.
+    """
+    toks_a = tokenize_with_offsets(text_a)
+    toks_b = tokenize_with_offsets(text_b)
+    words_a = [t[0] for t in toks_a]
+    words_b = [t[0] for t in toks_b]
+
+    anchors = find_chained_contiguous_spans(
+        text_a, text_b, min_anchor_tokens=min_anchor_tokens
+    )
+
+    spans_a = []
+    spans_b = []
+    ocr_matches = []
+    matched_tokens_count = 0
+
+    for idx, anc in enumerate(anchors):
+        # Phase 1: Exact anchor span
+        spans_a.append((toks_a[anc["start_a"]][1], toks_a[anc["end_a"] - 1][2], "exact"))
+        spans_b.append((toks_b[anc["start_b"]][1], toks_b[anc["end_b"] - 1][2], "exact"))
+        matched_tokens_count += anc["length"]
+
+        # Phase 2: Gap resolution between this anchor and the next
+        if idx < len(anchors) - 1:
+            next_anc = anchors[idx + 1]
+            gap_a_start, gap_a_end = anc["end_a"], next_anc["start_a"]
+            gap_b_start, gap_b_end = anc["end_b"], next_anc["start_b"]
+
+            len_gap_a = gap_a_end - gap_a_start
+            len_gap_b = gap_b_end - gap_b_start
+
+            if 0 < len_gap_a <= max_gap_tokens and 0 < len_gap_b <= max_gap_tokens:
+                sub_a = words_a[gap_a_start:gap_a_end]
+                sub_b = words_b[gap_b_start:gap_b_end]
+
+                matcher = difflib.SequenceMatcher(None, sub_a, sub_b)
+                for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+                    if tag == "replace" and (i2 - i1 == 1) and (j2 - j1 == 1):
+                        w_a = sub_a[i1]
+                        w_b = sub_b[j1]
+                        # Only match non-numeric or long numeric words with high similarity
+                        sim = difflib.SequenceMatcher(None, w_a, w_b).ratio()
+                        if sim >= ocr_sim_threshold:
+                            pos_a = gap_a_start + i1
+                            pos_b = gap_b_start + j1
+                            spans_a.append((toks_a[pos_a][1], toks_a[pos_a][2], "ocr"))
+                            spans_b.append((toks_b[pos_b][1], toks_b[pos_b][2], "ocr"))
+                            ocr_matches.append((w_a, w_b, round(sim, 2)))
+                            matched_tokens_count += 1
+
+    # Sort spans by starting character offset
+    spans_a.sort(key=lambda s: s[0])
+    spans_b.sort(key=lambda s: s[0])
+
+    return {
+        "spans_a": spans_a,
+        "spans_b": spans_b,
+        "ocr_matches": ocr_matches,
+        "total_matched_tokens": matched_tokens_count,
+        "anchor_count": len(anchors),
+    }
 
 
 def longest_contiguous_matching_span(
