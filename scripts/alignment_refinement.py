@@ -94,14 +94,39 @@ def find_chained_contiguous_spans(
         ):
             filtered_anchors.append(a)
 
-    return filtered_anchors
+    if not filtered_anchors:
+        return []
+
+    # Enforce collinearity (monotonic progression in both texts)
+    # This prevents inverted / transposed cross-over anchors (e.g. an agency block moved
+    # from the bottom to the top) from creating contradictory negative gaps.
+    filtered_anchors.sort(key=lambda x: x["start_a"])
+    dp_chain = [1] * len(filtered_anchors)
+    parent = [-1] * len(filtered_anchors)
+
+    for i in range(len(filtered_anchors)):
+        for j in range(i):
+            if filtered_anchors[j]["end_b"] <= filtered_anchors[i]["start_b"]:
+                if dp_chain[j] + 1 > dp_chain[i]:
+                    dp_chain[i] = dp_chain[j] + 1
+                    parent[i] = j
+
+    best_idx = dp_chain.index(max(dp_chain))
+    collinear_chain = []
+    curr = best_idx
+    while curr != -1:
+        collinear_chain.append(filtered_anchors[curr])
+        curr = parent[curr]
+    collinear_chain.reverse()
+
+    return collinear_chain
 
 
 def align_two_phase_with_ocr(
     text_a: str,
     text_b: str,
     min_anchor_tokens: int = 3,
-    max_gap_tokens: int = 8,
+    max_gap_tokens: int = 15,
     ocr_sim_threshold: float = 0.65,
 ) -> Dict:
     """Two-Phase Alignment: Exact k-mer Anchors + Local Fuzzy OCR Gap Resolution.
