@@ -129,7 +129,7 @@ def main():
     logger.info("pb.pkl successfully created and saved to disk at %s: %s", bp_pkl_out_filepath, all(filtered_dup_bp == b))
 
     bp_key_name = os.path.join(s3_bp_patition, bp_filename)
-    logger.info(f"Uploading newly created file to S3 at path: {os.path.join("s3://", s3_bucket, bp_key_name)}")
+    logger.info(f"Uploading newly created file to S3 at path: {os.path.join('s3://', s3_bucket, bp_key_name)}")
 
     s3 = get_s3_resource()
     bucket = s3.Bucket(s3_bucket)

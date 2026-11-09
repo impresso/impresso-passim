@@ -261,22 +261,14 @@ def process_newspaper(np, input_bucket, output_bucket, bp_df_future, client):
         del passim_data
         del passim_filtered
         del future
-        gc.collect()  # some more garbage
-
-        try:
-            client.cancel(passim_data)
-            client.cancel(passim_filtered)
-            client.cancel(future)
-            print("Cancelled 'future'")
-        except:
-            print("Could not cancel 'future'")
+        gc.collect()  # collect garbage
 
     logger.info(
         f"Written {len(output_files)} output files; first five: {output_files[:5]}"
     )
     print(f"Written {len(output_files)} output files; first five: {output_files[:5]}")
 
-    print(f"Using del np_bp_set here to reduce the memory usage")
+    print("Using del np_bp_set here to reduce the memory usage")
     del np_bp_set
     gc.collect()  # Force garbage collection
 

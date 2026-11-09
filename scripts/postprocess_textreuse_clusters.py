@@ -88,7 +88,7 @@ def lexicaloverlap(texts):
     longest_text_length = max([len(text) for text in texts])
     
     token_sets = [
-        set(re.sub('[().,;:!0-9"{}\][»«]','',text).lower().split())
+        set(re.sub(r'[().,;:!0-9"{}\][»«]', '', text).lower().split())
         for text in texts
     ]
     
@@ -116,10 +116,6 @@ def groupby_cluster_apply(data_df: dd.DataFrame, col_name: str, apply_func: Call
     logger.info("Grouping by cluster, for %s column.", col_name)
 
     return data_df.groupby('cluster')[col_name].apply(apply_func, meta=(col_name, object)).compute()
-    c_df.loc[:, new_col] = series
-    #np_sub = passim_data_df.groupby('cluster').apply(lambda r: sorted(r['series'].unique()), meta=('np', object)).compute()
-    #clusters_df.loc[:, 'newspapers'] = np_sub
-    return c_df
 
 
 def main() -> None:
