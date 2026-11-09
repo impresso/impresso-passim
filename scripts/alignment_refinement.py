@@ -159,20 +159,30 @@ def align_two_phase_with_ocr(
                 sub_a = words_a[gap_a_start:gap_a_end]
                 sub_b = words_b[gap_b_start:gap_b_end]
 
-                matcher = difflib.SequenceMatcher(None, sub_a, sub_b)
-                for tag, i1, i2, j1, j2 in matcher.get_opcodes():
-                    if tag == "replace" and (i2 - i1 == 1) and (j2 - j1 == 1):
-                        w_a = sub_a[i1]
-                        w_b = sub_b[j1]
-                        # Only match non-numeric or long numeric words with high similarity
+                # Robust bipartite matching within the local gap
+                # Allows matching even when an OCR error is accompanied by a stray character or inserted word
+                used_b = set()
+                for i1, w_a in enumerate(sub_a):
+                    best_sim = 0.0
+                    best_j1 = -1
+                    for j1, w_b in enumerate(sub_b):
+                        if j1 in used_b:
+                            continue
                         sim = difflib.SequenceMatcher(None, w_a, w_b).ratio()
-                        if sim >= ocr_sim_threshold:
-                            pos_a = gap_a_start + i1
-                            pos_b = gap_b_start + j1
-                            spans_a.append((toks_a[pos_a][1], toks_a[pos_a][2], "ocr"))
-                            spans_b.append((toks_b[pos_b][1], toks_b[pos_b][2], "ocr"))
-                            ocr_matches.append((w_a, w_b, round(sim, 2)))
-                            matched_tokens_count += 1
+                        if sim > best_sim:
+                            best_sim = sim
+                            best_j1 = j1
+
+                    if best_sim >= ocr_sim_threshold and best_j1 != -1:
+                        used_b.add(best_j1)
+                        pos_a = gap_a_start + i1
+                        pos_b = gap_b_start + best_j1
+                        match_type = "exact" if best_sim == 1.0 else "ocr"
+                        spans_a.append((toks_a[pos_a][1], toks_a[pos_a][2], match_type))
+                        spans_b.append((toks_b[pos_b][1], toks_b[pos_b][2], match_type))
+                        if match_type == "ocr":
+                            ocr_matches.append((w_a, sub_b[best_j1], round(best_sim, 2)))
+                        matched_tokens_count += 1
 
     # Sort spans by starting character offset
     spans_a.sort(key=lambda s: s[0])
