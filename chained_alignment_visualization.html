@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chained Contiguous Spans Alignment</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0b0f19; color: #f1f5f9; padding: 32px; }
+    h1 { color: #38bdf8; font-size: 24px; }
+    .subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 24px; }
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .passage-card { background: #161e2e; border: 1px solid #283548; border-radius: 8px; padding: 18px; }
+    .passage-title { font-size: 15px; font-weight: 600; color: #38bdf8; margin-bottom: 8px; }
+    .passage-text { font-family: ui-monospace, monospace; font-size: 12px; white-space: pre-wrap; background: #0b0f19; padding: 14px; border-radius: 6px; border: 1px solid #283548; line-height: 1.4; }
+    mark.lcs { background: #fde047; color: #0f172a; font-weight: 600; padding: 1px 2px; border-radius: 2px; }
+</style>
+</head>
+<body>
+<h1>Chained Contiguous Spans Alignment (k-mer Anchors)</h1>
+<p class="subtitle">Comparison between NV2 (1873-09-13) and NV2 (1873-09-16) using <strong>9 chained contiguous anchors</strong> across OCR typos and inserted lines.</p>
+
+<div class="comparison-grid">
+    <div class="passage-card">
+        <div class="passage-title">NV2 (1873-09-13) &mdash; Reference Passage</div>
+        <div class="passage-text"><mark class="lcs">les souscriptions.
+La souscription est ouverte du 15 au 20 septembre</mark> 1873,
+<mark class="lcs">aux adresses ci-après:
+A Lausanne</mark>
+<mark class="lcs">A Lausanne: Banque cantonale</mark> vandolse
+<mark class="lcs">et ses Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de</mark> Lansanne s
+&gt; Société financière vandolse;
+» Union vandolse <mark class="lcs">du Crédit;
+» MM</mark>. Ch. Bestlères;
+» Bory &amp; Uollard;
+» <mark class="lcs">J. Brun;
+» Ch. Bugnlon</mark>;
+.....*^.,..-.,7 Ch. Carrard &amp; P«|
+» Conod, Guyc le, C&gt;« |
+»!&#x27;•• Dutolt;
+&gt; Hausammann;
+&gt; Hoirs de Sig. Marcel «
+» IH.asson, Chavannes&amp;C*;
+<mark class="lcs">A Nyon:
+A</mark> Vevey:
+A Monireux:
+A Aigle:
+MM. F. Paqnier &amp; <mark class="lcs">Plttet;
+Siber, Malan</mark> &amp; C1&#x27;)
+<mark class="lcs">Ed. Tlssot;
+Wldmer</mark>.
+L. Gonet.
+Genton &amp;</div>
+    </div>
+    <div class="passage-card">
+        <div class="passage-title">NV2 (1873-09-16) &mdash; Aligned with Chained Anchors</div>
+        <div class="passage-text"><mark class="lcs">les souscriptions.
+La souscription est ouverte du 15 au 20 septembre</mark> 1875,
+<mark class="lcs">aux adresses ci-après:
+A Lausanne</mark>: MM. F. Pnqoler A <mark class="lcs">Plttet;
+Siber. Malan</mark> A €•« |
+<mark class="lcs">A Lausanne: Banque cantonale</mark> vaudolse
+<mark class="lcs">et ses Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de</mark> Lausanne;
+&gt; Société financière vaudolse;
+» Union vaudolse <mark class="lcs">du Crédit;
+» MM</mark>. Cil Bessiéres;
+&gt; Bory &amp; flollard |
+&gt; <mark class="lcs">J. Brun;
+» Ch. Bugnlon</mark>;
+» Ch tarraril &amp; C1&quot;;
+» Conod, Gufe &amp; C&gt;«;
+&gt; Dutoit;
+&gt; Bausammonn;
+&gt; Boirs de Slg. Marcel!
+» Masson, Cliavannes AC«;
+<mark class="lcs">A Nyon:
+A</mark> Vcvey:
+A Montreux
+A Aigle:
+<mark class="lcs">Ed. Tlssot;
+Wldmer</mark>.
+I&gt;. Gonet.
+Genton</div>
+    </div>
+</div>
+</body>
+</html>

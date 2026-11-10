@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Text Reuse Cluster Refinement Visualizer</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #0b0f19; color: #f1f5f9; padding: 32px; line-height: 1.5; }
+    h1 { color: #38bdf8; font-size: 26px; margin-bottom: 8px; font-weight: 700; }
+    p.subtitle { color: #94a3b8; margin-top: 0; margin-bottom: 32px; font-size: 15px; }
+    .cluster-section { background: #161e2e; border-radius: 12px; padding: 24px; margin-bottom: 36px; border: 1px solid #283548; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+    .cluster-title { font-size: 18px; font-weight: 600; color: #f8fafc; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #283548; padding-bottom: 14px; margin-bottom: 18px; }
+    .cluster-metrics { font-size: 13px; color: #94a3b8; display: flex; gap: 12px; }
+    .metric-pill { background: #0b0f19; padding: 6px 12px; border-radius: 6px; border: 1px solid #283548; }
+    .metric-pill strong { color: #38bdf8; }
+    .passages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 18px; }
+    .passage-card { background: #0b0f19; border-radius: 8px; padding: 18px; border: 1px solid #283548; display: flex; flex-direction: column; }
+    .passage-card.rejected-card { border-color: #ef444455; background: #181014; }
+    .passage-header { display: flex; align-items: center; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
+    .passage-id { color: #64748b; font-size: 12px; margin-left: 6px; font-family: ui-monospace, monospace; }
+    .badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .badge.verified { background: #064e3b; color: #34d399; border: 1px solid #059669; }
+    .badge.rejected { background: #450a0a; color: #f87171; border: 1px solid #dc2626; }
+    .passage-meta { font-size: 12px; color: #64748b; margin-bottom: 12px; }
+    .passage-meta code { background: #161e2e; padding: 2px 6px; border-radius: 4px; color: #94a3b8; }
+    .passage-text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; white-space: pre-wrap; word-break: break-word; color: #cbd5e1; background: #161e2e88; padding: 14px; border-radius: 6px; flex-grow: 1; max-height: 280px; overflow-y: auto; border: 1px solid #283548; }
+    mark.lcs-match { background: #fde047; color: #0f172a; font-weight: 600; border-radius: 2px; padding: 1px 3px; }
+</style>
+</head>
+<body>
+<h1>Impresso Passim: Text Reuse Alignment &amp; Cluster Visualizer</h1>
+<p class="subtitle">Comparison of raw Passim passage bounding boxes vs. Longest Contiguous Subsequence (LCS) medoid refinement across real Swiss &amp; French newspaper clusters from S3.</p>
+
+    <div class="cluster-section">
+        <div class="cluster-title">
+            <span>Cluster <code>c42950044747</code> &mdash; Wire Dispatch: Nestlé / Rowntree Takeover (1988) - High Cohesion</span>
+            <div class="cluster-metrics">
+                <div class="metric-pill">Passages: <strong>4</strong></div>
+                <div class="metric-pill">Pairwise Jaccard Overlap: <strong>59.6%</strong></div>
+            </div>
+        </div>
+        <div class="passages-grid">
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>EXP</strong> &mdash; <span>1988-05-25</span>
+            <span class="passage-id">EXP-1988-05-25-a-i0413</span>
+            <span class="badge verified">20 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>1231:1659</code> (428 chars) &bull;
+            Refined Span: <code>1488:1582</code>
+        </div>
+        <div class="passage-text">de mesure du vent, / ats
+ROWNTREE-Lord
+Young, ministre britannique du
+Commerce et de l&#x27;Industrie, donne-
+ra probablement son aval à la tenta-
+tive de rachat de la grande firme
+britannique de chocolat et confiserie
+Rowntree Pic par Nestlé SA, en re-
+nonçant <mark class="lcs-match">à saisir la Commission des
+monopoles et des fusions de l&#x27;offre
+de 2,1 milliards de livres (5,5</mark> mil-
+liards de fr.) formulée par le géant
+suisse, estiment les analystes, / </div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>GDL</strong> &mdash; <span>1988-05-25</span>
+            <span class="passage-id">GDL-1988-05-25-a-i0068</span>
+            <span class="badge verified">72 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>71:481</code> (410 chars) &bull;
+            Refined Span: <code>71:479</code>
+        </div>
+        <div class="passage-text"><mark class="lcs-match">ATS / Reuter).-Lord Young,
+ministre britannique du Commerce et de l&#x27;In-
+dustrie, donnera probablement son aval à la
+tentative de rachat de la grande firme britanni-
+que de chocolat et confiserie Rowntree Pic par
+Nestlé SA, en renonçant à saisir la Commission
+des monopoles et des fusions de l&#x27;offre de 2,1
+milliards de livres (5,5 milliards de francs) for-
+mulée par le géant suisse, estiment les analys-
+tes</mark>.
+</div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>JDG</strong> &mdash; <span>1988-05-25</span>
+            <span class="passage-id">JDG-1988-05-25-a-i0053</span>
+            <span class="badge verified">69 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>71:480</code> (409 chars) &bull;
+            Refined Span: <code>71:463</code>
+        </div>
+        <div class="passage-text"><mark class="lcs-match">ATS / Reuter).-Lord Young,
+ministre britannique du Commerce et de l&#x27;In-
+dustrie, donnera probablement son aval à la
+tentative de rachat de la grande firme britanni-
+que de chocolat et confiserie Rowntree PIc par
+Nestlé SA, en renonçant à saisir la Commission
+des monopoles et des fusions de l&#x27;offre de 2,1
+milliards de livres (5,5 milliards de francs) for-
+mulée par le géant suisse, estiment</mark> lesanalys-
+tes.
+</div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>LLE</strong> &mdash; <span>1988-05-25</span>
+            <span class="passage-id">LLE-1988-05-25-a-i0173</span>
+            <span class="badge verified">13 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>1320:1743</code> (423 chars) &bull;
+            Refined Span: <code>1425:1498</code>
+        </div>
+        <div class="passage-text">de Nestlé sur Rowntree
+Opposition levée
+Lord Young, ministre britanni-
+que du Commerce et de lindustrie,
+<mark class="lcs-match">donnera probablement son aval à la
+tentative de rachat de la grande
+firme</mark> britannique de chocolat et
+confiserie Rowntree Pic par Nestlé
+SA _» n rpnnnrant à saisir la Com
+mission des monopoles et des fu-
+sions de l offre de 2, 1 mia de livres
+( 5, 5 mia de francs) formulée par le
+géant suisse, estiment les analystes.
+</div>
+    </div>
+    
+        </div>
+    </div>
+    
+    <div class="cluster-section">
+        <div class="cluster-title">
+            <span>Cluster <code>c42950044802</code> &mdash; News Story: Hécatombe de chats dans un refuge (1960) - Editorial Variation</span>
+            <div class="cluster-metrics">
+                <div class="metric-pill">Passages: <strong>4</strong></div>
+                <div class="metric-pill">Pairwise Jaccard Overlap: <strong>50.3%</strong></div>
+            </div>
+        </div>
+        <div class="passages-grid">
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>EXP</strong> &mdash; <span>1960-11-28</span>
+            <span class="passage-id">EXP-1960-11-28-a-i0238</span>
+            <span class="badge verified">27 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>0:1613</code> (1613 chars) &bull;
+            Refined Span: <code>395:545</code>
+        </div>
+        <div class="passage-text">Hécatombe de chats
+dans un refuge
+de Mategnin
+GENÈVE
+GENÈVE. — Une chatterie « animaux-
+secours » était créée l&#x27;été dernier à
+Mategnin, sur l&#x27;initiative de personnes
+émues par le sort de chats abandonnés.
+Toutefois les autorités devaient rapi-
+dement constater que les bêtes qui y
+étaient reçues étaient l&#x27;objet de mau-
+vais traitements. Une première plainte
+avait été déposée par le secrétaire
+<mark class="lcs-match">général du département de l&#x27;intérieur.
+Une enquête permit d&#x27;établir que des
+chats avaient été enterrés dans l&#x27;enclos
+même de la chatterie et que leurs</mark> ca-
+davres avaient été déterrés par des
+chiens du refuge. Les chats, encore en
+vie, étaient dans un état de maigreur
+effrayant et atteints de maladie. Plus
+d&#x27;une quarantaine de ces pauvres bê-
+tes seraient mortes faute de nourriture.
+Le local était sans lumière.
+A fin octobre, à la suite de nouvel-
+les plaintes, l&#x27;Office vétérinaire, le ser-
+vice d&#x27;hygiène et le département inter-
+venaient à nouveau et, tout récem-
+ment, quelque 150 chats squelettiques
+et affamés étaient découverts dans
+cette chatterie. Des cadavres de chats
+étaient retrouvés dans des poubelles.
+On en compta une trentaine dans un
+sac.
+En 1952 déjà, la. propriétaire de cette
+chatterie avait laissé dans les armoi-
+res de l&#x27;appartement qu&#x27;elle occupe en
+ville, quantité de chats morts dont elle
+ne pouvait se séparer.
+On apprend qu&#x27;une fillette de 6 ans
+vivant avec ses parents dans un ap-
+partement situé au-dessus de la chat-
+terie a dû être transportée d&#x27;urgence à
+l&#x27;hôpital. On suppose qu&#x27;elle est attein-
+te d&#x27;une infection consécutive à la sa-
+leté régnant dans ce refuge pour les
+chats.
+</div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>GDL</strong> &mdash; <span>1960-11-28</span>
+            <span class="passage-id">GDL-1960-11-28-a-i0036</span>
+            <span class="badge verified">23 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>27:1613</code> (1586 chars) &bull;
+            Refined Span: <code>712:841</code>
+        </div>
+        <div class="passage-text">MATEGNIN
+SCANDALE
+DANS UNE CHATTERIE
+Une chatterie « animaux-secours » était
+créée l&#x27;été dernier à Mategnin (Genève),
+sur l&#x27;initiative de personnes émues par
+le sort de chats abandonnés. Toutefois
+les autorités devaient rapidement cons-
+tater que les bêtes qui y étaient reçues
+étaient l&#x27;objet de mauvais traitements.
+Une première plainte avait été déposée
+par le secrétaire général du Département
+de l&#x27;intérieur.
+Une enquête permis d&#x27;établir que des
+chats avaient été enterrés dans l&#x27;enclos
+même de la chatterie et que leurs cada-
+vres avaient été déterrés par des chiens
+du refuge. Les chats encore en vie étaient
+dans un état de maiereur effrayant et
+atteints de maladie. Plus d&#x27;un <mark class="lcs-match">quaran-
+taine de ces pauvres bêtes seraient mortes
+faute de nourriture. Le local était sans
+lumière.
+A fin octobre, à la suite de</mark> nouvelles
+plaintes, l&#x27;office vétérinaire, le service
+d&#x27;hygiène et le département intervenaient
+à nouveau et tout récemment quelques
+150, chats squclcttitiucs et affamés étalpr / t
+découverts dans cette chatterie. Des car
+davres .. de- chats étaient retrouvés dans
+des poubelles. On en compta une tren-
+taine dans un sac.
+Eh 1952 déjà, la propriétaire de cette
+chatterie avait laissé dans les armoires
+de l&#x27;anpartement qu elle occupe en ville
+quantité de chats morts dont elle ne
+pouvait se séparer.
+On apprend qu&#x27;une fillette de 6 ans
+vivant avec ses parents dans un apparte-
+ment situé au-dessus de la chatterie a dû
+être transportée d&#x27;urgence à l&#x27;hôpital. On
+suppose qu&#x27;elle est atteinte d&#x27;une infec-
+tion consécutive à la saleté régnant dans
+ce refuge pour les chats. </div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>LLE</strong> &mdash; <span>1960-11-28</span>
+            <span class="passage-id">LLE-1960-11-28-a-i0035</span>
+            <span class="badge verified">9 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>2004:3545</code> (1541 chars) &bull;
+            Refined Span: <code>2527:2572</code>
+        </div>
+        <div class="passage-text">scandale
+Une chatterie « animaux-secours » etait creee lete
+dernier ä Mategnm. sur 1 indtiative de personnes
+emues par le sort de chats abandonnes. Toutefois,
+les autorites devaient rapidement constater que les
+betes qui y etaient regues etaient lobjet de mauvais
+traitements. Une premiere plainte avadt ete deposee
+par le secretaire general du Departement de linte-
+rieur. Une enquete. permit d etablir que des Chats
+avaient ete enterres dans l enclos meme de la chat-
+terie et aue leuns cadavres avaient ete deterres Dar
+<mark class="lcs-match">des chiens du refuge. Les chats encore en vie</mark> etaient
+dans un etat de maigreur effrayant et atteints de
+maladie. Plus d une quarantaine de ces pauvres
+betes seraient mortes faute de nourriture. De plus,
+le local etait sans lumiere.
+A fin octobre, ä la suite de nouvelles plaintes,
+lOffice veterinaire, le Service dhygiene et le Depar-
+tement intervenaient ä nouveau et, tout recemment,
+quelque 150 chats, squelettiques et affames, etaient
+decouverts dans cette chatterie. Des cadavres de
+chats etaient retrouves rians des nmibeldps. On p, n
+compta une trentaine dans un sac! En 1952 dejä, la
+proprietaire de cette chatterie avait laisse dans les
+armoires de 1 appartement qu edle oecupe en ville
+quantite de Chats morts dornt eile ne pouvait se
+separer.
+On apprend quune fillette de 6 ans, vivant avec
+ses parents dans un appartement situe au-deissus de la
+chatterie, a du etre transportee d urgence ä lhöpital.
+On suppose quelle est atteinte d une. infeetdon conse-
+cutive ä la salete invraisemblable regnant dans ce
+</div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>IMP</strong> &mdash; <span>1960-11-29</span>
+            <span class="passage-id">IMP-1960-11-29-a-i0145</span>
+            <span class="badge verified">273 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>0:1589</code> (1589 chars) &bull;
+            Refined Span: <code>0:1587</code>
+        </div>
+        <div class="passage-text"><mark class="lcs-match">Hécatombe de chats dans un refuge de Genève
+Une chatterie « animaux-secours »
+était créée l&#x27;été dernier à Mategnin,
+sur l&#x27;initiative des personnes émues
+par le sort de chats abandonnés.
+Toutefois les autorités devaient ra-
+pidement constater que les bêtes qui
+y étaient reçues étaient l&#x27;objet de
+mauvais traitements. Une première
+plainte avait été déposée par le se-
+crétaire général du département de
+l&#x27;intérieur.
+Une enquête permit d&#x27;établir que
+des chats avaient été enterrés dans
+l&#x27;enclos même de la chatterie et
+que leurs cadavres avaient été dé-
+terrés par des chiens du refuge. Les
+chats, encore en vie, étaient dans
+un état de maigreur effrayant et at-
+teints de maladie. Plus d&#x27;une quaran-
+taine de ces pauvres bêtes seraient
+mortes faute de nourriture. Le local
+était sans lumière.
+A fin octobre, à la suite de nouvel-
+les plaintes, l&#x27;Office vétérinaire, le
+service d&#x27;hygiène et le département
+intervenaient à nouveau et, tout ré-
+cemment, quelque 150 chats squelet-
+tiques et affamés étaient découverts
+dans cette chatterie. Des cadavres
+de chats étaient retrouvés dans des
+poubelles. On en compta une tren-
+taine dans un sac.
+En 1952 déjà, la propriétaire de
+cette chatterie avait laissé dans les
+armoires de l&#x27;appartement qu&#x27;elle
+occupe en ville, quantité de chats
+morts dont elle ne pouvait se sépa-
+rer.
+On apprend qu&#x27;une fillette de
+six ans vivant avec ses parents dans
+un appartement situé au-dessus de
+la chatterie a dû être transportée
+d&#x27;urgence à l&#x27;hôpital. On suppose
+qu&#x27;elle est atteinte d&#x27;une infection
+consécutive à la saleté régnant dans
+ce refuge pour les chats</mark>. </div>
+    </div>
+    
+        </div>
+    </div>
+    
+    <div class="cluster-section">
+        <div class="cluster-title">
+            <span>Cluster <code>c307</code> &mdash; Administrative / Shareholder Notice (1873-1948) - Monster Drift</span>
+            <div class="cluster-metrics">
+                <div class="metric-pill">Passages: <strong>4</strong></div>
+                <div class="metric-pill">Pairwise Jaccard Overlap: <strong>43.7%</strong></div>
+            </div>
+        </div>
+        <div class="passages-grid">
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>NV2</strong> &mdash; <span>1873-03-27</span>
+            <span class="passage-id">NV2-1873-03-27-a-i0004</span>
+            <span class="badge verified">12 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>3961:4526</code> (565 chars) &bull;
+            Refined Span: <code>3961:4054</code>
+        </div>
+        <div class="passage-text"><mark class="lcs-match">les souscriptions subiront une réduction proportionnelle.,
+La souscription est ouverte dès le</mark> 3 1 mars au 5
+A Lausanne: Banque cantonale vaudoise
+et ses Agenceb dans le canton;
+Banque fédérale, Comptoir
+de Lausanne;
+Société financière vaudoise;
+l’nion vandoise du Crédit |
+Ch. Bessières;!
+Bory et flollard;
+J. Brun;
+Ch. Bugnora;
+Ch Carrard et Comp.;
+Conod, Guye et Comp.;
+Uansammann &lt;
+vril aux adresses ci-après:
+A Lausanne: Hoirs de Sig. Marcel;
+» Masson, Chavannew et Comp.
+&gt; F. Paqoier et Pittet;
+» Slber, Malan et Comp.;
+» Ed. Tissot;
+» Wldmer.
+A Vevey: Genton </div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>NV2</strong> &mdash; <span>1873-03-28</span>
+            <span class="passage-id">NV2-1873-03-28-a-i0004</span>
+            <span class="badge verified">19 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>6529:7285</code> (756 chars) &bull;
+            Refined Span: <code>6992:7131</code>
+        </div>
+        <div class="passage-text">les souscriptions subiront une réduction proportionnelle.
+La souscription est ouverte dès le 3 1 mars au 5 avril aux adresses ci-après:
+A Lausanne: Boira de Slg. Marcel t
+» Naaaon, Chavannea et Comp.
+* F. Paqoter et Plttet t
+&gt; Slber, Malan et Comp.;
+■ Ed. Tiasot t
+&gt; Wldmer.
+A Vevey: Genton et Comp.
+A Nyon: L. Gonet.
+A Aigle: Aug. de Bameru.
+A Yverdon: Société yverdonnolae de Cré¬
+dit et d’Epargne.
+A Berne: Schwelz. Verelnabank.
+A Zurich: Mejer et Peataloszl.
+<mark class="lcs-match">A Lausanne: Banque cantonale vaudoise
+et ses Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de Lausanne;
+• Société financière vaudoise</mark>;
+» L&#x27;nion vaudoise du Crédit;
+&gt; Ch. Besaières;
+» Bory et Hollard;
+» J. Brun;
+» Ch. Bugaon;
+&gt; Ch Carrard et Comp. $
+• Conod, Gnye et Comp.;
+» Hausammann;
+</div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>NV2</strong> &mdash; <span>1873-03-29</span>
+            <span class="passage-id">NV2-1873-03-29-a-i0004</span>
+            <span class="badge verified">91 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>5961:6560</code> (599 chars) &bull;
+            Refined Span: <code>5961:6559</code>
+        </div>
+        <div class="passage-text"><mark class="lcs-match">les souscriptions subiront une réduction proportionnelle.
+La souscription est ouverte dès le S 1 mars au 5 avril aux adresses ci-après:
+A Lausanne: Banque cantonale vaudoise
+et ses Agences dans le canton;
+» Banque fédérale, Comptoir
+de Lausanne?
+» Société financière vaudoise;
+• Union vaudoise du Crédit;
+» Ch. Bessléres;
+• Il or Y et Hollard;
+• J. Brun;
+• Ch. Bugnon &lt; «
+&gt; Ch Carrard et Comp.;
+&gt; Conod, Gnye et Comp.;
+» Dutolt;
+» Hansammann i
+A Lausanne: Hoirs de SI &lt;|. Marcel;
+• Masson, Chavnnne» et Comp.
+. F. Paqoicr et Plttct;
+■ Sibcr, iMalan et Comp.;
+» Ed. Tlssot;
+» Wldmer.
+A Vevey: Genton</mark> </div>
+    </div>
+    
+    <div class="passage-card ">
+        <div class="passage-header">
+            <strong>NV2</strong> &mdash; <span>1873-03-31</span>
+            <span class="passage-id">NV2-1873-03-31-a-i0004</span>
+            <span class="badge verified">13 tokens matched</span>
+        </div>
+        <div class="passage-meta">
+            Raw Span: <code>6870:7776</code> (906 chars) &bull;
+            Refined Span: <code>7245:7314</code>
+        </div>
+        <div class="passage-text">un intérêt de 6% 1 an. A partir de cette époque les bénéfices seront répartis conformément
+aux statuts.
+Les fondateurs ft’étant réservés trois cents actions an pair, la souscription pu-
+b II que n’est ouverte que pour le solde, soit sept cents action*.-Si ce chiffre est
+dépassé, les souscriptions subiront une réduction proportionnelle.
+La souscription est onverte dès le 8 <mark class="lcs-match">1 mars au 5 avril aux adresses ci-après:
+A Lausanne: Banque cantonale</mark> vaudolse
+et ses Agences dans le canton;
+» Banque fédérale, Comptoir
+de Lausanne;
+* Société financière vaudolse j
+* Union vaudolse dn Crédit%
+» Ch. Besslères;
+&gt;, Bor y et Hollard t
+■ J. Brun |
+» Ch. Bugnon s
+* Ch Carrard et Comp.i
+» Conod, Guye et Comp.;
+&gt; Dutoit t
+» Hausammann t
+A Lausanne; Hoirs de Blg. Marcel;
+» IBasson, Chavannes et Comp.
+» F. Paquler et Plttct;
+• Slber, Malan et Comp.;
+» Ed. Tlssot;
+* Widmer.
+A Yevey: Genton et Comp.
+ANyon: L. Gonet.
+A </div>
+    </div>
+    
+        </div>
+    </div>
+    
+</body>
+</html>

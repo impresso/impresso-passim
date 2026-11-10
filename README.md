@@ -4,6 +4,17 @@
 
 This repository contains code and sample data related to running the impresso corpus through the text reuse detection software [`passim`](https://github.com/dasmiq/passim).
 
+## Advanced Cluster & Passage Refinement
+
+For detailed documentation on the post-hoc re-clustering algorithms (temporal gap bisection + Louvain community detection) and two-phase passage alignment (collinear exact anchors + bounded OCR typo recovery in gaps), see:
+
+👉 [**Cluster & Passage Refinement Guide**](CLUSTER_REFINEMENT_README.md)  
+👉 [**DevOps & DataOps Operations Guide (HOWTO.md)**](HOWTO.md)  
+👉 [**NLP Technical Report & Revision Examples (NLP_REVISION_REPORT.md)**](NLP_REVISION_REPORT.md)
+
+
+
+
 **TODO**: link to Programming Historian lesson *Detecting Text Reuse with Passim* as soon as it will be published. 
 
 ## License

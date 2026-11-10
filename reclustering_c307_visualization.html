@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Post-Hoc Re-Clustering of Monster Cluster c307</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0b0f19; color: #f1f5f9; padding: 32px; line-height: 1.5; }
+    h1 { color: #38bdf8; font-size: 26px; margin-bottom: 8px; font-weight: 700; }
+    p.subtitle { color: #94a3b8; margin-top: 0; margin-bottom: 28px; font-size: 15px; }
+    .banner { background: #1e1b4b; border: 1px solid #4338ca; border-radius: 8px; padding: 16px; margin-bottom: 32px; font-size: 14px; }
+    .banner strong { color: #a5b4fc; }
+    .subcluster-card { background: #161e2e; border-radius: 10px; padding: 20px; margin-bottom: 24px; border: 1px solid #283548; }
+    .subcluster-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #283548; padding-bottom: 12px; margin-bottom: 16px; }
+    .subcluster-title { font-size: 17px; font-weight: 600; color: #38bdf8; }
+    .pill { background: #0b0f19; padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #94a3b8; border: 1px solid #283548; }
+    .pill strong { color: #f8fafc; }
+    .passages-list { display: flex; flex-direction: column; gap: 12px; }
+    .passage-item { background: #0b0f19; border-radius: 6px; padding: 12px 16px; border: 1px solid #283548; }
+    .passage-meta { font-size: 12px; color: #64748b; margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .passage-text { font-family: ui-monospace, monospace; font-size: 12px; color: #cbd5e1; white-space: pre-wrap; }
+    mark.lcs { background: #fde047; color: #0f172a; font-weight: 600; padding: 1px 3px; border-radius: 2px; }
+</style>
+</head>
+<body>
+<h1>Post-Hoc Re-Clustering: Decomposing Cluster <code>c307</code></h1>
+<p class="subtitle">Demonstration of Temporal Bisection + Louvain LCS Community Detection resolving Passim's transitive drift on real S3 corpus data.</p>
+
+<div class="banner">
+    <strong>Before Re-clustering:</strong> Cluster <code>c307</code> was a giant single-linkage monster of <strong>42,220 passages</strong> spanning 1873 to 2014 (141 years) with near-zero mutual cohesion.<br>
+    <strong>After Re-clustering:</strong> Decomposed into coherent, tightly bound sub-clusters corresponding to actual historical events and specific newspaper announcements.
+</div>
+
+    <div class="subcluster-card">
+        <div class="subcluster-header">
+            <span class="subcluster-title">Sub-Cluster #1 &mdash; Episode 1873-03-27 to 1873-04-02</span>
+            <div>
+                <span class="pill">Passages: <strong>4</strong></span>
+                <span class="pill">Newspapers: <strong>NV2, handelsztg</strong></span>
+            </div>
+        </div>
+        <div class="passages-list">
+    
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>handelsztg</strong> (1873-04-02) &bull; <code>handelsztg-1873-04-02-a-i0007</code></span>
+                <span>LCS Tokens: <strong>25</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">les souscriptions subiront une
+réduction proportionnelle.
+La souscription est ouverte dès le 31 mars au 5 avril aux adresses ci-après:
+A Lausanne:
+»
+»
+»
+»
+Banque cantonale</mark> vau-
+dOÎSC et ses Agences dans le
+A Lausanne:
+»
+canton;
+Banque fédérale, comp-
+toir de Lausanne;
+Société financière Vau-
+doise;
+Union vaiuloise duCrédit;
+Ch. Bessières;
+Bory et Mollard;
+J. Brun;
+Ch. Biignon;
+Ch. Carrard et Coinp.;
+Conod, Gnye et Comp.;
+»
+A Vevey:
+A Nyon:
+A Aigle:
+A Yverdon:
+|A Berne:
+A Zurich:
+Hausammann;
+Hoirs de Sig. Marcel;
+Masson, Chavannes et Co;
+F. Paquier et Pittet;
+Siber, Malan et Co-;
+Ed. Tissot;
+Widmer.
+Genton </div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>handelsztg</strong> (1873-04-01) &bull; <code>handelsztg-1873-04-01-a-i0005</code></span>
+                <span>LCS Tokens: <strong>102</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">les souscriptions subiront une
+réduction proportionnelle.
+La. souscription est ouverte dès le 31 mars au 5 avril aux adresses ci-après;
+A Lausanne: Banque cantonale van-a Lausanne: Hausaminann;
+doise et ses Agences dans le
+canton;
+Banque fédérale, comp-
+toir de Lausanne;
+Société financière Vau-
+doise;
+Union vaudoise duCr édit;
+Ch. Bessières;
+Bory et llollard;
+J. Brun;
+Ch. Bngnon;
+Ch. Carrard et Comp.; A Berne:
+Conod, Guye et Comp.; a Zurich:
+Vevey:
+A Nyon:
+A Aigle:
+A Yverdon
+Hoirs de Sig. Marcel;
+Masson, Chavannes et Co;
+F Paqnier et Pittet;
+Siber, Malan et Co.;
+Ed. Tissot;
+Widmer.
+Genton et Co.
+L. Gonet</mark>.
+</div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1873-03-27) &bull; <code>NV2-1873-03-27-a-i0004</code></span>
+                <span>LCS Tokens: <strong>12</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">les souscriptions subiront une réduction proportionnelle.,
+La souscription est ouverte dès le</mark> 3 1 mars au 5
+A Lausanne: Banque cantonale vaudoise
+et ses Agenceb dans le canton;
+Banque fédérale, Comptoir
+de Lausanne;
+Société financière vaudoise;
+l’nion vandoise du Crédit |
+Ch. Bessières;!
+Bory et flollard;
+J. Brun;
+Ch. Bugnora;
+Ch Carrard et Comp.;
+Conod, Guye et Comp.;
+Uansammann &lt;
+vril aux adresses ci-après:
+A Lausanne: Hoirs de Sig. Marcel;
+» Masson, Chavannew et Comp.
+&gt; F. Paqoier et Pittet;
+» Slber, Malan et Comp.;
+» Ed. Tissot;
+» Wldmer.
+A Vevey: Genton </div>
+        </div>
+        <div style="font-size: 12px; color: #64748b; text-align: center; margin-top: 8px;">+ 1 more passages in this sub-cluster...</div>
+        </div>
+    </div>
+    
+    <div class="subcluster-card">
+        <div class="subcluster-header">
+            <span class="subcluster-title">Sub-Cluster #2 &mdash; Episode 1873-03-28 to 1873-04-04</span>
+            <div>
+                <span class="pill">Passages: <strong>6</strong></span>
+                <span class="pill">Newspapers: <strong>NV2, esta</strong></span>
+            </div>
+        </div>
+        <div class="passages-list">
+    
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1873-04-01) &bull; <code>NV2-1873-04-01-a-i0004</code></span>
+                <span>LCS Tokens: <strong>24</strong></span>
+            </div>
+            <div class="passage-text">les sauscriptions subiront une réduction proportionnelle.
+La souscription est ouverte dès le 3 <mark class="lcs">1 mars au 5 avril aux adresses ci-après:
+A Lausanne: Banque cantonale vaudoise
+et ses Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de</mark> I.ausannc;
+» Société financière vawdolse;
+» I nion vandoisc du-Créuit;
+» Ch. Brsülére»;
+» Bory et Hollard s
+» J. Brun)
+» Ch. Bugnon:
+» Ch Carrard et Comp.;
+• Conod, Guye et Comp.;
+• Butoit |
+» H nu s amm an il;
+A Lausanne: Hoirs de Slg. Marcel;
+» Massojrî, Chavannes et Comp.
+» F. I*oc|ï8*er et PIttet;
+» Sibcr, Malan et Comp.;
+» Ed. Tlssot;
+-» Widmer.
+A &#x27;Vevey: Genton </div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1873-04-04) &bull; <code>NV2-1873-04-04-a-i0004</code></span>
+                <span>LCS Tokens: <strong>26</strong></span>
+            </div>
+            <div class="passage-text">les souscriptions subiront une réduction proportionnelle. i
+La souscription est ouverte dès le S I <mark class="lcs">mars au 5 avril aux adresses ci-après:
+A Lausanne: Banque cantonale vaudoise
+et ses Agences dans le canton;
+» Banque fédérale, Comptoir
+de Lausanne;
+» Société financière</mark> vandoise;
+&gt; Union vandoise dn Crédit;
+» Ch. Bessières;
+&gt; Bory et Hollard i
+» J. Brnn;
+• Ch. Bngnon;
+&gt; Ch. Carrard et Comp.;
+■ Conod, Guye- et Comp. t
+&gt; Butoit;
+&gt; llansammann |
+A Lausanne: Hoirs de Sig. Marcel;
+&gt; Masson, Chu vannes et Comp.
+• F. Paqnier et Pittet;
+» Siber, Malan et Comp.;
+&gt; Ed. Tlssot;
+» Witlmer.
+A Vevey: G en ton </div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>esta</strong> (1873-04-04) &bull; <code>esta-1873-04-04-a-i0001</code></span>
+                <span>LCS Tokens: <strong>13</strong></span>
+            </div>
+            <div class="passage-text">les souscripteurs subiront une
+réduction proportionnelle.
+La souscriplion esl ouverte, dès le 31 mars au 5 avril, aux adresses suivantes:
+À LAUSANNE: Banque cantonale vau-
+doise <mark class="lcs">et ses Agences dans
+le canton.
+Banque fédérale, comptoir
+de Lausanne.
+Société financière</mark> vau-
+doise.
+Union vaudoise du cré¬
+dit.
+Ch. Bessiéres.
+Bory &amp; Hollard.
+J. Brun.
+Ch. Bugnion.
+Ch. Carrard &amp; Ce.
+Conod, Guye &amp;C°.
+Id.
+Id.
+Id.
+Id.
+Id.
+Id.
+Id.
+Id.
+Id.
+A LAUSANNE:
+Id.
+Id.
+Id.
+Id.
+Id.
+Id.
+Id.
+A NYON:
+A YVERDON:
+A VEVEY:
+A AIGLE:
+A BERNE:
+A ZURICH:
+A.-L. Du toi t.
+Hausamann.
+Hoirs de Si g. Marcel.
+Masson, Chavannes&amp;O
+F. Paquier &amp; Pittet.
+Siber, Malari &amp; C°.
+Ed. Tissot.
+Widmer.
+I.ouis Gonet.
+</div>
+        </div>
+        <div style="font-size: 12px; color: #64748b; text-align: center; margin-top: 8px;">+ 3 more passages in this sub-cluster...</div>
+        </div>
+    </div>
+    
+    <div class="subcluster-card">
+        <div class="subcluster-header">
+            <span class="subcluster-title">Sub-Cluster #3 &mdash; Episode 1873-09-05 to 1873-09-19</span>
+            <div>
+                <span class="pill">Passages: <strong>13</strong></span>
+                <span class="pill">Newspapers: <strong>esta</strong></span>
+            </div>
+        </div>
+        <div class="passages-list">
+    
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>esta</strong> (1873-09-10) &bull; <code>esta-1873-09-10-a-i0001</code></span>
+                <span>LCS Tokens: <strong>32</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">un intérêt
+de 6 1/4 pour cent.
+Pour de plus amples détails, s’adresser aux maisons chargées de recevoir les souscriptions.
+La souscription est ouverte du 15 au 20 septembre 1873</mark>
+su ax adresses ci-après:
+A Lausanne: Banque cantonale vaudoise
+et ses Agences dans le canton;
+Banque lédérale, Comptoir
+de Lausanne;
+Société financière vaudoise;
+Union vaudoise du crédit;
+MM. Ch. Bessières;
+Bory &amp; Hollard;
+J. Brun;
+Ch. Bugnon;
+Ch. Carrard &amp; Cie;
+Conod, Guye &amp; Cie;
+A.-L. Dutoit;
+Hausammann;
+Hoirs de Sig. Marcel;
+Masson, Chavannes &amp; Ce;
+À Lausanne: MM. F. Paquier &amp; Pittet;
+» Siber, Malan &amp; Cie;
+» Ed. Tissot;
+Widmer;
+L. Gonet;
+Genton &amp; Cie;
+J. Cuénod &amp; Cie;
+G. Glas;
+Guex &amp; Chavannes;
+J. Dubochet fils;
+G. Glas;
+S. Jomini;
+Banque de Montreux;
+MM. Aug. DeRameru, not.
+L. DeRameru fils.
+(h-921-l) [8028]
+A Nyon:
+A Vevey:
+A Montreux
+</div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>esta</strong> (1873-09-13) &bull; <code>esta-1873-09-13-a-i0004</code></span>
+                <span>LCS Tokens: <strong>23</strong></span>
+            </div>
+            <div class="passage-text">adresses ci-après:
+A Lausanne: Banque cantonale vaudoise
+et ses Agences clans <mark class="lcs">le canton;
+&gt; Banque fédérale, Comptoir
+de Lausanne;
+» Société financière vaudoise;
+» Union vaudoise du crédit;
+» MM. Ch. Bessières;
+» Bory &amp; Hollard;
+» J. Brun;
+» Ch. Bugnion</mark>;
+» Cli. Carrard &amp; Cic;
+» Conod, Guye &amp; Cie;
+» A.-L. Dutoit;
+» Hau samnian n;
+» Hoirs de Sig. Marcel;
+» Masson,Chavannes&amp;</div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>esta</strong> (1873-09-05) &bull; <code>esta-1873-09-05-a-i0001</code></span>
+                <span>LCS Tokens: <strong>20</strong></span>
+            </div>
+            <div class="passage-text">un intérêt
+de 6 1/4 pour cent.
+Pour do plus amples détails, s’adresser aux maisons chargées de recevoir les souscriptions.
+La souscription est ouverte du 18 au 20 septembre 1873
+a,u.x: adresses ci-après:
+A Lausanne: Banque cantonale vaudoise
+<mark class="lcs">et ses Agences dans le canton;
+» Banque fédérale, Comptoir
+de Lausanne;
+» Société financière vaudoise;
+» Union vaudoise du crédit;
+MM. Ch</mark>. Bessiéres;
+» Bory &amp; Hollard;
+» J. Brun;
+» Ch. Bugnon;
+» Ch. Carrard &amp; Cic;
+» Conod, Guye &amp; Cie;
+* Du toit;
+Hoirs Hausammann;
+* de Sig. Marcel;
+» MM. Masson, Cliavannes &amp; Ce;
+A Lausanne: MM. F. Paquier &amp; Pittet;
+» Siber, Malan &amp; Cie;
+» Ed. Tissot;
+» Widmer;
+A Nyon: L. Gonet;
+A Vevey: Genton &amp; </div>
+        </div>
+        <div style="font-size: 12px; color: #64748b; text-align: center; margin-top: 8px;">+ 10 more passages in this sub-cluster...</div>
+        </div>
+    </div>
+    
+    <div class="subcluster-card">
+        <div class="subcluster-header">
+            <span class="subcluster-title">Sub-Cluster #4 &mdash; Episode 1873-09-12 to 1873-09-16</span>
+            <div>
+                <span class="pill">Passages: <strong>4</strong></span>
+                <span class="pill">Newspapers: <strong>NV2</strong></span>
+            </div>
+        </div>
+        <div class="passages-list">
+    
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1873-09-13) &bull; <code>NV2-1873-09-13-a-i0004</code></span>
+                <span>LCS Tokens: <strong>90</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">les souscriptions.
+La souscription est ouverte du 15 au 20 septembre 1873,
+aux adresses ci-après:
+A Lausanne
+A Lausanne: Banque cantonale vandolse
+et ses Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de Lansanne s
+&gt; Société financière vandolse;
+» Union vandolse du Crédit;
+» MM. Ch. Bestlères;
+» Bory &amp; Uollard;
+» J. Brun;
+» Ch. Bugnlon;
+....*^.,,.-.,7 Ch. Carrard &amp; P«|
+» Conod, Guyc le, C&gt;« |
+»!&#x27;•• Dutolt;
+&gt; Hausammann;
+&gt; Hoirs de Sig. Marcel «
+» IH.asson, Chavannes&amp;C*;
+A Nyon:
+A Vevey:
+A Monireux:
+A Aigle:
+MM. F. Paqnier &amp; Plttet;
+Siber, Malan &amp; C1&#x27;)
+Ed. Tlssot;
+Wldmer.
+L. Gonet.
+Genton</mark> &amp; </div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1873-09-16) &bull; <code>NV2-1873-09-16-a-i0004</code></span>
+                <span>LCS Tokens: <strong>11</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">les souscriptions.
+La souscription est ouverte du 15 au 20 septembre</mark> 1875,
+aux adresses ci-après:
+A Lausanne: MM. F. Pnqoler A Plttet;
+Siber. Malan A €•« |
+A Lausanne: Banque cantonale vaudolse
+et ses Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de Lausanne;
+&gt; Société financière vaudolse;
+» Union vaudolse du Crédit;
+» MM. Cil Bessiéres;
+&gt; Bory &amp; flollard |
+&gt; J. Brun;
+» Ch. Bugnlon;
+» Ch tarraril &amp; C1&quot;;
+» Conod, Gufe &amp; C&gt;«;
+&gt; Dutoit;
+&gt; Bausammonn;
+&gt; Boirs de Slg. Marcel!
+» Masson, Cliavannes AC«;
+A Nyon:
+A Vcvey:
+A Montreux
+A Aigle:
+Ed. Tlssot;
+Wldmer.
+I&gt;. Gonet.
+Genton </div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1873-09-15) &bull; <code>NV2-1873-09-15-a-i0004</code></span>
+                <span>LCS Tokens: <strong>22</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">les souscriptions.
+La souscription est ouverte du 15 au 20 septembre 1873,
+aux adresses ci-après:
+A Lausanne
+A Lausanne: Banque cantonale</mark> vandoise
+/ et tes Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de Lantianac;
+» Socluté financière vaudolse;
+» Union vauilofsc «lu Crédit;
+» 4 MM. Cil. BeNfrièrca;
+• / Bory &amp; llollard;
+&gt; J. Itiun;
+» Ch. Uugnion &lt;
+» Ch Carranl &amp; C1&#x27;;
+» Conod, Guye &amp; C*« t
+» Dnioit;
+» Hatmnnininnn;
+» Hoirs de Sig. Marcel;
+&gt; Masson, Cliavannes&amp;C&#x27;;
+A Nyon:
+A Vcvey:
+A Montreux:
+A Aigle:
+MM. F. Paqnier &amp; Plttet;
+Slber, IHalan &amp; C*;
+Ed. Tlssot;
+Wldmer.
+L. Gonet.
+Genton &amp; </div>
+        </div>
+        <div style="font-size: 12px; color: #64748b; text-align: center; margin-top: 8px;">+ 1 more passages in this sub-cluster...</div>
+        </div>
+    </div>
+    
+    <div class="subcluster-card">
+        <div class="subcluster-header">
+            <span class="subcluster-title">Sub-Cluster #5 &mdash; Episode 1874-03-23 to 1874-03-25</span>
+            <div>
+                <span class="pill">Passages: <strong>2</strong></span>
+                <span class="pill">Newspapers: <strong>NV2</strong></span>
+            </div>
+        </div>
+        <div class="passages-list">
+    
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1874-03-23) &bull; <code>NV2-1874-03-23-a-i0004</code></span>
+                <span>LCS Tokens: <strong>95</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">Banque d’Argovie.
+Crédit Argovien.
+Banque de Baden.
+Banque de Zofingue.
+Banque des Grisons.
+Banque Cantonale des Grisons.
+Banque Hypothécaire Thurgovienne.
+Banque Cantonale Fribourgeoise.
+Fritz Voeel.
+Glarla:
+Genève:
+Lausanne t
+Yvcrdon:
+Chaux-de-Fonds i
+Lucerne t
+St-Gall:
+Liebtensteig i
+üerlsau t
+Sehaffhouse t
+Solenre t
+Wlntertbonr t
+Zurich t
+Bellinzone:
+Lugano &gt;
+Mulhouse:
+Strasbourg t
+Mannheim:
+Carisrnhe i
+iflunleh:
+Week &amp; Aebi.
+Banque de Glaris.
+Banque Fédérale. «
+A. Chene vière &amp; Cic.
+Banque Fédérale.
+Banque Cantonale Vaudoise.
+HoirB Sigismond Marcel.
+Masaon Chavannes &amp; Cie.
+Louis Micbod &amp; C&#x27;*.
+Banque Fédérale.
+Banque Fédérale.
+Banque de Lucerne.
+Société de Crédit</mark>,
+</div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1874-03-25) &bull; <code>NV2-1874-03-25-a-i0004</code></span>
+                <span>LCS Tokens: <strong>25</strong></span>
+            </div>
+            <div class="passage-text"><mark class="lcs">Banque d’Argovie.
+Crédit Argovien.
+Banque de Baden.
+Banque de Zofingue.
+Banque des Grisons.
+Banque Cantonale des Grisons.
+Banque Hypothécaire Thurgovienne.
+Banque Cantonale Fribourgeoise.
+Fritz</mark> Vpgfil.
+Fribourg:
+Glarls:
+il Genève:
+Lausanne &lt;
+Yvcrdon t
+Chaux-de-Fonds i
+Lncerne &gt;
+St-GaII:
+Lichtensteig i
+Hrrisau t
+SeliafThousc i
+Solcure &gt;
+YVinlcrthoar &gt;
+Zurich t
+Belllnzone &gt;
+K ngnno s
+Mulhouse:
+Strasbourg s
+Mannhelm:
+Cailsruhe i
+Munich i
+Week &amp; Aebi.
+Banque de Glaris.
+Banque Fédérale.
+A. Chenevière &amp; Cio.
+Banque Fédérale.
+Banque Cantonale Vaudoise.
+Hoirs Sigismond Marcel.
+Masson Chavannes &amp; O.
+Lonis Michod &amp; C!o.
+Banque Fédérale.
+Banque Fédérale.
+Banque de Lucerne.
+Société de Crédit.
+</div>
+        </div>
+        
+        </div>
+    </div>
+    
+    <div class="subcluster-card">
+        <div class="subcluster-header">
+            <span class="subcluster-title">Sub-Cluster #6 &mdash; Episode 1874-06-25 to 1874-07-07</span>
+            <div>
+                <span class="pill">Passages: <strong>8</strong></span>
+                <span class="pill">Newspapers: <strong>NV2, esta</strong></span>
+            </div>
+        </div>
+        <div class="passages-list">
+    
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>esta</strong> (1874-06-29) &bull; <code>esta-1874-06-29-a-i0002</code></span>
+                <span>LCS Tokens: <strong>38</strong></span>
+            </div>
+            <div class="passage-text">La souscription est ouverte, du 6 au 10 juillet, auprès des établissements et maisons
+de banque ci-après, où l’on peut se procurer des prospectus détaillés et des statuts:
+<mark class="lcs">Lausanne.
+Siège de la compagnie, rue Centrale 3.
+Banque cantonale vaudoise et ses agences.
+Banque fédérale, comptoir de Lausanne.
+Société financière vaudoise.
+Union vaudoise du crédit.
+Ch. Bessières.
+Bory et Hollard.
+J. Brun.
+Ch. Bugnion.
+C. Carrard et</mark> Cô.
+Conod, Guye et C®.
+A. Du toit
+Dubois-Renou et fils.
+G. Haussammann.
+Hoirs de Sig. Marcel.
+Masson, Chavannes et Ce.
+F. Paquier et Pittet.
+Siber, Malan et C*.
+Ed. Tissot,
+H. Widmer.
+Pour le reste de la Suisse et l’étranger, l’on souscrit chez:
+Aarau.
+Crédit argovien.
+Bade.
+Banque de Bade.
+Berne.
+Schweizerische Vereinsbank.
+Coire.
+Banque des Grisons.
+Frauenfeld.
+Banque hypothécaire thurgo vienne.
+Glaris.
+Banque de Glaris.
+Lugano.
+Banque de la Suisse italienne.
+Lu cerne.
+Banque de Lucerne.
+Société de crédit.
+Genève.
+A. Chenevière et Ce.
+Morges.
+L. Monay.
+Montreux-
+Banque de Montreux.
+J. Dubochet fils.
+Sam. Jomini.
+Nyon.
+Louis Gonet.
+Baup. Buvelot et fils.
+H. Monastier.
+Vevey.
+J. Cuénod et Ce.
+Cuénod-Churchill et fils.
+Genton et Ce.
+G. Glas.
+J. Guex et Chavannes.
+Yverdon.
+L. Michod et </div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1874-07-07) &bull; <code>NV2-1874-07-07-a-i0004</code></span>
+                <span>LCS Tokens: <strong>22</strong></span>
+            </div>
+            <div class="passage-text">Banque cantonale vaudoise et ses agen¬
+ces.
+Banque fédérale, comptoir de Lau¬
+sanne.
+Société financière vaudoise.
+Union vaudoise du crédit.
+Ch. Bestières.
+Bory et Hollard.
+J. Brun.
+Ch. Bugnion.
+C. Carrard et C°.
+Conod, Guye et C&#x27;.
+A. Dutoit.
+LAUSANNE
+Duhois-Renou et fils.
+G. Hau8ammann.
+Hoirs de Sig. Marcel.
+Mavson, Chavannes et Ce.
+F. Paqnier et Pittet.
+Siber, Malan et C°.
+Ed. Tipsot.
+H. Widmer.
+MORGES
+L. Monay.
+MONTREUX
+Banque de Montreux.
+J. Dubocbet <mark class="lcs">fils.
+Sam. Jomini.
+NYON
+Louis Gonet.
+Baup-Buvelot et fils.
+H. Monastier.
+VEVEY
+J. Cuénod et C&#x27;.
+Cuénod- Churchill fils.
+Genton et</mark> Cc.
+G. Glas.
+J. Guex et Chavannes.
+ÏVERDON
+L. Michod et C°.
+</div>
+        </div>
+        
+        <div class="passage-item">
+            <div class="passage-meta">
+                <span><strong>NV2</strong> (1874-07-04) &bull; <code>NV2-1874-07-04-a-i0004</code></span>
+                <span>LCS Tokens: <strong>34</strong></span>
+            </div>
+            <div class="passage-text">La souscription est ouvert;-, du O an IO juillet, auprès des établissements et maisons de banque ci-après, où
+l’on peut se procurer des prospectus détaillés et des statuts:
+LAUSANNE
+Siège delà compagnie, rue Centrale,
+n° 3.
+Banque cantonale vaudoise et ses agen¬
+ces.
+Banque fédérale, comptoir de Lau¬
+sanne.
+Société financière vaudoise.
+Union vaudoise du crédit.
+Ch. Bestîères.
+Bory et Hollard.
+J. brun.
+Ch. Bugnion.
+C. Carrard et C°.
+Conod. Guye et Cr.
+A. Dutoit.
+LAUSANNE
+Dubois-Renou et fils.
+G. Hausammann.
+Hoirs de Sig. Marcel.
+Mas son, Chavannes et C&quot;.
+F. Paquier et Pittet.
+Sibi r, Malan et C°.
+Ed. Tissot.
+H. “Widiner.
+MORGES
+L. Monay.
+MONTREUX
+Banque de Montreux.
+J. Dubocbet <mark class="lcs">fils.
+Sam. Jomini.
+NYON
+Louis Gonet.
+Baup-Buvelot et fils.
+H. Monastier.
+VEVEY
+J. Cuénod et C&#x27;.
+Cuénod Churchill fils.
+Genton et C°.
+G. Glas.
+J. Guex et Chavannes.
+YVERDON
+L. Michod et C</mark>°.
+</div>
+        </div>
+        <div style="font-size: 12px; color: #64748b; text-align: center; margin-top: 8px;">+ 5 more passages in this sub-cluster...</div>
+        </div>
+    </div>
+    
+</body>
+</html>

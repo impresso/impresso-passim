@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Two-Phase OCR Alignment — Production Benchmark Gallery</title>
+<style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #0b0f19; color: #f1f5f9; padding: 40px; line-height: 1.5; margin: 0; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { color: #38bdf8; font-size: 28px; margin: 0 0 8px 0; }
+    .lead { color: #94a3b8; font-size: 15px; margin-bottom: 28px; max-width: 1000px; }
+    .legend { display: flex; gap: 24px; background: #161e2e; padding: 14px 20px; border-radius: 8px; border: 1px solid #283548; margin-bottom: 32px; font-size: 13px; align-items: center; }
+    .legend-item { display: flex; align-items: center; gap: 10px; }
+    .legend-box { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+    .legend-exact { background: #fde047; }
+    .legend-ocr { background: #fb923c; }
+    
+    .example-section { background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 28px; margin-bottom: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .example-header h2 { font-size: 19px; color: #f8fafc; margin: 0 0 6px 0; }
+    .example-meta { font-size: 12px; color: #94a3b8; margin-bottom: 12px; }
+    .example-meta strong { color: #cbd5e1; }
+    .example-desc { font-size: 13px; color: #94a3b8; margin: 0 0 20px 0; line-height: 1.5; }
+    .example-desc code { background: #1e293b; color: #f59e0b; padding: 2px 5px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 12px; }
+
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .passage-card { background: #161e2e; border: 1px solid #283548; border-radius: 8px; padding: 16px; }
+    .passage-title { font-size: 13px; font-weight: 600; color: #38bdf8; margin-bottom: 10px; }
+    .passage-text { font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace; font-size: 12px; white-space: pre-wrap; background: #0b0f19; padding: 14px; border-radius: 6px; border: 1px solid #283548; line-height: 1.5; color: #cbd5e1; }
+    
+    mark.match-exact { background: #fde047; color: #0f172a; font-weight: 600; padding: 1px 3px; border-radius: 2px; }
+    mark.match-ocr { background: #fb923c; color: #0f172a; font-weight: 600; padding: 1px 3px; border-radius: 2px; text-decoration: underline dotted #0f172a; }
+    
+    .ocr-table-card { background: #161e2e; border: 1px solid #283548; border-radius: 8px; padding: 16px 20px; }
+    .ocr-table-card h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px 0; color: #fb923c; font-weight: 700; }
+    .ocr-table-card table { width: 100%; border-collapse: collapse; font-size: 12px; font-family: ui-monospace, monospace; }
+    .ocr-table-card th, .ocr-table-card td { text-align: left; padding: 6px 12px; border-bottom: 1px solid #283548; }
+    .ocr-table-card th { color: #94a3b8; font-weight: 500; font-size: 11px; }
+    .ocr-table-card td code { color: #f1f5f9; background: #0f172a; padding: 2px 6px; border-radius: 4px; }
+    .badge { background: #1e3a8a; color: #93c5fd; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Two-Phase Alignment Benchmark Gallery</h1>
+    <p class="lead">Demonstrating two-phase text alignment on 19th-century Swiss newspaper text reuse from the Impresso corpus. 
+    <strong>Phase 1</strong> anchors exact multi-word spans (&ge; 3 words) using collinear monotonic chaining to preserve narrative flow. 
+    <strong>Phase 2</strong> applies bounded local bipartite word-matching within gaps to recover corrupted OCR variants without drift.</p>
+    
+    <div class="legend">
+        <div class="legend-item"><span class="legend-box legend-exact"></span> <strong>Phase 1 Exact Anchor</strong> (&ge; 3 consecutive identical tokens)</div>
+        <div class="legend-item"><span class="legend-box legend-ocr"></span> <strong>Phase 2 Recovered OCR Match</strong> (local character similarity &ge; 65% in unaligned gaps)</div>
+    </div>
+    
+    
+    <section class="example-section" id="ex1">
+        <div class="example-header">
+            <h2>Example 1: Diplomatic Press Dispatch (1856) — Napoléon's Swiss Visit</h2>
+            <div class="example-meta">
+                <span><strong>Cluster:</strong> tr-all-v1-24-c68719697370</span> &bull; 
+                <span><strong>Source:</strong> Journal de Genève (1856-06-13) vs. Gazette de Lausanne (GAV 1856-06-13)</span> &bull;
+                <span><strong>Exact Anchors:</strong> 10</span> &bull;
+                <span><strong>OCR Matches:</strong> 12</span>
+            </div>
+            <p class="example-desc">Wire report on Emperor Napoleon III's visit to Switzerland. Illustrates line-break hyphenations (<code>em-pereur</code>, <code>Louis-Phi-lippe</code>), letter swaps (<code>toajours</code> &harr; <code>toujours</code>, <code>lieui</code> &harr; <code>lieux</code>, <code>placi</code> &harr; <code>place</code>), and character dropouts.</p>
+        </div>
+        <div class="comparison-grid">
+            <div class="passage-card">
+                <div class="passage-title">Passage A (Journal de Genève (1856-06-13))</div>
+                <div class="passage-text">— <mark class="match-exact" title="Phase 1 Exact Anchor">Le bruit d un prochain voyage en Suisse de l</mark> em-
+<mark class="match-ocr" title="Phase 2 OCR Match">pereur</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">Napoléon</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">prend</mark> <mark class="match-ocr" title="Phase 2 OCR Match">toajours</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">plus de consistance. Au
+dire de la Gazette de Trieste, l empereur conserve un culte
+vraiment religieux pour tous les</mark> <mark class="match-ocr" title="Phase 2 OCR Match">lieux</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">qui lui ont servi
+d asile pendant son exil, et il n a pas oublié que</mark> la <mark class="match-exact" title="Phase 1 Exact Anchor">Suisse
+a dû lutter pour lui conserver un asile, d où Louis</mark>-Phi-
+lippe <mark class="match-exact" title="Phase 1 Exact Anchor">voulait chasser un prétendant. Ce souvenir</mark> a tou-
+<mark class="match-ocr" title="Phase 2 OCR Match">jours</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">eu</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">une</mark> <mark class="match-ocr" title="Phase 2 OCR Match">place</mark> d <mark class="match-ocr" title="Phase 2 OCR Match">honneur</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">dans la mémoire de l</mark> em-
+<mark class="match-ocr" title="Phase 2 OCR Match">pereur</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">actuel. On ajoute</mark> <mark class="match-ocr" title="Phase 2 OCR Match">encore</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">que ce voyage ne</mark> se-
+<mark class="match-ocr" title="Phase 2 OCR Match">rait</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">pas seulement un hommage rendu au</mark> <mark class="match-ocr" title="Phase 2 OCR Match">culte</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">des</mark> sou-
+<mark class="match-ocr" title="Phase 2 OCR Match">venirs</mark>, <mark class="match-exact" title="Phase 1 Exact Anchor">mais</mark> <mark class="match-ocr" title="Phase 2 OCR Match">qu</mark> il <mark class="match-exact" title="Phase 1 Exact Anchor">serait encore un rendez-vous donné à
+l</mark> empereur d Autriche.</div>
+            </div>
+            <div class="passage-card">
+                <div class="passage-title">Passage B (Gazette de Lausanne (GAV 1856-06-13))</div>
+                <div class="passage-text"><mark class="match-exact" title="Phase 1 Exact Anchor">Le bruit d un prochain voyage en Suisse de l</mark> <mark class="match-ocr" title="Phase 2 OCR Match">empereur</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">Napoléon</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">prend</mark> <mark class="match-ocr" title="Phase 2 OCR Match">toujours</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">plus de consistance. Au dire de la Gazette de Trieste,
+l empereur conserve un culte vraiment- religieux pour tous les</mark> <mark class="match-ocr" title="Phase 2 OCR Match">lieui</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">qui lui ont servi d asile pendant son exil et il n a pas oublié que</mark> 1:
+<mark class="match-exact" title="Phase 1 Exact Anchor">Suisse a dû lutter pour lui conserver un asile d où Louis</mark>-Philippi
+<mark class="match-exact" title="Phase 1 Exact Anchor">voulait chasser un prétendant. Ce souvenir</mark> à <mark class="match-ocr" title="Phase 2 OCR Match">toujours</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">eu</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">une</mark> <mark class="match-ocr" title="Phase 2 OCR Match">placi</mark>
+<mark class="match-ocr" title="Phase 2 OCR Match">dhonneur</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">dans la mémoire de l</mark> <mark class="match-ocr" title="Phase 2 OCR Match">empereur</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">actuel. On ajoute</mark> <mark class="match-ocr" title="Phase 2 OCR Match">encon</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">que ce voyage ne</mark> <mark class="match-ocr" title="Phase 2 OCR Match">serait</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">pas seulement un hommage rendu au</mark> <mark class="match-ocr" title="Phase 2 OCR Match">culti</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">des</mark> <mark class="match-ocr" title="Phase 2 OCR Match">souvenirs</mark>, <mark class="match-exact" title="Phase 1 Exact Anchor">mais</mark> <mark class="match-ocr" title="Phase 2 OCR Match">quil</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">serait encore un rendez-vous donné à l</mark> em
+pereur dAutriche.</div>
+            </div>
+        </div>
+        <div class="ocr-table-card">
+            <h3>Phase 2 Recovered OCR Typo Pairs in Gaps</h3>
+            <table>
+                <thead>
+                    <tr><th>Passage A Word</th><th></th><th>Passage B Word</th><th>String Similarity</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>pereur</code></td><td>&harr;</td><td><code>empereur</code></td><td><span class="badge">86.0%</span></td></tr><tr><td><code>toajours</code></td><td>&harr;</td><td><code>toujours</code></td><td><span class="badge">88.0%</span></td></tr><tr><td><code>lieux</code></td><td>&harr;</td><td><code>lieui</code></td><td><span class="badge">80.0%</span></td></tr><tr><td><code>jours</code></td><td>&harr;</td><td><code>toujours</code></td><td><span class="badge">77.0%</span></td></tr><tr><td><code>place</code></td><td>&harr;</td><td><code>placi</code></td><td><span class="badge">80.0%</span></td></tr><tr><td><code>honneur</code></td><td>&harr;</td><td><code>dhonneur</code></td><td><span class="badge">93.0%</span></td></tr><tr><td><code>pereur</code></td><td>&harr;</td><td><code>empereur</code></td><td><span class="badge">86.0%</span></td></tr><tr><td><code>encore</code></td><td>&harr;</td><td><code>encon</code></td><td><span class="badge">73.0%</span></td></tr><tr><td><code>rait</code></td><td>&harr;</td><td><code>serait</code></td><td><span class="badge">80.0%</span></td></tr><tr><td><code>culte</code></td><td>&harr;</td><td><code>culti</code></td><td><span class="badge">80.0%</span></td></tr><tr><td><code>venirs</code></td><td>&harr;</td><td><code>souvenirs</code></td><td><span class="badge">80.0%</span></td></tr><tr><td><code>qu</code></td><td>&harr;</td><td><code>quil</code></td><td><span class="badge">67.0%</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <section class="example-section" id="ex2">
+        <div class="example-header">
+            <h2>Example 2: Regional News Bulletin (1856) — The Pleigne Poisoning Case</h2>
+            <div class="example-meta">
+                <span><strong>Cluster:</strong> tr-all-v1-24-c77310048836</span> &bull; 
+                <span><strong>Source:</strong> Journal de Genève (1856-10-25) vs. Gazette de Lausanne (GAV 1856-10-26)</span> &bull;
+                <span><strong>Exact Anchors:</strong> 7</span> &bull;
+                <span><strong>OCR Matches:</strong> 5</span>
+            </div>
+            <p class="example-desc">Tragic news item from Delémont involving a poisoned medication. Features classic OCR corruptions: <code>conslernaiion</code> &harr; <code>consternation</code> (rn/m/ni confusion), <code>entants</code> &harr; <code>enfants</code> (f/t confusion), and <code>Délémont</code> &harr; <code>Delémont</code>.</p>
+        </div>
+        <div class="comparison-grid">
+            <div class="passage-card">
+                <div class="passage-title">Passage A (Journal de Genève (1856-10-25))</div>
+                <div class="passage-text"><mark class="match-exact" title="Phase 1 Exact Anchor">BERNE. -- Un affreux malheur vient de répandre la</mark>
+<mark class="match-ocr" title="Phase 2 OCR Match">conslernaiion</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">dans la contrée de</mark> <mark class="match-ocr" title="Phase 2 OCR Match">Délémont</mark>. <mark class="match-exact" title="Phase 1 Exact Anchor">Le régent du
+village de Pleigne se</mark> <mark class="match-ocr" title="Phase 2 OCR Match">rendit</mark>, <mark class="match-exact" title="Phase 1 Exact Anchor">il y a quelques jours, dans
+la partie voisine du canton de Soleure, pour consulter
+un médecin qui</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">jouit</mark> d <mark class="match-ocr" title="Phase 2 OCR Match">une</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">grande réputation. Après
+avoir reçu de lui les prescriptions qui le concernaient</mark>,
+<mark class="match-exact" title="Phase 1 Exact Anchor">le régent, qui avait cinq</mark> <mark class="match-ocr" title="Phase 2 OCR Match">entants</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">en bas âge, demanda au
+docteur un remède contre les vers ; mais, soit à cause</mark></div>
+            </div>
+            <div class="passage-card">
+                <div class="passage-title">Passage B (Gazette de Lausanne (GAV 1856-10-26))</div>
+                <div class="passage-text"><mark class="match-exact" title="Phase 1 Exact Anchor">BERNE. — Un affreux malheur vient de répandre la</mark> <mark class="match-ocr" title="Phase 2 OCR Match">consternation</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">dans la contrée de</mark> <mark class="match-ocr" title="Phase 2 OCR Match">Delémont</mark>. <mark class="match-exact" title="Phase 1 Exact Anchor">Le régent du village de Pleigne se</mark> <mark class="match-ocr" title="Phase 2 OCR Match">ren</mark>-
+dit, <mark class="match-exact" title="Phase 1 Exact Anchor">il y a quelques jours, dans la partie voisine du canton de Soleure,
+pour consulter un médecin qui</mark>, à plusieurs lieues à la ronde, <mark class="match-exact" title="Phase 1 Exact Anchor">jouit</mark>
+<mark class="match-ocr" title="Phase 2 OCR Match">dune</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">grande réputation. Après avoir reçu de lui les prescriptions qui
+le concernaient</mark> personnellement, <mark class="match-exact" title="Phase 1 Exact Anchor">le régent, qui avait cinq</mark> <mark class="match-ocr" title="Phase 2 OCR Match">enfants</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">en
+bas âge, demanda au docteur un remède contre les vers; mais, soit à
+cause</mark></div>
+            </div>
+        </div>
+        <div class="ocr-table-card">
+            <h3>Phase 2 Recovered OCR Typo Pairs in Gaps</h3>
+            <table>
+                <thead>
+                    <tr><th>Passage A Word</th><th></th><th>Passage B Word</th><th>String Similarity</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>conslernaiion</code></td><td>&harr;</td><td><code>consternation</code></td><td><span class="badge">85.0%</span></td></tr><tr><td><code>délémont</code></td><td>&harr;</td><td><code>delémont</code></td><td><span class="badge">88.0%</span></td></tr><tr><td><code>rendit</code></td><td>&harr;</td><td><code>ren</code></td><td><span class="badge">67.0%</span></td></tr><tr><td><code>une</code></td><td>&harr;</td><td><code>dune</code></td><td><span class="badge">86.0%</span></td></tr><tr><td><code>entants</code></td><td>&harr;</td><td><code>enfants</code></td><td><span class="badge">86.0%</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <section class="example-section" id="ex3">
+        <div class="example-header">
+            <h2>Example 3: Tabular Market Mercuriale (1856) — Marché de Sion</h2>
+            <div class="example-meta">
+                <span><strong>Cluster:</strong> tr-all-v1-24-c77309769618</span> &bull; 
+                <span><strong>Source:</strong> Gazette de Lausanne (GAV 1856-08-07 vs. GAV 1856-12-04)</span> &bull;
+                <span><strong>Exact Anchors:</strong> 3</span> &bull;
+                <span><strong>OCR Matches:</strong> 5</span>
+            </div>
+            <p class="example-desc">Weekly commodity price bulletin with heavy tabular noise and recurring structural text. Features dialect/OCR variants like <code>fichelin</code> &harr; <code>ûchelin</code>, <code>OrgV</code> &harr; <code>Orge</code>, and price adjustments.</p>
+        </div>
+        <div class="comparison-grid">
+            <div class="passage-card">
+                <div class="passage-title">Passage A (Gazette de Lausanne (GAV 1856-08-07)</div>
+                <div class="passage-text">MARCUÈDE-SION.- Du 2 août, 185 G.
+Le fichelin -rr- <mark class="match-exact" title="Phase 1 Exact Anchor">1, 80. Quarteron fédéral-^ 0, 27 hectolitre.
+Froment, le fichelin fr</mark>. <mark class="match-ocr" title="Phase 2 OCR Match">Icd</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">9</mark>, <mark class="match-ocr" title="Phase 2 OCR Match">50</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">Seigle</mark> <mark class="match-ocr" title="Phase 2 OCR Match">OrgV</mark> 5, bo
+<mark class="match-ocr" title="Phase 2 OCR Match">Mais</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">5, 80
+Pommes de terre</mark>, io <mark class="match-ocr" title="Phase 2 OCR Match">fichelin</mark> 2, 30
+<mark class="match-exact" title="Phase 1 Exact Anchor">Haricots blancs 6, 00
+Beurre, la livre 1, 00
+La livre de pain de froment se vendra 0, 24
+La livre de pain bis 0, 18
+La livre de pain de seigle 0, 15</mark></div>
+            </div>
+            <div class="passage-card">
+                <div class="passage-title">Passage B (GAV 1856-12-04))</div>
+                <div class="passage-text">MARCHÉ DE SION. — Du 29 novembre 1856.
+Le fichelin — <mark class="match-exact" title="Phase 1 Exact Anchor">1, 80. Quarteron fédéral —0, 27 hectolitre.
+Froment, le fichelin fr</mark>. <mark class="match-ocr" title="Phase 2 OCR Match">fcd</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">9</mark>, 40
+<mark class="match-exact" title="Phase 1 Exact Anchor">Seigle</mark> <mark class="match-ocr" title="Phase 2 OCR Match">5</mark>, 80
+<mark class="match-ocr" title="Phase 2 OCR Match">Orge</mark> 4, 30
+<mark class="match-ocr" title="Phase 2 OCR Match">Maïs</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">5, 80
+Pommes de terre</mark>, le <mark class="match-ocr" title="Phase 2 OCR Match">ûchelin</mark> 1, 80
+<mark class="match-exact" title="Phase 1 Exact Anchor">Haricots blancs 6, 00
+Beurre, la livre 1, 00
+La livre de pain de froment se vendra 0, 24
+La livre de pain bis 0, 18
+La livre de pain de seigle 0, 15</mark></div>
+            </div>
+        </div>
+        <div class="ocr-table-card">
+            <h3>Phase 2 Recovered OCR Typo Pairs in Gaps</h3>
+            <table>
+                <thead>
+                    <tr><th>Passage A Word</th><th></th><th>Passage B Word</th><th>String Similarity</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>icd</code></td><td>&harr;</td><td><code>fcd</code></td><td><span class="badge">67.0%</span></td></tr><tr><td><code>50</code></td><td>&harr;</td><td><code>5</code></td><td><span class="badge">67.0%</span></td></tr><tr><td><code>orgv</code></td><td>&harr;</td><td><code>orge</code></td><td><span class="badge">75.0%</span></td></tr><tr><td><code>mais</code></td><td>&harr;</td><td><code>maïs</code></td><td><span class="badge">75.0%</span></td></tr><tr><td><code>fichelin</code></td><td>&harr;</td><td><code>ûchelin</code></td><td><span class="badge">80.0%</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <section class="example-section" id="ex4">
+        <div class="example-header">
+            <h2>Example 4: Financial Subscription Syndicate (1873) — Vaud Cantonal Loan</h2>
+            <div class="example-meta">
+                <span><strong>Cluster:</strong> c307 (Episodic Sub-cluster)</span> &bull; 
+                <span><strong>Source:</strong> Nouvelliste Vaudois (NV2 1873-09-13 vs. NV2 1873-09-16)</span> &bull;
+                <span><strong>Exact Anchors:</strong> 8</span> &bull;
+                <span><strong>OCR Matches:</strong> 9</span>
+            </div>
+            <p class="example-desc">Original user test case with complex agency listings. Tests collinear monotonic chaining across transposed lines, multi-word whitespace splits (<code>Lansanne s</code> &harr; <code>Lausanne</code>), and city names (<code>Monireux</code> &harr; <code>Montreux</code>, <code>vandolse</code> &harr; <code>vaudolse</code>).</p>
+        </div>
+        <div class="comparison-grid">
+            <div class="passage-card">
+                <div class="passage-title">Passage A (Nouvelliste Vaudois (NV2 1873-09-13)</div>
+                <div class="passage-text"><mark class="match-exact" title="Phase 1 Exact Anchor">les souscriptions.
+La souscription est ouverte du 15 au 20 septembre</mark> <mark class="match-ocr" title="Phase 2 OCR Match">1873</mark>,
+<mark class="match-exact" title="Phase 1 Exact Anchor">aux adresses ci-après:
+A Lausanne</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">A Lausanne: Banque cantonale</mark> <mark class="match-ocr" title="Phase 2 OCR Match">vandolse</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">et ses Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de</mark> <mark class="match-ocr" title="Phase 2 OCR Match">Lansanne</mark> s
+&gt; <mark class="match-exact" title="Phase 1 Exact Anchor">Société</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">financière</mark> <mark class="match-ocr" title="Phase 2 OCR Match">vandolse</mark>;
+» <mark class="match-exact" title="Phase 1 Exact Anchor">Union</mark> <mark class="match-ocr" title="Phase 2 OCR Match">vandolse</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">du Crédit;
+» MM</mark>. Ch. <mark class="match-ocr" title="Phase 2 OCR Match">Bestlères</mark>;
+» <mark class="match-exact" title="Phase 1 Exact Anchor">Bory</mark> &amp; <mark class="match-ocr" title="Phase 2 OCR Match">Uollard</mark>;
+» <mark class="match-exact" title="Phase 1 Exact Anchor">J. Brun;
+» Ch. Bugnlon</mark>;
+.....*^.,..-.,7 Ch. Carrard &amp; P«|
+» Conod, Guyc le, C&gt;« |
+»!&#x27;•• Dutolt;
+&gt; Hausammann;
+&gt; Hoirs de Sig. Marcel «
+» IH.asson, Chavannes&amp;C*;
+<mark class="match-exact" title="Phase 1 Exact Anchor">A Nyon:
+A</mark> <mark class="match-ocr" title="Phase 2 OCR Match">Vevey</mark>:
+<mark class="match-exact" title="Phase 1 Exact Anchor">A</mark> <mark class="match-ocr" title="Phase 2 OCR Match">Monireux</mark>:
+<mark class="match-exact" title="Phase 1 Exact Anchor">A</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">Aigle</mark>:
+MM. F. Paqnier &amp; Plttet;
+Siber, Malan &amp; C1&#x27;)
+<mark class="match-exact" title="Phase 1 Exact Anchor">Ed. Tlssot;
+Wldmer</mark>.
+L. Gonet.
+Genton &amp;</div>
+            </div>
+            <div class="passage-card">
+                <div class="passage-title">Passage B (NV2 1873-09-16))</div>
+                <div class="passage-text"><mark class="match-exact" title="Phase 1 Exact Anchor">les souscriptions.
+La souscription est ouverte du 15 au 20 septembre</mark> <mark class="match-ocr" title="Phase 2 OCR Match">1875</mark>,
+<mark class="match-exact" title="Phase 1 Exact Anchor">aux adresses ci-après:
+A Lausanne</mark>: MM. F. Pnqoler A Plttet;
+Siber. Malan A €•« |
+<mark class="match-exact" title="Phase 1 Exact Anchor">A Lausanne: Banque cantonale</mark> <mark class="match-ocr" title="Phase 2 OCR Match">vaudolse</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">et ses Agences dans le canton;
+&gt; Banque fédérale, Comptoir
+de</mark> <mark class="match-ocr" title="Phase 2 OCR Match">Lausanne</mark>;
+&gt; <mark class="match-exact" title="Phase 1 Exact Anchor">Société</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">financière</mark> <mark class="match-ocr" title="Phase 2 OCR Match">vaudolse</mark>;
+» <mark class="match-exact" title="Phase 1 Exact Anchor">Union</mark> <mark class="match-ocr" title="Phase 2 OCR Match">vaudolse</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">du Crédit;
+» MM</mark>. Cil <mark class="match-ocr" title="Phase 2 OCR Match">Bessiéres</mark>;
+&gt; <mark class="match-exact" title="Phase 1 Exact Anchor">Bory</mark> &amp; <mark class="match-ocr" title="Phase 2 OCR Match">flollard</mark> |
+&gt; <mark class="match-exact" title="Phase 1 Exact Anchor">J. Brun;
+» Ch. Bugnlon</mark>;
+» Ch tarraril &amp; C1&quot;;
+» Conod, Gufe &amp; C&gt;«;
+&gt; Dutoit;
+&gt; Bausammonn;
+&gt; Boirs de Slg. Marcel!
+» Masson, Cliavannes AC«;
+<mark class="match-exact" title="Phase 1 Exact Anchor">A Nyon:
+A</mark> <mark class="match-ocr" title="Phase 2 OCR Match">Vcvey</mark>:
+<mark class="match-exact" title="Phase 1 Exact Anchor">A</mark> <mark class="match-ocr" title="Phase 2 OCR Match">Montreux</mark>
+<mark class="match-exact" title="Phase 1 Exact Anchor">A</mark> <mark class="match-exact" title="Phase 1 Exact Anchor">Aigle</mark>:
+<mark class="match-exact" title="Phase 1 Exact Anchor">Ed. Tlssot;
+Wldmer</mark>.
+I&gt;. Gonet.
+Genton</div>
+            </div>
+        </div>
+        <div class="ocr-table-card">
+            <h3>Phase 2 Recovered OCR Typo Pairs in Gaps</h3>
+            <table>
+                <thead>
+                    <tr><th>Passage A Word</th><th></th><th>Passage B Word</th><th>String Similarity</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>1873</code></td><td>&harr;</td><td><code>1875</code></td><td><span class="badge">75.0%</span></td></tr><tr><td><code>vandolse</code></td><td>&harr;</td><td><code>vaudolse</code></td><td><span class="badge">88.0%</span></td></tr><tr><td><code>lansanne</code></td><td>&harr;</td><td><code>lausanne</code></td><td><span class="badge">88.0%</span></td></tr><tr><td><code>vandolse</code></td><td>&harr;</td><td><code>vaudolse</code></td><td><span class="badge">88.0%</span></td></tr><tr><td><code>vandolse</code></td><td>&harr;</td><td><code>vaudolse</code></td><td><span class="badge">88.0%</span></td></tr><tr><td><code>bestlères</code></td><td>&harr;</td><td><code>bessiéres</code></td><td><span class="badge">67.0%</span></td></tr><tr><td><code>uollard</code></td><td>&harr;</td><td><code>flollard</code></td><td><span class="badge">80.0%</span></td></tr><tr><td><code>vevey</code></td><td>&harr;</td><td><code>vcvey</code></td><td><span class="badge">80.0%</span></td></tr><tr><td><code>monireux</code></td><td>&harr;</td><td><code>montreux</code></td><td><span class="badge">88.0%</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+</div>
+</body>
+</html>
