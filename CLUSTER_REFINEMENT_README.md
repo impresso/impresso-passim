@@ -1,6 +1,24 @@
 # Text Reuse Cluster & Passage Alignment Refinement
 
-This document provides a comprehensive technical guide to the cluster decomposition and passage alignment refinement algorithms implemented in `impresso-passim`.
+This document provides a comprehensive technical and methodological guide to the cluster decomposition and passage alignment refinement algorithms implemented in `impresso-passim`.
+
+---
+
+## Research-Oriented Summary
+
+Historical newspapers frequently reproduced material from other publications. Identifying these instances of text reuse helps researchers investigate how information circulated, how stories changed as they were republished, and how older texts reappeared in later historical contexts.
+
+However, automatically detecting text reuse in large newspaper collections presents several challenges. Unrelated articles may be grouped together because they contain recurring expressions, while genuinely related texts may be difficult to match because of differences in wording, formatting, or errors introduced during digitization.
+
+The methods described in this document address these problems by improving how reused newspaper passages are grouped, compared, and connected.
+
+The approach distinguishes three aspects of text reuse:
+
+1. **Contemporary circulation**: Identifying groups of related texts published within a relatively short period.
+2. **Long-term textual recurrence**: Identifying relationships between similar texts published in different historical periods without treating them as a single continuous circulation event.
+3. **Textual correspondence**: Identifying precisely which parts of newspaper articles were reused, including passages affected by transcription errors.
+
+Together, these methods aim to produce more coherent and historically interpretable text reuse data. They support research into both the immediate circulation of news and the longer-term reuse of textual material across generations.
 
 ---
 
@@ -13,8 +31,26 @@ Passim builds text reuse clusters as connected components of pairwise passage ma
 
 - **Observed Impact**: Giant "monster clusters" emerge (such as cluster `c307` containing **42,220 passages spanning 141 years from 1873 to 2014**). While individual pairwise links have high surface similarity, the cluster as a whole has 0% shared narrative coherence and conflates hundreds of completely independent historical events.
 
+> [!NOTE]
+> **In plain language — Why very large clusters can be misleading**
+>
+> When the same text appears in several newspapers, we want to identify these publications as instances of text reuse. However, newspapers also repeatedly published standard expressions, such as announcements of public meetings or financial reports.
+>
+> These recurring expressions can accidentally connect thousands of otherwise unrelated articles. As a result, the system may group together texts published decades apart that have little historical connection.
+>
+> Our refinement method aims to separate these artificially large groups into smaller collections of articles that genuinely belong together.
+
 ### 1.2 Brittle Passage Boundary Alignment & OCR Corruption
 Passim pairs often include surrounding boilerplate or adjacent paragraphs because initial windowing is coarse. Furthermore, historical OCR introduces character substitutions, dropouts, dialectal spelling, and hyphenations (`Lansanne s` $\leftrightarrow$ `Lausanne`, `Monireux` $\leftrightarrow$ `Montreux`, `toajours` $\leftrightarrow$ `toujours`). Standard exact $k$-mer matching either breaks completely at the first OCR typo or produces twisted cross-over matches when text blocks are transposed.
+
+> [!NOTE]
+> **In plain language — Finding the text that was actually reused**
+>
+> Historical newspapers were digitized using optical character recognition (OCR), which converts scanned pages into searchable text. This process frequently introduces errors, especially in older newspapers.
+>
+> For example, the place name *Montreux* might be recognized as *Monireux*. Two newspapers may therefore contain essentially the same text even though their digitized versions differ.
+>
+> Our method identifies the portions of text that correspond across publications, tolerates common transcription errors, and excludes surrounding material that was not part of the reuse.
 
 ### 1.3 Upstream `lexicaloverlap` Metric Flaw
 The original metric computed the mutual $N$-way set intersection of all vocabulary sets in a cluster:
@@ -49,6 +85,17 @@ flowchart TD
     Layer1 --> Layer2
 ```
 
+> [!NOTE]
+> **In plain language — How the refinement process works**
+>
+> The refinement process improves text reuse detection in two complementary ways.
+>
+> First, it examines groups of potentially related newspaper passages and separates those that belong to different historical events or textual traditions.
+>
+> Second, it compares the passages within these groups more precisely to determine which words and sentences were actually reused, even when the digitized text contains errors.
+>
+> The result is a more reliable representation of how newspaper content circulated, was reproduced, and changed over time.
+
 ---
 
 ## 3. Temporal Episode Decomposition & Cross-Episode Linkage (`scripts/post_hoc_clustering.py`)
@@ -65,8 +112,25 @@ When clustering text reuse across centuries, the system explicitly separates clu
 | **Episode Relation** | Evidence-supported textual similarity between two episodes | Verified contiguous text alignment between episode prototypes ($\ge K_{\text{tokens}}$ or Phase 2 alignment score) | Study diachronic reuse, reception, and candidate recurrence |
 | **Historical Transmission** | Directional lineage from source to descendant | **Not inferred automatically by algorithm**; requires domain/provenance metadata | Preserve candidate links for digital historians to evaluate |
 
+> [!NOTE]
+> **In plain language — A text can have more than one historical life**
+>
+> Imagine that a political declaration was published in several newspapers in 1820. One hundred years later, newspapers reproduced parts of the same declaration to commemorate its anniversary.
+>
+> These publications are related because they contain the same historical text. However, they represent two different moments of circulation.
+>
+> Our approach preserves this distinction. It groups publications from 1820 into one episode and those from 1920 into another, while recording the textual relationship between them.
+>
+> Historians can therefore investigate both how information circulated at a particular moment and how older texts were rediscovered, reproduced, or reinterpreted by later generations.
+
 > [!IMPORTANT]
-> **Lineage Membership vs. Demonstrated Transmission**: Two episodes containing highly similar passages are not necessarily connected by direct physical borrowing. A 1920 newspaper might reproduce an 1820 declaration from a state archival gazette rather than from any newspaper in the 1820 corpus. Cross-episode edges represent **textual kinship and reuse candidates**, not proven direct physical descent.
+> **Lineage Membership vs. Demonstrated Transmission (Similar texts do not prove direct copying)**:
+>
+> When two newspapers publish similar texts, we can establish that their wording is related. However, this does not tell us exactly how the text traveled between them.
+>
+> A later newspaper might have copied an earlier newspaper, but it might also have used a book, an official publication, an archive, or another source that is not represented in the collection.
+>
+> The system therefore identifies textual relationships without automatically claiming direct transmission between publications. Establishing the historical circumstances of transmission remains a task for researchers, potentially supported by additional documentary evidence.
 
 ---
 
@@ -77,6 +141,17 @@ News events and text reuse stories are naturally bursty. When a cluster spans de
 2. If $\Delta t = t_{i+1} - t_i > \text{max\_gap\_days}$, the cluster is sliced into independent temporal episodes.
 3. **Result**: In cluster `c307`, temporal bisection immediately splits 42k passages spanning 141 years into **29 distinct historical episodes**, completely isolating an 1873 financial loan subscription from a 1914 war mobilization notice.
 
+> [!NOTE]
+> **In plain language — Separating different moments of circulation**
+>
+> Newspaper stories often circulate intensively over a relatively short period. A report might appear in several newspapers over a few days or weeks and then disappear.
+>
+> If similar text reappears decades later, it may represent a different historical phenomenon, such as a retrospective article or commemorative reprint.
+>
+> The system therefore separates periods of circulation when sufficiently long gaps occur between publications. This allows researchers to study individual episodes of news circulation without confusing them with much later appearances of similar texts.
+>
+> *Methodological qualification:* The 60-day threshold is an operational parameter tuned for historical press dynamics, not a universal historical law. It can be adjusted depending on publication frequency and corpus characteristics.
+
 ---
 
 ### 3.3 Step 2: Louvain Community Detection (Within-Episode)
@@ -86,6 +161,15 @@ Within any single temporal episode containing multiple events, a token-Jaccard s
   $$J(A, B) = \frac{|V_A \cap V_B|}{|V_A \cup V_B|}$$
 - Edges with $J(A, B) < \text{similarity\_threshold}$ (default: `0.15`) are pruned.
 - The Louvain modularity optimization algorithm partitions the graph into dense community subgraphs, separating coincidental administrative formulas from core narrative stories.
+
+> [!NOTE]
+> **In plain language — Distinguishing different stories published at the same time**
+>
+> Articles published around the same date do not necessarily concern the same event.
+>
+> For example, newspapers might publish reports about a railway accident, parliamentary proceedings, and financial announcements during the same week.
+>
+> The system compares the vocabulary of these texts and identifies groups whose members share relatively similar wording. This helps distinguish separate stories even when they circulated during the same period. However, shared vocabulary alone does not guarantee that the articles concern the same historical event.
 
 ---
 
@@ -102,12 +186,39 @@ The system selects a prototype budget $K \in [2, 4]$ per episode:
 - **Centroid / Medoid**: Captures the consensus/dominant form.
 - **Residual Modality**: Captures high-variance sub-branches if the episode has multiple internal communities.
 
+> [!NOTE]
+> **In plain language — Comparing groups without reading every article**
+>
+> A group of related newspaper articles may contain several versions of the same text. Some reproduce the complete original, while others publish shortened or modified versions.
+>
+> Instead of comparing every article with every article in another group, the system selects a small number of representative passages. These capture different versions of the text, including longer and shorter forms.
+>
+> This makes it possible to identify similarities between groups more efficiently while reducing the risk of overlooking relationships that involve less common textual variants.
+
 #### 2. Two-Stage Candidate Filtering and Alignment Verification
 - **Candidate Generation**: Lightweight token-vocabulary overlap (MinHash / token Jaccard $\ge 0.20$) evaluates prototype pairs across episodes.
 - **Link Verification**: Candidates are validated using strict contiguous token alignment (`longest_contiguous_matching_span` with $\ge 25$ words) or Phase 2 bounded Levenshtein alignment. Bag-of-words formula false-positives are discarded.
 
+> [!NOTE]
+> **In plain language — Checking whether two episodes really share text**
+>
+> Two groups of newspaper articles may contain similar vocabulary without reproducing the same text. For example, reports about parliamentary elections may repeatedly use the same political terminology.
+>
+> The system therefore checks potential relationships in two steps. First, it identifies groups that share enough vocabulary to justify further comparison. Second, it examines whether their passages contain substantial sequences of corresponding words.
+>
+> This additional verification helps distinguish actual textual reuse from superficial similarities caused by recurring expressions or common subject matter.
+
 #### 3. Graph Adjacency vs. Transitive Family Drift
 Cross-episode relations are stored as an **attributed adjacency graph** ($G = (V_{\text{episodes}}, E_{\text{relations}})$), **not** merged into flat connected components. Merging episodes via blind graph transitivity would reproduce the exact same monster drift at the episode level ($A \sim B \sim C$). Sub-clusters remain independent analytical entities carrying explicit `cross_episode_relations` metadata pointers.
+
+> [!NOTE]
+> **In plain language — Keeping related episodes separate**
+>
+> Suppose a newspaper text from 1820 resembles one published in 1850, and the 1850 version resembles another published in 1920. This does not necessarily mean that the texts from 1820 and 1920 are themselves closely similar.
+>
+> Rather than combining all three episodes into one large group, the system records the relationships between them individually.
+>
+> This preserves evidence of long-term textual connections without assuming that every indirectly connected article belongs to the same historical story.
 
 ---
 
@@ -131,11 +242,31 @@ The upstream metric in `scripts/postprocess_textreuse_clusters.py` was replaced 
 $$\text{Cohesion}(C) = \frac{1}{|S|} \sum_{(i, j) \in S} \frac{|V_i \cap V_j|}{|V_i \cup V_j|} \times 100\%$$
 where $S$ is sampled up to $M = 50$ pairs deterministically using `random.Random(42)`. This provides a stable $[0\%, 100\%]$ measure of internal lexical cohesion that scales efficiently to clusters of any size.
 
+> [!NOTE]
+> **In plain language — Measuring how closely the texts resemble one another**
+>
+> Once articles have been grouped together, researchers need a way to assess how similar their wording actually is.
+>
+> The system calculates a score based on the vocabulary shared between pairs of passages. Higher scores indicate greater lexical similarity within the group.
+>
+> This measure helps identify groups containing closely related texts and those that may still combine different material.
+>
+> *Cautionary note:* Lexical similarity measures resemblance in wording, not necessarily similarity in meaning or historical context.
+
 ---
 
 ## 4. Two-Phase Passage Alignment (`scripts/alignment_refinement.py`)
 
 Once passages are grouped into coherent clusters, their boundaries and shared textual spans are aligned down to the character level using a two-phase anchor-and-fill algorithm.
+
+> [!NOTE]
+> **In plain language — Identifying reused passages despite transcription errors**
+>
+> Consider two newspapers that published nearly identical reports. One version contains additional sentences, while the other has several OCR errors.
+>
+> The system first identifies sequences of words that match exactly and appear in the same order. It then examines the intervening passages to find words that are probably equivalent despite minor spelling or recognition differences.
+>
+> This produces a more precise identification of the reused text and makes it possible to highlight corresponding passages in different newspaper articles.
 
 ### 4.1 Phase 1: Collinear Exact Anchors
 Exact word matching is fast and unambiguous, but text reuses often contain insertions, omissions, or transposed blocks (e.g., an agency list moved from bottom to top).
