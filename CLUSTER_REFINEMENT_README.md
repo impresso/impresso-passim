@@ -108,8 +108,8 @@ When clustering text reuse across centuries, the system explicitly separates clu
 
 | Entity | Analytical Meaning | Computational Definition | Primary Purpose |
 | :--- | :--- | :--- | :--- |
-| **Episode** | Temporally and lexically coherent reuse cluster | Synchronic group bounded by $\Delta t \le \text{max\_gap\_days}$ and dense internal LCS connectivity | Study synchronic news diffusion and contemporary circulation |
-| **Episode Relation** | Evidence-supported textual similarity between two episodes | Verified contiguous text alignment between episode prototypes ($\ge K_{\text{tokens}}$ or Phase 2 alignment score) | Study diachronic reuse, reception, and candidate recurrence |
+| **Episode** | Temporally and lexically coherent reuse cluster | Synchronic group bounded by `time_delta <= max_gap_days` and dense internal LCS connectivity | Study synchronic news diffusion and contemporary circulation |
+| **Episode Relation** | Evidence-supported textual similarity between two episodes | Verified contiguous text alignment between episode prototypes (`>= K_tokens` or Phase 2 alignment score) | Study diachronic reuse, reception, and candidate recurrence |
 | **Historical Transmission** | Directional lineage from source to descendant | **Not inferred automatically by algorithm**; requires domain/provenance metadata | Preserve candidate links for digital historians to evaluate |
 
 > [!NOTE]
@@ -138,7 +138,7 @@ When clustering text reuse across centuries, the system explicitly separates clu
 News events and text reuse stories are naturally bursty. When a cluster spans decades, any time gap exceeding a threshold (default: `max_gap_days = 60`) represents an insurmountable temporal boundary for contemporary circulation:
 
 1. Passages within a monster component are sorted chronologically by publication date.
-2. If $\Delta t = t_{i+1} - t_i > \text{max\_gap\_days}$, the cluster is sliced into independent temporal episodes.
+2. If `delta_t = t_{i+1} - t_i > max_gap_days`, the cluster is sliced into independent temporal episodes.
 3. **Result**: In cluster `c307`, temporal bisection immediately splits 42k passages spanning 141 years into **29 distinct historical episodes**, completely isolating an 1873 financial loan subscription from a 1914 war mobilization notice.
 
 > [!NOTE]
@@ -159,7 +159,7 @@ Within any single temporal episode containing multiple events, a token-Jaccard s
 - Nodes: Passages in the episode.
 - Edges: Weighted by pairwise token Jaccard similarity:
   $$J(A, B) = \frac{|V_A \cap V_B|}{|V_A \cup V_B|}$$
-- Edges with $J(A, B) < \text{similarity\_threshold}$ (default: `0.15`) are pruned.
+- Edges with $J(A, B) < 0.15$ (default `similarity_threshold`) are pruned.
 - The Louvain modularity optimization algorithm partitions the graph into dense community subgraphs, separating coincidental administrative formulas from core narrative stories.
 
 > [!NOTE]
